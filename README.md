@@ -32,13 +32,19 @@ Day 3 (14/06/23)
 - [09:00-09:20] Logbook update
 - [09:20-xx:xx] Write JavaScript for the Web (Part 3)
 - [12:00-13:00] Lunch break
-- [13:00-17:00] WIP
+- [13:00-15:15] Write JavaScript for the Web (Part 4)
+- [15:15-17:00] Create a Web Application With Django (Part 1)
 
+## To do list
+- Create a Web Application With Django
+    - Write Maintainable Python Code
+    - Create Web Page Layouts With CSS
+    - Manage Your Code Project With Git and GitHub
 
 ## Readme
 
 Main: /README.md
-- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/README.md
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README.md
 
 OpenClassrooms: /OpenClassrooms/README_OpenClassrooms.md
-- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/OpenClassrooms/README_OpenClassrooms.md
+    - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/OpenClassrooms/README_OpenClassrooms.md

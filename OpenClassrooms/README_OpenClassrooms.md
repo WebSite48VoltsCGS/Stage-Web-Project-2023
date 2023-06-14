@@ -39,6 +39,34 @@ https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web
 5. Validate user input
 - https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496661-validate-user-input
 
+6. Request data from a backend
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496666-request-data-from-a-backend
+
+7. Understand asynchronous programming
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496671-understand-asynchronous-programming
+
+8. Send data to a backend
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496686-send-data-to-a-backend
+
+9. Manipulate data in a series of requests
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496691-manipulate-data-in-a-series-of-requests
+
+10. Be ready when things go wrong
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496696-be-ready-when-things-go-wrong
+
+
+
+## Write Maintainable Python Code
+https://openclassrooms.com/en/courses/6900866-write-maintainable-python-code
+
+## Create Web Page Layouts With CSS
+https://openclassrooms.com/en/courses/5295881-create-web-page-layouts-with-css
+
+## Manage Your Code Project With Git and GitHub
+https://openclassrooms.com/en/courses/7476131-manage-your-code-project-with-git-and-github?archived-source=5671626
+
+## Create a Web Application With Django
+https://openclassrooms.com/en/courses/6967196-create-a-web-application-with-django
 
 ## Readme
 
