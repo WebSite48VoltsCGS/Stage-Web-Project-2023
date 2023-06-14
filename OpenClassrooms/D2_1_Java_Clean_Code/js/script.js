@@ -15,16 +15,16 @@ const shows = [tau, meldrum, clara];
 // Modify the following code
 // ======================
 
-const createComponent = (user) => {
-  const titleText = user.title
-  const seasonsText = user.numberOfSeasons + ' seasons';
-  const episodesText = user.episodesPerSeason + ' episodes per season';
+const createShowComponent = (show) => {
+  const titleText = show.title
+  const seasonsText = show.numberOfSeasons + ' seasons';
+  const episodesText = show.episodesPerSeason + ' episodes per season';
   return {titleText, seasonsText, episodesText};
 }
 
-const tauComponent = createComponent(tau);
-const meldrumComponent = createComponent(meldrum);
-const claraComponent = createComponent(clara);
+const tauComponent = createShowComponent(tau);
+const meldrumComponent = createShowComponent(meldrum);
+const claraComponent = createShowComponent(clara);
 
 /* const tauTitleText = tau.title;
 const tauSeasonsText = tau.numberOfSeasons + ' seasons';

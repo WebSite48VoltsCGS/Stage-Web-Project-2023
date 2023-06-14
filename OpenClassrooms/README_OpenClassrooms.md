@@ -1,3 +1,5 @@
+# OpenClassrooms Course
+
 ## Build Your First Web Pages With HTML and CSS
 https://openclassrooms.com/en/courses/5265446-build-your-first-web-pages-with-html-and-css
 
@@ -14,8 +16,35 @@ https://openclassrooms.com/en/courses/5265446-build-your-first-web-pages-with-ht
 - https://openclassrooms.com/en/courses/5265446-build-your-first-web-pages-with-html-and-css/5268106-create-general-page-structure
 
 ## Learn Programming With JavaScript
-https://openclassrooms.com/en/courses/5664271-learn-programming-with-javascript/6056651-write-clean-functions
+https://openclassrooms.com/en/courses/5664271-learn-programming-with-javascript
 
 1. Write clean functions
-- https://codepen.io/nicolaspatschkowski/pen/NWqzNrJ
+- https://openclassrooms.com/en/courses/5664271-learn-programming-with-javascript/6056651-write-clean-functions
+
+## Write JavaScript for the Web
+https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web
+
+1. Get access to the DOM
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496631-get-access-to-the-dom
+
+2. Modify the DOM
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496636-modify-the-dom
+
+3. Listen for events
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496641-listen-for-events
+
+4. Handle input from your users
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496646-handle-input-from-your-users
+
+5. Validate user input
+- https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web/5496661-validate-user-input
+
+
+## Readme
+
+Main: /README.md
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/README.md
+
+OpenClassrooms: /OpenClassrooms/README_OpenClassrooms.md
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/OpenClassrooms/README_OpenClassrooms.md
 
