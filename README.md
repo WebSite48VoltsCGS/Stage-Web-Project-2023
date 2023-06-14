@@ -33,7 +33,8 @@ Day 3 (14/06/23)
 - [09:20-xx:xx] Write JavaScript for the Web (Part 3)
 - [12:00-13:00] Lunch break
 - [13:00-15:15] Write JavaScript for the Web (Part 4)
-- [15:15-17:00] Write Maintainable Python Code (Part 1)
+- [15:15-15:30] Updated "To do list"
+- [15:30-17:00] Learn Programming With Python (Part 1)
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
@@ -42,6 +43,9 @@ Day 3 (14/06/23)
 - Create a Web Application With Django
     - Write Maintainable Python Code
         - Learn Programming With Python
+            - Learn Python Basics
+                - Understanding the Web
+            - Set Up a Python Environment
     - Create Web Page Layouts With CSS
     - Manage Your Code Project With Git and GitHub
         - Learn the Command Line in Terminal
