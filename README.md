@@ -4,7 +4,7 @@
 
 Day 1 (12/06/23)
 - Summary:
-    - Presentation
+    - Presentation:
         - Companies
         - Competitors
         - Django, HTML5, CSS
@@ -16,30 +16,26 @@ Day 1 (12/06/23)
 - [10:00-10:15] Installing Visual Studio (VSCode)
     - https://code.visualstudio.com
 - [10:15-12:00] OpenClassrooms: Build Your First Web Pages With HTML and CSS (Part 1/2)
-    - https://openclassrooms.com/en/courses/5265446-build-your-first-web-pages-with-html-and-css
 - [12:00-13:30] Lunch break
 - [13:30-15:00] OpenClassrooms: Build Your First Web Pages With HTML and CSS (Part 2/2)
 - [15:00-17:30] Learn Programming With JavaScript (Part 1/2)
-    - https://openclassrooms.com/en/courses/5664271-learn-programming-with-javascript
 
 Day 2 (13/06/23)
 - Summary:
     - GitHub: Setting up
-    - JavaScript: Continuing the course
+    - OpenClassrooms: Continuation of the JavaScript course
 - [09:00-09:40] Creating a GitHub repository
-    - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023
 - [09:40:11h00]  Learn Programming With JavaScript (Part 2/2)
 - [11:00-12:00] Write JavaScript for the Web
-    - https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web
 - [12:00-13:00] Lunch break
 - [13:00-17:00] Write JavaScript for the Web (Part 2)
 
 Day 3 (14/06/23)
 - Summary:
     - Logbook: Updated structure
-    - JavaScript: Finished the course
+    - OpenClassrooms: Finished the JavaScript course and started a course on Django
 - [09:00-09:20] Logbook update
-- [09:20-xx:xx] Write JavaScript for the Web (Part 3)
+- [09:20-12:00] Write JavaScript for the Web (Part 3)
 - [12:00-13:00] Lunch break
 - [13:00-15:15] Write JavaScript for the Web (Part 4)
 - [15:15-15:30] Updated "To do list"
@@ -47,7 +43,11 @@ Day 3 (14/06/23)
 
 Day 4 (15/06/23)
 - Summary:
-    - Django: Template usage > Created simple pages using templates only.
+    - Django:
+        - Finished setting up the Django project
+        - New model "Band"
+        - Created new templates such as base.html and band.html
+        - Used the template to create a simple band.html page
 - [09:00-12:00] Create a Web Application With Django (Part 2)
 - [12:00-13:00] Lunch break
 - [13:00-15:30] Create a Web Application With Django (Part 3)
@@ -57,10 +57,14 @@ Day 4 (15/06/23)
 Day 5 (16/06/23)
 - Summary:
     - Logbook: Updated structure
-    - Django: Navigation bar > Contact us > Display model > Add model form
+    - Django:
+        - Updated base.html to include a first navigation bar
+        - Created a "Contact us" page with a form to fill in
+        - Added a read page to display data from the model "Band"
+        - Created a form to add data to a model
 - [09:00-09:25] Logbook and GitHub update
 - [09:25-12:00] Create a Web Application With Django (Part 2)
-- [12:10-12:15] Logbook update
+- [12:10-12:20] Logbook update with a new layout
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
