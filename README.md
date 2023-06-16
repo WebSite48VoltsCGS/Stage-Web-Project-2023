@@ -2,15 +2,17 @@
 
 ## Internship logbook
 
-Day 1 (12/06/23):
-- Summary: Presentation and OpenClassrooms
-- [09:00-10:00] Introduction
-    - Companies
-    - Competitors
-    - Django / HTML5 / CSS
-    - Possible use of OpenAI
-    - Quotation
-    - OpenClassrooms
+Day 1 (12/06/23)
+- Summary:
+    - Presentation
+        - Companies
+        - Competitors
+        - Django, HTML5, CSS
+        - Possible use of OpenAI
+        - Quotation
+        - OpenClassrooms
+    - OpenClassrooms: Reviewing HTML & CSS, learning JavaScript
+- [09:00-10:00] Presentation
 - [10:00-10:15] Installing Visual Studio (VSCode)
     - https://code.visualstudio.com
 - [10:15-12:00] OpenClassrooms: Build Your First Web Pages With HTML and CSS (Part 1/2)
@@ -21,7 +23,9 @@ Day 1 (12/06/23):
     - https://openclassrooms.com/en/courses/5664271-learn-programming-with-javascript
 
 Day 2 (13/06/23)
-- Summary: Setting up GitHub, reviewing HTML and CSS
+- Summary:
+    - GitHub: Setting up
+    - JavaScript: Continuing the course
 - [09:00-09:40] Creating a GitHub repository
     - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023
 - [09:40:11h00]  Learn Programming With JavaScript (Part 2/2)
@@ -31,7 +35,9 @@ Day 2 (13/06/23)
 - [13:00-17:00] Write JavaScript for the Web (Part 2)
 
 Day 3 (14/06/23)
-- Summary: Updated the general structure of my logbook and finished learning JavaScript.
+- Summary:
+    - Logbook: Updated structure
+    - JavaScript: Finished the course
 - [09:00-09:20] Logbook update
 - [09:20-xx:xx] Write JavaScript for the Web (Part 3)
 - [12:00-13:00] Lunch break
@@ -40,7 +46,8 @@ Day 3 (14/06/23)
 - [15:30-17:00] Create a Web Application With Django (Part 1)
 
 Day 4 (15/06/23)
-- Summary: Learned how to use templates and create basic HTML using templates.
+- Summary:
+    - Django: Template usage > Created simple pages using templates only.
 - [09:00-12:00] Create a Web Application With Django (Part 2)
 - [12:00-13:00] Lunch break
 - [13:00-15:30] Create a Web Application With Django (Part 3)
@@ -48,8 +55,12 @@ Day 4 (15/06/23)
 - [16:30-17:30] Visit to third-year projects
 
 Day 5 (16/06/23)
-- Summary: Updated the structure of my logbook
+- Summary:
+    - Logbook: Updated structure
+    - Django: Navigation bar > Contact us > Display model > Add model form
 - [09:00-09:25] Logbook and GitHub update
+- [09:25-12:00] Create a Web Application With Django (Part 2)
+- [12:10-12:15] Logbook update
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
