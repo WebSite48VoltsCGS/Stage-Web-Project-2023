@@ -28,11 +28,33 @@ def band_list(request):
 def band_detail(request, band_id):
     band = Band.objects.get(id=band_id)
     return render(request, 'listings/band_detail.html', {'band': band})
-    # return render(request, 'listings/band_detail.html', {'id': band_id})
+
+def band_change(request, band_id):
+    band = Band.objects.get(id=band_id)
+    if request.method == 'POST':
+        form = BandForm(request.POST, instance=band)
+        if form.is_valid():
+            # Update the existing 'Band' in the database
+            form.save()
+            # Redirect to the detail page of the band we just updated
+            return redirect('band-detail', band.id)
+    else:
+        form = BandForm(instance=band)
+    return render(request, 'listings/band_change.html', {'form': form})
 
 def band_create(request):
-    form = BandForm()
+    if request.method == 'POST':
+        form = BandForm(request.POST)
+        if form.is_valid():
+            # Create a new 'Band' and save it to the database
+            band = form.save()
+
+            # Redirect to the detail page of the band we just created
+            return redirect('band-detail', band.id)
+    else:
+        form = BandForm()
     return render(request, 'listings/band_create.html', {'form': form})
+
 
 def contact(request):
     if request.method == 'POST':
