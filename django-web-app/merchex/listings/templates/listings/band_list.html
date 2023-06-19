@@ -9,7 +9,8 @@
       <li><a href="{% url 'band-detail' band.id %}">{{ band.name }}</a>
         - <a href="{% url 'band-update' band.id %}">[edit]</a></li>
     {% endfor %}
-  
 </ul>
+
+<a href="{% url 'band-create' %}">Add a Band</a>
 
 {% endblock %}

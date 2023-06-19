@@ -29,19 +29,6 @@ def band_detail(request, band_id):
     band = Band.objects.get(id=band_id)
     return render(request, 'listings/band_detail.html', {'band': band})
 
-def band_change(request, band_id):
-    band = Band.objects.get(id=band_id)
-    if request.method == 'POST':
-        form = BandForm(request.POST, instance=band)
-        if form.is_valid():
-            # Update the existing 'Band' in the database
-            form.save()
-            # Redirect to the detail page of the band we just updated
-            return redirect('band-detail', band.id)
-    else:
-        form = BandForm(instance=band)
-    return render(request, 'listings/band_change.html', {'form': form})
-
 def band_create(request):
     if request.method == 'POST':
         form = BandForm(request.POST)
@@ -55,6 +42,31 @@ def band_create(request):
         form = BandForm()
     return render(request, 'listings/band_create.html', {'form': form})
 
+def band_delete(request, band_id):
+    band = Band.objects.get(id=band_id)
+
+    if request.method == 'POST':
+        # delete the band from the database
+        band.delete()
+        # redirect to the bands list
+        return redirect('band-list')
+
+    # no need for an `else` here. If it's a GET request, just continue
+
+    return render(request, 'listings/band_delete.html', {'band': band})
+
+def band_change(request, band_id):
+    band = Band.objects.get(id=band_id)
+    if request.method == 'POST':
+        form = BandForm(request.POST, instance=band)
+        if form.is_valid():
+            # Update the existing 'Band' in the database
+            form.save()
+            # Redirect to the detail page of the band we just updated
+            return redirect('band-detail', band.id)
+    else:
+        form = BandForm(instance=band)
+    return render(request, 'listings/band_change.html', {'form': form})
 
 def contact(request):
     if request.method == 'POST':

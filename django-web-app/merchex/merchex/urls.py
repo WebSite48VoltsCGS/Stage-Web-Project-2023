@@ -31,8 +31,10 @@ urlpatterns = [
     path('about-us/', views.about),
 
     path('bands/', views.band_list, name='band-list'),
+    path('bands/add/', views.band_create, name='band-create'),
     path('bands/<int:band_id>/', views.band_detail, name='band-detail'),
     path('bands/<int:band_id>/change/', views.band_change, name='band-update'),
-    path('bands/add/', views.band_create, name='band-create'),
+    path('bands/<int:band_id>/delete/', views.band_delete, name='band-delete'),
+    
     path('contact-us/', views.contact, name='contact'),
 ]

@@ -61,11 +61,17 @@ Day 5 (16/06/23)
         - Updated base.html to include a first navigation bar
         - Created a "Contact us" page with a form to fill in
         - CRUD: Read - Added a reading page to display Band model data
-        - CRUD: Create - Added a page with a form for adding a band
-        - CRUD: Update - Added a editing page using the previous form to modify group information
+        - CRUD: Create - Added a "Add a Band" page
+        - CRUD: Update - Added a "Edit this Band" page
+        - CRUD: Delete - Added a "Delete this Band" page
 - [09:00-09:25] Logbook and GitHub update
 - [09:25-12:00] Create a Web Application With Django (Part 2)
 - [12:10-12:20] Logbook update with a new layout
+- [13:00-17:00] Create a Web Application With Django (Part 3)
+
+Day 6 (19/06/23)
+- Summary: WIP
+- [09:00:13:00] Intermediate Django
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
