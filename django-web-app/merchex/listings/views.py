@@ -21,6 +21,9 @@ test_url = ''
 for url in test:
     test_url += '<li>' + url + '</li>'
 
+def test(request):
+    return render(request, 'listings/test.html')
+
 def band_list(request):
     bands = Band.objects.all()
     return render(request, 'listings/band_list.html', {'bands': bands})

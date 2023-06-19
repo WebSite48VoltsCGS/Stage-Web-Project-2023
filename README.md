@@ -70,8 +70,13 @@ Day 5 (16/06/23)
 - [13:00-17:00] Create a Web Application With Django (Part 3)
 
 Day 6 (19/06/23)
-- Summary: WIP
-- [09:00:13:00] Intermediate Django
+- Summary:
+    - Readme: Overall description of the website structure
+- [09:00-10:35] README_ARCHITECTURE
+- [10:35-11:00] Preparing work meeting
+- [11:00-11:50] Work Meeting (Discussion about templates and website architecture)
+- [11:50-12:50] Lunch break
+- [12:50-16:50] Integrating the new template into Django
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS

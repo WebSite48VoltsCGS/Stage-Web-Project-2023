@@ -1,7 +1,6 @@
 # Web Development Internship 2023
 
 # Pages
-- Logo
 - Accueil
 - Actualités
     - Réseaux sociaux
@@ -13,12 +12,9 @@
     - Tarifs
     - Horaires
     - Adresse
-- Visite 3D
-- Matériels
-    - Location
 - Bar
 - Espace Pro
-- About us
+- Contact
     - Téléphone
     - Mail
     - Horaires d'ouverture
@@ -27,6 +23,8 @@
     - Réseaux sociaux
     - Partenaires
     - Informations
+
+- Visite 3D
 
 - Réservation
     - Disponibilité
