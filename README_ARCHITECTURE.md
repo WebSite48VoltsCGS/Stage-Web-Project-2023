@@ -9,6 +9,7 @@
         - YouTube
         - E-mail
 - Studios
+    - Visite 3D
     - Tarifs
     - Horaires
     - Adresse
@@ -24,7 +25,6 @@
     - Partenaires
     - Informations
 
-- Visite 3D
 
 - Réservation
     - Disponibilité

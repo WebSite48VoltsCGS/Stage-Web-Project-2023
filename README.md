@@ -76,8 +76,9 @@ Day 6 (19/06/23)
 - [10:35-11:00] Preparing work meeting
 - [11:00-11:50] Work Meeting (Discussion about templates and website architecture)
 - [11:50-12:50] Lunch break
-- [12:50-16:50] Integrating the new template into Django
-
+- [12:50-15:00] Integrating a new template into our Django project
+- [15:00-15:45] Helped my colleague correct his HTML & CSS code on the integration of multiple 3D views
+ 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
 - Learn Programming With JavaScript

@@ -24,6 +24,36 @@ for url in test:
 def test(request):
     return render(request, 'listings/test.html')
 
+def home(request):
+    return render(request, 'listings/main/home.html')
+
+def news(request):
+    return render(request, 'listings/main/news.html')
+
+def studios(request):
+    return render(request, 'listings/main/studios.html')
+
+def bar(request):
+    return render(request, 'listings/main/bar.html')
+
+def pro_area(request):
+    return render(request, 'listings/main/pro_area.html')
+
+def contact(request):
+    return render(request, 'listings/main/contact.html')
+
+def booking(request):
+    return render(request, 'listings/main/booking.html')
+
+def account(request):
+    return render(request, 'listings/main/account.html')
+
+def sign_in(request):
+    return render(request, 'listings/base/signin.html')
+
+def sign_up(request):
+    return render(request, 'listings/base/signup.html')
+
 def band_list(request):
     bands = Band.objects.all()
     return render(request, 'listings/band_list.html', {'bands': bands})
@@ -87,28 +117,4 @@ def contact(request):
     else:
         form = ContactUsForm()
     return render(request, 'listings/contact.html', {'form': form})
-
-def about(request):
-    return HttpResponse('<h1>About Us</h1> <p>We love merch!</p>')
-
-def accueil(request):
-    return HttpResponse(test_url)
-
-def studios(request):
-    return HttpResponse(test_url)
-
-def concert(request):
-    return HttpResponse(test_url)
-
-def bar(request):
-    return HttpResponse(test_url)
-
-def shop(request):
-    return HttpResponse(test_url)
-
-def programmation(request):
-    return HttpResponse(test_url)
-
-def espace_pro(request):
-    return HttpResponse(test_url)
 
