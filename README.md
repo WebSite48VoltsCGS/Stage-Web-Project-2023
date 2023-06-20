@@ -85,12 +85,13 @@ Day 6 (19/06/23)
 - [15:00-15:45] Helped my colleague correct his HTML & CSS code on the integration of multiple 3D views
 - [15:45-17:15] Updated navigation bar and footer
 
-Day 6 (19/06/23)
+Day 7 (20/06/23)
 - Summary:
     - Website:
         - Update logo
 - [09:00-09:35] Updated CSS (navbar-brand img)
 - [09:35-09:45] Cleaned up obsolete files
+- [09:45-10:10] Integrated the sign in page / Bug Fixes (Title & Header secondary)
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS

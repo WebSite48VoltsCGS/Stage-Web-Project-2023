@@ -27,7 +27,7 @@ def account(request):
     return render(request, 'listings/account.html')
 
 def sign_in(request):
-    return render(request, 'listings/base/signin.html')
+    return render(request, 'listings/signin.html')
 
 def sign_up(request):
     return render(request, 'listings/base/signup.html')
