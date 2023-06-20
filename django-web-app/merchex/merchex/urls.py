@@ -21,15 +21,6 @@ from listings import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('bands/', views.band_list, name='band-list'),
-    path('bands/add/', views.band_create, name='band-create'),
-    path('bands/<int:band_id>/', views.band_detail, name='band-detail'),
-    path('bands/<int:band_id>/change/', views.band_change, name='band-update'),
-    path('bands/<int:band_id>/delete/', views.band_delete, name='band-delete'),
-
-    path('contact-us/', views.contact, name='contact'),
-
-    path('test/', views.test, name='test'),
     path('accueil/', views.home, name='home'),
     path('actualités/', views.news, name='news'),
     path('studios/', views.studios, name='studios'),
@@ -41,3 +32,13 @@ urlpatterns = [
     path('se_connecter/', views.sign_in, name='sign_in'),
     path('créer_un_compte/', views.sign_up, name='sign_up'),
 ]
+
+"""
+path('test/', views.test, name='test'),
+path('bands/', views.band_list, name='band-list'),
+path('bands/add/', views.band_create, name='band-create'),
+path('bands/<int:band_id>/', views.band_detail, name='band-detail'),
+path('bands/<int:band_id>/change/', views.band_change, name='band-update'),
+path('bands/<int:band_id>/delete/', views.band_delete, name='band-delete'),
+path('contact-us/', views.contact, name='contact'),
+"""

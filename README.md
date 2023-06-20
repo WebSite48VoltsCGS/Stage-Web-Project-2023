@@ -90,6 +90,7 @@ Day 6 (19/06/23)
     - Website:
         - Update logo
 - [09:00-09:35] Updated CSS (navbar-brand img)
+- [09:35-09:45] Cleaned up obsolete files
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
