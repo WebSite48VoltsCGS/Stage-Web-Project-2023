@@ -57,8 +57,11 @@ https://openclassrooms.com/en/courses/5493201-write-javascript-for-the-web
 ## Readme
 
 Main: /README.md
-- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/README.md
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README.md
+
+Web architecture:
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README_ARCHITECTURE.md
 
 OpenClassrooms: /OpenClassrooms/README_OpenClassrooms.md
-- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2025/blob/main/OpenClassrooms/README_OpenClassrooms.md
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/OpenClassrooms/README_OpenClassrooms.md
 

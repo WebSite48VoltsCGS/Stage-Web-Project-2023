@@ -71,14 +71,26 @@ Day 5 (16/06/23)
 
 Day 6 (19/06/23)
 - Summary:
-    - Readme: Overall description of the website structure
+    - Readme: General description of website structure
+    - Work meeting: Choice of a working model and a first approach to what needs to be done this week
+    - Website:
+        - Integration the new template
+        - Integration of 3D image views
+        - Update navigation bar / footer
 - [09:00-10:35] README_ARCHITECTURE
 - [10:35-11:00] Preparing work meeting
 - [11:00-11:50] Work Meeting (Discussion about templates and website architecture)
 - [11:50-12:50] Lunch break
 - [12:50-15:00] Integrating a new template into our Django project
 - [15:00-15:45] Helped my colleague correct his HTML & CSS code on the integration of multiple 3D views
- 
+- [15:45-17:15] Updated navigation bar and footer
+
+Day 6 (19/06/23)
+- Summary:
+    - Website:
+        - Update logo
+- [09:00-09:35] Updated CSS (navbar-brand img)
+
 ## To do list
 - Build Your First Web Pages With HTML and CSS
 - Learn Programming With JavaScript
@@ -98,6 +110,9 @@ Day 6 (19/06/23)
 
 Main: /README.md
 - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README.md
+
+Web architecture:
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README_ARCHITECTURE.md
 
 OpenClassrooms: /OpenClassrooms/README_OpenClassrooms.md
 - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/OpenClassrooms/README_OpenClassrooms.md

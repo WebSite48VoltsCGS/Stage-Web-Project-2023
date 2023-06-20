@@ -72,5 +72,8 @@
 Main: /README.md
 - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README.md
 
+Web architecture:
+- https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/README_ARCHITECTURE.md
+
 OpenClassrooms: /OpenClassrooms/README_OpenClassrooms.md
 - https://github.com/WebSite48VoltsCGS/Web-Development-Internship-2023/blob/main/OpenClassrooms/README_OpenClassrooms.md
