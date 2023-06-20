@@ -2,13 +2,33 @@
 
 {% block title %}
 
-	<title>Compte</title>
+<title>Compte</title>
+
+{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block header %}
+
+<header id="head" class="secondary"></header>
 
 {% endblock %}
 
 
 {% block content %}
 
-	<header id="head" class="secondary"></header>
+	<!-- container -->
+	<div class="container">
+
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}">Accueil</a></li>
+			<li class="active">Compte</li>
+		</ol>
+
+	</div>	<!-- /container -->
 
 {% endblock %}

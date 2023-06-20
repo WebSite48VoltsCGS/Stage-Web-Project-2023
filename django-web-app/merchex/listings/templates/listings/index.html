@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="{% static 'listings/css/bootstrap-theme.css' %}" media="screen"/>
 	<link rel="stylesheet" href="{% static 'listings/css/main.css' %}"/>
 
+	{% block style %}{% endblock %}
+
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="{% static 'listings/js/html5shiv.js' %}"></script>
@@ -39,7 +41,7 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				
 				<!-- Home navigation bar button -->
-				<a class="navbar-brand" href="{% url 'home' %}"><img id="navbar-logo" src="{% static 'listings/images/logob.png' %}"></a>
+				<a class="navbar-brand" href="{% url 'home' %}"><img id="navbar-logo" src="{% static 'listings/images/logo.png' %}"></a>
 			</div>
 
 			<!-- Navbar collapse -->
@@ -52,7 +54,6 @@
 					<li><a href="{% url 'pro_area' %}">Espace Pro</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
 					<li><a href="{% url 'booking' %}">Réservation</a></li>
-					<li><a href="{% url 'account' %}">Compte</a></li>
 					
 					<!-- Dropdown: Toggle to display more links -->
 					<!-- <li class="dropdown">
@@ -65,12 +66,13 @@
 					<!-- </li> /.dropdown -->
 
 					<!-- New button -->
-					<li><a class="btn" href="{% url 'sign_in' %}">SIGN IN / SIGN UP</a></li>
+					<li><a class="btn" href="{% url 'sign_in' %}">CONNEXION / INSCRIPTION</a></li>
 				</ul>
 			</div> <!--/.nav-collapse -->
 		</div>
 	</div> <!-- /.navbar -->
 
+	{% block header %}{% endblock %}
 	{% block content %}{% endblock %}
 		
 	<!-- Social links. @TODO: replace by link/instructions in template -->
@@ -158,8 +160,7 @@
 								<a href="{% url 'bar' %}">Bar</a> /
 								<a href="{% url 'pro_area' %}">Espace Pro</a> /
 								<a href="{% url 'contact' %}">Contact</a> /
-								<a href="{% url 'booking' %}">Réservation</a> /
-								<a href="{% url 'account' %}">Compte</a>
+								<a href="{% url 'booking' %}">Réservation</a>
 							</p>
 						</div>
 					</div>

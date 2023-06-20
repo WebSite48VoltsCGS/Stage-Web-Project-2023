@@ -30,7 +30,7 @@ def sign_in(request):
     return render(request, 'listings/signin.html')
 
 def sign_up(request):
-    return render(request, 'listings/base/signup.html')
+    return render(request, 'listings/signup.html')
 
 
 

@@ -93,6 +93,9 @@ Day 7 (20/06/23)
 - [09:35-09:45] Cleaned up obsolete files
 - [09:45-10:10] Integrated the sign in page / Bug Fixes (Title & Header secondary)
 - [10:10-10:15] Updated web page titles
+- [10:15-12:00] Assisted my colleagues
+- [12:00-13:00] Lunch break
+- [13:00-15:30] Work meeting: GitHub / Database / Structure / Planning / Work sharing
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
