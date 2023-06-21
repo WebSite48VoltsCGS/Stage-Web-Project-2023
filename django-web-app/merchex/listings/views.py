@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from listings.forms import SignUpForm
 from listings.forms import SignInForm
@@ -28,6 +28,10 @@ def booking(request):
     return render(request, 'booking.html')
 
 def account(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('sign_in')
+
     return render(request, 'account.html')
 
 def sign_in(request):
@@ -43,7 +47,7 @@ def sign_in(request):
             if user is not None:
                 login(request, user)
                 # Redirect to a success page.
-                return redirect('home')
+                return redirect('account')
 
             # Invalid login errors
             else:
@@ -70,6 +74,6 @@ def sign_up(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                return redirect('home')
+                return redirect('account')
     form = SignUpForm()
     return render(request, 'registration/sign_up.html', {'form': form})
