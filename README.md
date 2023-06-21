@@ -107,6 +107,7 @@ Day 7 (20/06/23)
 
 Day 8 (21/06/23)
 - [09:00-09:20] Updated logbook
+- [09:20-10:55] Integration of sign up and account details pages
 
 
 

@@ -1,13 +1,18 @@
 from django import forms
-from listings.models import Band
-...
+from listings.models import Account
 
-class BandForm(forms.ModelForm):
+class AccountForm(forms.ModelForm):
     class Meta:
-        model = Band
+        model = Account
         fields = '__all__'
-
-class ContactUsForm(forms.Form):
-    name = forms.CharField(required=False)
+    group = forms.CharField(max_length=100, required=False)
+    name = forms.CharField(max_length=100)
+    surname = forms.CharField(max_length=100)
     email = forms.EmailField()
-    message = forms.CharField(max_length=1000)
+    password = forms.CharField(max_length=1000)
+    confirm_password = forms.CharField(max_length=1000)
+
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
