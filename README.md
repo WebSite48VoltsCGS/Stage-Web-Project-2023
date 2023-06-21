@@ -113,6 +113,8 @@ Day 8 (21/06/23)
 - [13:00-14:00] Integrated the Django authentification system
 - [14:00-14:55] "Using the Django authentication system"
 - [14:55-15:10] Cleaned project
+- [15:10-16:05] Added a logout button
+- [16:05-17:00]
 
 
 ## To do list
@@ -129,11 +131,16 @@ Day 8 (21/06/23)
     - Manage Your Code Project With Git and GitHub
         - Learn the Command Line in Terminal
 - Intermediate Django
-- Django Login and Logout Tutorial
-    - https://learndjango.com/tutorials/django-login-and-logout-tutorial
-- Using the Django authentication system¶
-    - https://docs.djangoproject.com/en/4.2/topics/auth/default/
 
+- Authentification system
+    - Django Login and Logout Tutorial
+        - https://learndjango.com/tutorials/django-login-and-logout-tutorial
+    - Using the Django authentication system
+        - https://docs.djangoproject.com/en/4.2/topics/auth/default/
+
+- Password
+    - Django Password Reset Tutorial
+        - https://learndjango.com/tutorials/django-password-reset-tutorial
 ## Readme
 
 Main: /README.md

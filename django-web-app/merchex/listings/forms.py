@@ -29,3 +29,12 @@ class SignInForm(forms.Form):
         super(SignInForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(max_length=LENGTH_EMAIL, label="Adresse e-mail")
+
+    # Class = 'form-control'
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'

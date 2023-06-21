@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from listings.forms import SignUpForm
 from listings.forms import SignInForm
+from listings.forms import PasswordResetForm
 
 def home(request):
     return render(request, 'home.html')
@@ -56,7 +57,7 @@ def sign_in(request):
 
     # Return an empty form if GET request or login is invalid
     form = SignInForm()
-    return render(request, 'registration/sign_in.html', {'form': form})
+    return render(request, 'sign_in.html', {'form': form})
 
 def sign_up(request):
     if request.method == 'POST':
@@ -76,4 +77,15 @@ def sign_up(request):
                 user.save()
                 return redirect('account')
     form = SignUpForm()
-    return render(request, 'registration/sign_up.html', {'form': form})
+    return render(request, 'sign_up.html', {'form': form})
+
+def password_reset_form(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            email = request.POST["email"]
+    form = PasswordResetForm()
+    return render(request, 'password_reset_form.html', {'form': form})
+
+def password_reset_done(request):
+    return render(request, 'password_reset_done.html')

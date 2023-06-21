@@ -31,9 +31,11 @@ urlpatterns = [
     path('espace_pro/', views.pro_area, name='pro_area'),
     path('contact/', views.contact, name='contact'),
     path('réservation/', views.booking, name='booking'),
-    path('compte/', views.account, name='account'),
 
     # Registration
-    path('se_connecter/', views.sign_in, name='sign_in'),
-    path('créer_un_compte/', views.sign_up, name='sign_up'),
+    path('compte/', views.account, name='account'),
+    path('compte/se_connecter/', views.sign_in, name='sign_in'),
+    path('compte/créer_un_compte/', views.sign_up, name='sign_up'),
+    path('compte/mot-de-passe-oublié/', views.password_reset_form, name='password_reset'),
+    path('compte/mot-de-passe-oublié/confirmation', views.password_reset_done, name='password_reset_done'),
 ]
