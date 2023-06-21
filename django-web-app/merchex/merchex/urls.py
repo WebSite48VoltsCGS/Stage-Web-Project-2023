@@ -31,6 +31,7 @@ urlpatterns = [
     path('espace_pro/', views.pro_area, name='pro_area'),
     path('contact/', views.contact, name='contact'),
     path('réservation/', views.booking, name='booking'),
+    path('compte/', views.account, name='account'),
 
     # Registration
     path('se_connecter/', views.sign_in, name='sign_in'),

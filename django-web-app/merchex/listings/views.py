@@ -27,6 +27,9 @@ def contact(request):
 def booking(request):
     return render(request, 'booking.html')
 
+def account(request):
+    return render(request, 'account.html')
+
 def sign_in(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
