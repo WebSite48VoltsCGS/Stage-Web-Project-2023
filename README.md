@@ -108,8 +108,10 @@ Day 7 (20/06/23)
 Day 8 (21/06/23)
 - [09:00-09:20] Updated logbook
 - [09:20-10:55] Integrated the sign up and account details pages
-- [10:55:12:00] Django Login and Logout Tutorial
-
+- [10:55:12:00] "Django Login and Logout Tutorial"
+- [12:00-13:00] Lunch break
+- [13:00-14:00] Integrated the Django authentification system
+- [14:00-??:??] "Using the Django authentication system"
 
 
 ## To do list
@@ -128,6 +130,8 @@ Day 8 (21/06/23)
 - Intermediate Django
 - Django Login and Logout Tutorial
     - https://learndjango.com/tutorials/django-login-and-logout-tutorial
+- Using the Django authentication system¶
+    - https://docs.djangoproject.com/en/4.2/topics/auth/default/
 
 ## Readme
 
