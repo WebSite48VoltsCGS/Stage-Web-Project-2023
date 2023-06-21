@@ -3,34 +3,29 @@ from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-
 from listings.forms import SignUpForm
 from listings.forms import SignInForm
 
 def home(request):
-    return render(request, 'listings/home.html')
+    return render(request, 'home.html')
 
 def news(request):
-    return render(request, 'listings/news.html')
+    return render(request, 'news.html')
 
 def studios(request):
-    return render(request, 'listings/studios.html')
+    return render(request, 'studios.html')
 
 def bar(request):
-    return render(request, 'listings/bar.html')
+    return render(request, 'bar.html')
 
 def pro_area(request):
-    return render(request, 'listings/pro_area.html')
+    return render(request, 'pro_area.html')
 
 def contact(request):
-    return render(request, 'listings/contact.html')
+    return render(request, 'contact.html')
 
 def booking(request):
-    return render(request, 'listings/booking.html')
-
-def account_detail(request, account_id):
-    account = Account.objects.get(id=account_id)
-    return render(request, 'listings/account_detail.html', {'account': account})
+    return render(request, 'booking.html')
 
 def sign_in(request):
     if request.method == 'POST':
@@ -54,7 +49,7 @@ def sign_in(request):
 
     # Return an empty form if GET request or login is invalid
     form = SignInForm()
-    return render(request, 'listings/signin.html', {'form': form})
+    return render(request, 'registration/sign_in.html', {'form': form})
 
 def sign_up(request):
     if request.method == 'POST':
@@ -74,4 +69,4 @@ def sign_up(request):
                 user.save()
                 return redirect('home')
     form = SignUpForm()
-    return render(request, 'listings/signup.html', {'form': form})
+    return render(request, 'registration/sign_up.html', {'form': form})

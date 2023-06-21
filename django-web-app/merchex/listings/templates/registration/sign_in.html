@@ -1,4 +1,4 @@
-{% extends 'listings/index.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
 
@@ -47,10 +47,17 @@
 						
 						<form action="" method="post">
 							{% csrf_token %}
+							{% for field in form %}
+								<div class="top-margin">
+									{{ field.errors }}
+									<label>{{ field.label }} <span class="text-danger">*</span></label>
+									{{ field }}
+								</div>
+							{% endfor %}
 							<div class="top-margin">
-								{{ form.email.errors }}
-								<label>Adresse e-mail <span class="text-danger">*</span></label>
-								{{ form.email }}
+								{{ form.username.errors }}
+								<label>Nom d'utilisateur <span class="text-danger">*</span></label>
+								{{ form.username }}
 							</div>
 							<div class="top-margin">
 								{{ form.password.errors }}

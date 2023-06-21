@@ -20,18 +20,19 @@ from django.views.generic.base import TemplateView
 from listings import views
 
 urlpatterns = [
+    # Admin
     path('admin/', admin.site.urls),
-    path('accounts/', include("django.contrib.auth.urls")),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
-    path('accueil/', views.home, name='home'),
+    # Main
+    path('', views.home, name='home'),
     path('actualités/', views.news, name='news'),
     path('studios/', views.studios, name='studios'),
     path('bar/', views.bar, name='bar'),
     path('espace_pro/', views.pro_area, name='pro_area'),
     path('contact/', views.contact, name='contact'),
     path('réservation/', views.booking, name='booking'),
-    path('compte/<int:account_id>/', views.account_detail, name='account-detail'),
+
+    # Registration
     path('se_connecter/', views.sign_in, name='sign_in'),
     path('créer_un_compte/', views.sign_up, name='sign_up'),
 ]

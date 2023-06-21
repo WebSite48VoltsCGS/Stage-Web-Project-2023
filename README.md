@@ -111,7 +111,8 @@ Day 8 (21/06/23)
 - [10:55:12:00] "Django Login and Logout Tutorial"
 - [12:00-13:00] Lunch break
 - [13:00-14:00] Integrated the Django authentification system
-- [14:00-??:??] "Using the Django authentication system"
+- [14:00-14:55] "Using the Django authentication system"
+- [14:55-15:10] Cleaned project
 
 
 ## To do list
