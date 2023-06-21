@@ -87,15 +87,29 @@ Day 6 (19/06/23)
 
 Day 7 (20/06/23)
 - Summary:
+    - Work meeting:
+        - GitHub: Discussion of the correct use of GitHub in general: Branch / Merge / Repository / Project manager / ...
+        - Database: Discussion of how the database will be made and what will be created.
+        - Planning: What will be used and how it will interact with the database.
+        - Work sharing: How we're all going to continue working independently and integrate into a project.
     - Website:
-        - Update logo
+        - Update: Logo / Sign in / Sign up / Home / Title
+        - Template: Added new header and CSS blocks
 - [09:00-09:35] Updated CSS (navbar-brand img)
 - [09:35-09:45] Cleaned up obsolete files
-- [09:45-10:10] Integrated the sign in page / Bug Fixes (Title & Header secondary)
+- [09:45-10:10] Integrated the sign in page - Bug Fixes (Title & Header secondary)
 - [10:10-10:15] Updated web page titles
 - [10:15-12:00] Assisted my colleagues
 - [12:00-13:00] Lunch break
-- [13:00-15:30] Work meeting: GitHub / Database / Structure / Planning / Work sharing
+- [13:00-15:30] Work meeting: GitHub, database, planning , work sharing
+- [15:30-16:30] Update of registration pages - First integration of home page
+- [16:30-17:00] Cleaned code
+
+Day 8 (21/06/23)
+- [09:00-09:20] Updated logbook
+
+
+
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
