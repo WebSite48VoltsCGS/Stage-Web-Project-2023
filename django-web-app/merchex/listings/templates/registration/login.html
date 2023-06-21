@@ -1,12 +1,81 @@
-{% extends 'base.html' %}
+{% extends 'listings/index.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}
+
+<title>Se Connecter</title>
+
+{% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block header %}
+
+<header id="head" class="secondary"></header>
+
+{% endblock %}
+
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+
+<!-- container -->
+<div class="container">
+
+	<ol class="breadcrumb">
+		<li><a href="{% url 'home' %}">Accueil</a></li>
+		<li class="active">Se connecter</li>
+	</ol>
+
+	<div class="row">
+		
+		<!-- Article main content -->
+		<article class="col-xs-12 maincontent">
+			<header class="page-header">
+				<h1 class="page-title">Connexion</h1>
+			</header>
+			
+			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3 class="thin text-center">Se connecter à son compte</h3>
+						<p class="text-center text-muted">Vous n'avez pas encore de compte? <a href="{% url 'sign_up' %}">Inscrivez-vous</a></p>
+						
+						<hr>
+						
+						<form action="" method="post">
+							{% csrf_token %}
+							<div class="top-margin">
+								{{ form.email.errors }}
+								<label>Adresse e-mail <span class="text-danger">*</span></label>
+								{{ form.email }}
+							</div>
+							<div class="top-margin">
+								{{ form.password.errors }}
+								<label>Mot de passe <span class="text-danger">*</span></label>
+								{{ form.password }}
+							</div>
+
+							<hr>
+
+							<div class="row">
+								<div class="col-lg-8">
+									<b><a href="">Mot de passe oublié ?</a></b>
+								</div>
+								<div class="col-lg-4 text-right">
+									<button class="btn btn-action" type="submit">Connexion</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</article>
+		<!-- /Article -->
+
+	</div>
+</div> <!-- /container -->
+
 {% endblock %}

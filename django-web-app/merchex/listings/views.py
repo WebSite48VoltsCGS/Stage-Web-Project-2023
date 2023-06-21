@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
+from django.contrib.auth import authenticate, login
 
 from listings.models import Account
 from listings.forms import AccountForm
+from listings.forms import SignForm
 
 def home(request):
     return render(request, 'listings/home.html')
@@ -31,7 +33,23 @@ def account_detail(request, account_id):
     return render(request, 'listings/account_detail.html', {'account': account})
 
 def sign_in(request):
-    return render(request, 'listings/signin.html')
+    if request.method == 'POST':
+        form = SignForm(request.POST)
+        if form.is_valid():
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page.
+                return redirect('home')
+            else:
+                # Return an 'invalid login' error message.
+                form = SignForm()
+                return render(request, 'listings/signin.html', {'form': form})
+    else:
+        form = SignForm()
+    return render(request, 'listings/signin.html', {'form': form})
 
 def sign_up(request):
     if request.method == 'POST':

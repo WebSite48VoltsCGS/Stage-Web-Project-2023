@@ -42,16 +42,20 @@
 					<div class="panel-body">
 						<h3 class="thin text-center">Se connecter à son compte</h3>
 						<p class="text-center text-muted">Vous n'avez pas encore de compte? <a href="{% url 'sign_up' %}">Inscrivez-vous</a></p>
+						
 						<hr>
 						
-						<form>
+						<form action="" method="post">
+							{% csrf_token %}
 							<div class="top-margin">
-								<label>Adresse e-mail <span class="text-danger">*</span></label>
-								<input type="text" class="form-control">
+								{{ form.username.errors }}
+								<label>Nom d'utilisateur <span class="text-danger">*</span></label>
+								{{ form.username }}
 							</div>
 							<div class="top-margin">
+								{{ form.password.errors }}
 								<label>Mot de passe <span class="text-danger">*</span></label>
-								<input type="password" class="form-control">
+								{{ form.password }}
 							</div>
 
 							<hr>
@@ -67,9 +71,7 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-			
 		</article>
 		<!-- /Article -->
 

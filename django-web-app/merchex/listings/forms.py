@@ -16,3 +16,13 @@ class AccountForm(forms.ModelForm):
         super(AccountForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+
+class SignForm(forms.Form):
+    username = forms.CharField(max_length=1000)
+    password = forms.CharField(max_length=1000)
+
+    def __init__(self, *args, **kwargs):
+        super(SignForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
