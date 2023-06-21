@@ -107,8 +107,8 @@ Day 7 (20/06/23)
 
 Day 8 (21/06/23)
 - [09:00-09:20] Updated logbook
-- [09:20-10:55] Integration of sign up and account details pages
-
+- [09:20-10:55] Integrated the sign up and account details pages
+- [10:55:12:00] Django Login and Logout Tutorial
 
 
 
@@ -126,6 +126,8 @@ Day 8 (21/06/23)
     - Manage Your Code Project With Git and GitHub
         - Learn the Command Line in Terminal
 - Intermediate Django
+- Django Login and Logout Tutorial
+    - https://learndjango.com/tutorials/django-login-and-logout-tutorial
 
 ## Readme
 
