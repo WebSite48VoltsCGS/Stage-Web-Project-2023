@@ -1,18 +1,18 @@
 {% load static %}
 
+<!-- Reminder: Replace directory by the following: -->
+<!-- "{% static 'studios/...' %}" -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Metadata -->
 	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<meta name="author"      content="">
+	<meta name="author" content="">
 	
-	<!-- Title -->
 	{% block title %}{% endblock %}
 
-	<!-- Styles -->
 	<link rel="shortcut icon" href="{% static 'studios/images/gt_favicon.png' %}">
 	
     <link rel="stylesheet" href="{% static 'studios/css/familyOpenSans.css' %}" media="screen"/>
@@ -22,13 +22,7 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="{% static 'studios/css/bootstrap-theme.css' %}" media="screen"/>
 	<link rel="stylesheet" href="{% static 'studios/css/main.css' %}"/>
-	{% block style %}{% endblock %}
 
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="{% static 'studios/js/html5shiv.js' %}"></script>
-	<script src="{% static 'studios/js/respond.min.js.css' %}"></script>
-	<![endif]-->
 </head>
 
 <body class="home">
@@ -46,7 +40,6 @@
 			<!-- Navbar collapse -->
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<!-- Link(s) -->
 					<li><a href="{% url 'home' %}">Accueil</a></li>
 					<li><a href="{% url 'news' %}">Actualités</a></li>
 					<li><a href="{% url 'studios' %}">Studios</a></li>
@@ -54,59 +47,51 @@
 					<li><a href="{% url 'pro_area' %}">Espace Pro</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
 					<li><a href="{% url 'booking' %}">Réservation</a></li>
+					<li><a href="{% url 'account' %}">Compte</a></li>
 					
-					<!-- Dropdown -->
+					<!-- Dropdown: Toggle to display more links -->
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu"> -->
 							<!-- Add list of links -->
-							<li><a href="">Placeholder 1</a></li>
-							<li><a href="">Placeholder 2</a></li>
+							<li><a href="sidebar-left.html">Left Sidebar</a></li>
+							<li><a href="sidebar-right.html">Right Sidebar</a></li>
 						</ul>
-					</li> <!-- /Dropdown -->
+					</li> 
 
-					<!-- Button(s) -->
-					{% if user.is_authenticated %}
-						<li><a class="btn" href="{% url 'account' %}">MON COMPTE</a></li>
-					{% else %}
-						<li><a class="btn" href="{% url 'sign_in' %}">CONNEXION</a></li>
-					{% endif %} <!-- /Button(s) -->
+					<!-- New button -->
+					<li><a class="btn" href="{% url 'sign_in' %}">SIGN IN / SIGN UP</a></li>
 				</ul>
-
 			</div> <!--/.nav-collapse -->
 		</div>
 	</div> <!-- /.navbar -->
 
-
-	{% block header %}{% endblock %}
 	{% block content %}{% endblock %}
-
-
+		
 	<!-- Social links. @TODO: replace by link/instructions in template -->
-	<!-- <section id="social">
+	<section id="social">
 		<div class="container">
 			<div class="wrapper clearfix">
-				AddThis Button BEGIN
+				<!-- AddThis Button BEGIN -->
 				<div class="addthis_toolbox addthis_default_style">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 				<a class="addthis_button_tweet"></a>
 				<a class="addthis_button_linkedin_counter"></a>
 				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 				</div>
-				AddThis Button END
+				<!-- AddThis Button END -->
 			</div>
 		</div>
-	</section> -->
-	<!-- /.social links -->
+	</section>
+	<!-- /social links -->
 
 
-	<!-- Footer -->
 	<footer id="footer" class="top-space">
 		<!-- Footer 1 -->
 		<div class="footer1">
 			<div class="container">
-				<!-- Row of widgets -->
 				<div class="row">
+					
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
@@ -151,14 +136,13 @@
 						</div>
 					</div>
 
-				</div> <!-- /.Row of widgets -->
+				</div> <!-- /row of widgets -->
 			</div>
-		</div> <!-- /.Footer 1 -->
+		</div>
 		
 		<!-- Footer 2 -->
 		<div class="footer2">
 			<div class="container">
-				<!-- Row of widgets -->
 				<div class="row">
 					<div class="col-md-6 widget">
 						<div class="widget-body">
@@ -169,7 +153,8 @@
 								<a href="{% url 'bar' %}">Bar</a> /
 								<a href="{% url 'pro_area' %}">Espace Pro</a> /
 								<a href="{% url 'contact' %}">Contact</a> /
-								<a href="{% url 'booking' %}">Réservation</a>
+								<a href="{% url 'booking' %}">Réservation</a> /
+								<a href="{% url 'account' %}">Compte</a>
 							</p>
 						</div>
 					</div>
@@ -181,15 +166,14 @@
 							</p>
 						</div>
 					</div>
-
-				</div> <!-- /.Row of widgets -->
+				</div> <!-- /row of widgets -->
 			</div>
 		</div>
-	</footer> <!-- /.Footer 2 -->
+
+	</footer>
 	
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="{% static 'studios/js/jquery.min.js' %}"></script>
-	<script src="{% static 'studios/js/bootstrap.min.js' %}"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="{% static 'studios/js/headroom.min.js' %}"></script>
 	<script src="{% static 'studios/js/jQuery.headroom.min.js' %}"></script>
 	<script src="{% static 'studios/js/template.js' %}"></script>

@@ -117,7 +117,8 @@ Day 8 (21/06/23)
 - [16:05-17:00] "Django Password Reset Tutorial"
 
 Day 9 (22/06/23)
-- 
+- [09:00-11:00] Created of a new base project under a common GitHub repository
+- [11:00-11:30] Fixed javaScript related to "Dropdown"
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
