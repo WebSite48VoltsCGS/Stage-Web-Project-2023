@@ -114,8 +114,10 @@ Day 8 (21/06/23)
 - [14:00-14:55] "Using the Django authentication system"
 - [14:55-15:10] Cleaned project
 - [15:10-16:05] Added a logout button
-- [16:05-17:00]
+- [16:05-17:00] "Django Password Reset Tutorial"
 
+Day 9 (22/06/23)
+- 
 
 ## To do list
 - Build Your First Web Pages With HTML and CSS
