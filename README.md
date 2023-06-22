@@ -141,6 +141,11 @@ Day 8 (21/06/23)
 - Password
     - Django Password Reset Tutorial
         - https://learndjango.com/tutorials/django-password-reset-tutorial
+
+- GitHub
+    - How to setup and use multiple git repositories for one single project
+        - https://bytescout.com/blog/setup-and-use-git-repositories-for-one-project.html
+
 ## Readme
 
 Main: /README.md
