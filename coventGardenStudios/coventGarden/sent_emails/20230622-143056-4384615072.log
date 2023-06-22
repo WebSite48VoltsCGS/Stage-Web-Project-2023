@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: Bis@cgs.com
+Date: Thu, 22 Jun 2023 14:30:56 -0000
+Message-ID: <168744425690.38986.13227257781184472969@olva>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/compte/mot-de-passe-oubli%C3%A9/modification/NA/bq79nk-d52a8621776fa9bc647ea2864a5e6de8/
+
+Your username, in case you’ve forgotten: UserBis
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

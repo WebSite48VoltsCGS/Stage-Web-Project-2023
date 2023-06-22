@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: NewEmail@cgs.com
+Date: Thu, 22 Jun 2023 13:57:39 -0000
+Message-ID: <168744225973.38308.8452300177376141512@olva>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/compte/mot-de-passe-oubli%C3%A9/confirmation/Mg/bq7843-19f995298a17f27c94d95a09e13c6f1f/
+
+Your username, in case you’ve forgotten: NewUser
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

@@ -32,9 +32,9 @@ def booking(request):
 def account(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('sign_in')
+        return redirect('account_sign_in')
 
-    return render(request, 'account.html')
+    return render(request, 'account-detail.html')
 
 def sign_in(request):
     if request.method == 'POST':
@@ -58,7 +58,7 @@ def sign_in(request):
 
     # Return an empty form if GET request or login is invalid
     form = SignInForm()
-    return render(request, 'sign_in.html', {'form': form})
+    return render(request, 'account_sign_in.html', {'form': form})
 
 def sign_up(request):
     if request.method == 'POST':
@@ -85,7 +85,7 @@ def sign_up(request):
                 else:
                     print("Error: Login to newly created account failed")
     form = SignUpForm()
-    return render(request, 'sign_up.html', {'form': form})
+    return render(request, 'account_sign_up.html', {'form': form})
 
 def password_reset_form(request):
     if request.method == 'POST':
