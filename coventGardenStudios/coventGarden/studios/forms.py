@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
 # Global variables
 LENGTH_NAME = 256
@@ -38,11 +39,19 @@ class SignInForm(forms.Form):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-class PasswordResetForm(forms.Form):
+class UserPasswordResetForm(PasswordResetForm):
     email = FIELD_EMAIL
 
-    # Class = 'form-control'
     def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+class UserPasswordSetForm(SetPasswordForm):
+    new_password1 = FIELD_PASSWORD
+    new_password2 = FIELD_CONFIRM
+
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordSetForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'

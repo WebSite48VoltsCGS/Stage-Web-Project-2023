@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from studios.forms import SignUpForm
 from studios.forms import SignInForm
-from studios.forms import PasswordResetForm
+from studios.forms import UserPasswordResetForm
 
 def home(request):
     return render(request, 'home.html')
@@ -92,7 +92,7 @@ def password_reset_form(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             email = request.POST["email"]
-    form = PasswordResetForm()
+    form = UserPasswordResetForm()
     return render(request, 'password_reset_form.html', {'form': form})
 
 def password_reset_done(request):

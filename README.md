@@ -147,11 +147,12 @@ Day 9 (22/06/23)
         - https://learndjango.com/tutorials/django-login-and-logout-tutorial
     - Using the Django authentication system
         - https://docs.djangoproject.com/en/4.2/topics/auth/default/
-
-- Password
-    - Django Password Reset Tutorial
+    - Password reset
         - https://learndjango.com/tutorials/django-password-reset-tutorial
-
+        - https://studygyaan.com/django/how-to-create-built-in-change-password-and-reset-password-in-django?utm_content=cmp-true
+        - https://www.pythontutorial.net/django-tutorial/django-password-reset/
+        - https://stackoverflow.com/questions/63960705/add-styling-to-django-password-reset-forms
+        - https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
 - GitHub
     - How to setup and use multiple git repositories for one single project
         - https://bytescout.com/blog/setup-and-use-git-repositories-for-one-project.html
