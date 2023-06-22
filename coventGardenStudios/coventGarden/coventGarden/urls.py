@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from django.contrib.auth import views as auth_views
 from studios import views
 
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
+    path("compte/", include("django.contrib.auth.urls")),  # new
 
     # Main
     path('', views.home, name='home'),
@@ -32,9 +34,9 @@ urlpatterns = [
     path('réservation/', views.booking, name='booking'),
 
     # Registration
-    path('compte/', views.account, name='account'),
+    path('compte/profil', views.account, name='account'),
     path('compte/se_connecter/', views.sign_in, name='sign_in'),
     path('compte/créer_un_compte/', views.sign_up, name='sign_up'),
-    path('compte/mot-de-passe-oublié/', views.password_reset_form, name='password_reset'),
+    path('compte/mot-de-passe-oublié/', auth_views.PasswordResetView.as_view(template_name='password_reset_form.html'), name='password_reset'),
     path('compte/mot-de-passe-oublié/confirmation', views.password_reset_done, name='password_reset_done'),
 ]
