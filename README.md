@@ -119,21 +119,27 @@ Day 8 (21/06/23)
 Day 9 (22/06/23)
 - [09:00-11:00] Created of a new base project under a common GitHub repository
 - [11:00-11:30] Fixed javaScript related to "Dropdown"
+- [11:30-12:05] Added hidden password
+- [12:05-13:00] Lunch break
+- [13:00-13:45] Work meeting: Mundane exchanges
+- [13:45-14:00] Added user login after account creation
+
 
 ## To do list
-- Build Your First Web Pages With HTML and CSS
-- Learn Programming With JavaScript
-- Write JavaScript for the Web
-- Create a Web Application With Django
-    - Write Maintainable Python Code
-        - Learn Programming With Python
-            - Learn Python Basics
-                - Understanding the Web
-            - Set Up a Python Environment
-    - Create Web Page Layouts With CSS
-    - Manage Your Code Project With Git and GitHub
-        - Learn the Command Line in Terminal
-- Intermediate Django
+- OpenClassrooms
+    - Build Your First Web Pages With HTML and CSS
+    - Learn Programming With JavaScript
+    - Write JavaScript for the Web
+    - Create a Web Application With Django
+        - Write Maintainable Python Code
+            - Learn Programming With Python
+                - Learn Python Basics
+                    - Understanding the Web
+                - Set Up a Python Environment
+        - Create Web Page Layouts With CSS
+        - Manage Your Code Project With Git and GitHub
+            - Learn the Command Line in Terminal
+    - Intermediate Django
 
 - Authentification system
     - Django Login and Logout Tutorial

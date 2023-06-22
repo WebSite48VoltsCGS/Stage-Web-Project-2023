@@ -76,7 +76,14 @@ def sign_up(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
-                return redirect('account')
+
+                # Authenticate
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('account')
+                else:
+                    print("Error: Login to newly created account failed")
     form = SignUpForm()
     return render(request, 'sign_up.html', {'form': form})
 
