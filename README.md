@@ -123,7 +123,7 @@ Day 9 (22/06/23)
 - [12:05-13:00] Lunch break
 - [13:00-13:45] Work meeting: Mundane exchanges
 - [13:45-14:00] Added user login after account creation
-- [14:00-16:40] Added a forgot password feature
+- [14:00-17:00] Added a forgot password feature
 
 
 ## To do list
