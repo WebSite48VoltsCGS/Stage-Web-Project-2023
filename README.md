@@ -135,6 +135,8 @@ Day 10 (23/06/23)
 - [14:00-14:30] Tried OpenAI for the first time and found the solution to use the attributes of the forms.Form class.
     - {{ field.field.required }} instead of {{ field.required }}
 - [14:30-14:50] Standardized forms by creating the base_form.html subtemplate
+    - pip3 install "django-phonenumber-field[phonenumberslite]"
+    - pip3 install Babel
 
 ## To do list
 - OpenClassrooms
@@ -166,6 +168,9 @@ Day 10 (23/06/23)
 - GitHub
     - How to setup and use multiple git repositories for one single project
         - https://bytescout.com/blog/setup-and-use-git-repositories-for-one-project.html
+- Phone
+    - https://django-phonenumber-field.readthedocs.io/en/latest/index.html
+    - https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
 
 ## Readme
 

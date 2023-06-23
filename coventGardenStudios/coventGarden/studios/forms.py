@@ -1,5 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import RegionalPhoneNumberWidget
+from studios.models import Group
 
 # Fields
 def field_name(label, required=True):
@@ -17,6 +20,10 @@ def field_password(label, required=True):
 def field_text(label, required=True):
     return forms.CharField(max_length=5000, label=label, required=required,
                            widget=forms.Textarea(attrs={"class": "form-control"}))
+
+def field_phone(label, required=True):
+    return PhoneNumberField(region="FR", label=label, required=required,
+                            widget=RegionalPhoneNumberWidget(attrs={"class": "form-control"}))
 
 FIELD_USERNAME = field_name("Nom d'utilisateur")
 FIELD_LAST_NAME = field_name("Nom")
@@ -37,6 +44,9 @@ FIELD_CONFIRM = field_password("Confirmer le mot de passe")
 
 FIELD_BIOGRAPHY = field_text("Biographie")
 
+FIELD_PHONE = field_phone("Numéro de téléphone")
+
+
 # Register your forms here
 class SignInForm(forms.Form):
     username = FIELD_USERNAME
@@ -50,9 +60,21 @@ class SignUpForm(forms.Form):
     password = FIELD_PASSWORD
     confirm_password = FIELD_CONFIRM
 
-class GroupRegisterForm(forms.Form):
+class GroupRegisterForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+
+class OldGroupRegisterForm(forms.Form):
     email = FIELD_EMAIL
     group_name = FIELD_GROUP_NAME
+    # phone = FIELD_PHONE
     members = FIELD_MEMBERS
     musical_style = FIELD_MUSICAL_STYLE
     diet = FIELD_DIET

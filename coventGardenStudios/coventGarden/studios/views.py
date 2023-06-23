@@ -98,16 +98,10 @@ def group_register(request):
     if request.method == 'POST':
         form = GroupRegisterForm(request.POST)
         if form.is_valid():
-            # Success
-            if user is not None:
-                login(request, user)
-                # Redirect to a success page.
-                return redirect('account')
-
-            # Failure
-            else:
-                pass
+            form.save()
+            return redirect('home')
 
     # Return an empty form if GET request or invalid form
     form = GroupRegisterForm()
     return render(request, 'group_register.html', {'form': form})
+
