@@ -125,6 +125,15 @@ Day 9 (22/06/23)
 - [13:45-14:00] Added user login after account creation
 - [14:00-17:00] Added a forgot password feature
 
+Day 10 (23/06/23)
+- [09:00-09:40] Merged projects with my colleagues - Fixed HTML5 & CSS (Background) - Bug Fix (Logout button)
+- [09:40-10:05] Helped my colleague clone the new GitHub repository
+- [10:05-11:00] Work meeting: Presentation - Work Progress
+- [11:00-12:30] Updated and created pages with forms for groups
+- [12:30-13:00] Lunch break
+- [13:00-??:??] Updated and created pages with forms for groups
+- [14:00-14:30] Tried OpenAI for the first time and found the solution to display the attributes of the form class.
+    - {{ field.field.required }} instead of {{ field.required }}
 
 ## To do list
 - OpenClassrooms

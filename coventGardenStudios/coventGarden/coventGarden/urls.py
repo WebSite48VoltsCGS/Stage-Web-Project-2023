@@ -26,12 +26,12 @@ urlpatterns = [
 
     # Main
     path('', views.home, name='home'),
-    path('actualités/', views.news, name='news'),
+    path('actualites/', views.news, name='news'),
     path('studios/', views.studios, name='studios'),
     path('bar/', views.bar, name='bar'),
     path('espace_pro/', views.pro_area, name='pro_area'),
     path('contact/', views.contact, name='contact'),
-    path('réservation/', views.booking, name='booking'),
+    path('reservation/', views.booking, name='booking'),
 
     # Account
     path('compte/profil', views.account, name='account'),
@@ -39,21 +39,26 @@ urlpatterns = [
     path('compte/inscription/', views.sign_up, name='sign_up'),
 
     # Forgot password
-    path('compte/mot-de-passe-oublié/',
+    path('compte/mot-de-passe-oublie/',
          auth_views.PasswordResetView.as_view(
              template_name='password_reset_form.html',
              form_class=UserPasswordResetForm),
          name='password_reset'),
-    path('compte/mot-de-passe-oublié/envoi/',
+    path('compte/mot-de-passe-oublie/envoi/',
          auth_views.PasswordResetDoneView.as_view(
              template_name='password_reset_done.html'),
          name='password_reset_done'),
-    path('compte/mot-de-passe-oublié/modification/<uidb64>/<token>/',
+    path('compte/mot-de-passe-oublie/modification/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(
              template_name='password_reset_confirm.html',
              form_class=UserPasswordSetForm),
          name='password_reset_confirm'),
-    path('compte/mot-de-passe-oublié/confirmation/',
+    path('compte/mot-de-passe-oublie/confirmation/',
          auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
+
+    # Group
+    path('compte/groupe/', views.group_detail, name='group-detail'),
+    path('compte/groupe/inscription', views.group_register, name='group-register'),
+
 ]

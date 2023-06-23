@@ -1,29 +1,46 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
-# Global variables
-LENGTH_NAME = 256
-LENGTH_PASSWORD = 256
-LENGTH_EMAIL = 320
-
 # Fields
-FIELD_USERNAME = forms.CharField(max_length=LENGTH_NAME, label="Nom d'utilisateur")
-FIELD_EMAIL = forms.EmailField(max_length=LENGTH_EMAIL, label="Adresse e-mail")
-FIELD_PASSWORD = forms.CharField(max_length=LENGTH_PASSWORD, label="Mot de passe", widget=forms.PasswordInput)
-FIELD_CONFIRM = forms.CharField(max_length=LENGTH_PASSWORD, label="Confirmer le mot de passe", widget=forms.PasswordInput)
-FIELD_FIRST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Prénom")
-FIELD_LAST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Nom")
+def field_name(label, required=True):
+    return forms.CharField(max_length=255, label=label, required=required,
+                           widget=forms.TextInput(attrs={"class": "form-control"}))
+
+def field_email(label, required=True):
+    return forms.EmailField(max_length=255, label=label, required=required,
+                            widget=forms.TextInput(attrs={"class": "form-control"}))
+
+def field_password(label, required=True):
+    return forms.CharField(max_length=255, label=label, required=required,
+                           widget=forms.PasswordInput(attrs={"class": "form-control"}))
+
+def field_text(label, required=True):
+    return forms.CharField(max_length=5000, label=label, required=required,
+                           widget=forms.Textarea(attrs={"class": "form-control"}))
+
+FIELD_USERNAME = field_name("Nom d'utilisateur")
+FIELD_LAST_NAME = field_name("Nom")
+FIELD_FIRST_NAME = field_name("Prénom")
+FIELD_GROUP_NAME = field_name("Nom de groupe")
+FIELD_MUSICAL_STYLE = field_name("Style musical")
+FIELD_FACEBOOK = field_name("Facebook", required=False)
+FIELD_INSTAGRAM = field_name("Instagram", required=False)
+FIELD_TWITTER = field_name("Twitter", required=False)
+FIELD_DIET = field_name("Régime alimentaire")
+FIELD_MEMBERS = field_name("Membre(s)")
+FIELD_PARTICIPANTS = field_name("Participant(s) supplémentaire(s)", required=False)
+
+FIELD_EMAIL = field_email("Adresse e-mail")
+
+FIELD_PASSWORD = field_password("Mot de passe")
+FIELD_CONFIRM = field_password("Confirmer le mot de passe")
+
+FIELD_BIOGRAPHY = field_text("Biographie")
 
 # Register your forms here
 class SignInForm(forms.Form):
     username = FIELD_USERNAME
     password = FIELD_PASSWORD
-
-    # Class = 'form-control'
-    def __init__(self, *args, **kwargs):
-        super(SignInForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
 
 class SignUpForm(forms.Form):
     username = FIELD_USERNAME
@@ -33,29 +50,36 @@ class SignUpForm(forms.Form):
     password = FIELD_PASSWORD
     confirm_password = FIELD_CONFIRM
 
-    # Class = 'form-control'
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+class GroupRegisterForm(forms.Form):
+    email = FIELD_EMAIL
+    group_name = FIELD_GROUP_NAME
+    members = FIELD_MEMBERS
+    musical_style = FIELD_MUSICAL_STYLE
+    diet = FIELD_DIET
+    facebook = FIELD_FACEBOOK
+    instagram = FIELD_INSTAGRAM
+    twitter = FIELD_TWITTER
+    participants = FIELD_PARTICIPANTS
+    biography = FIELD_BIOGRAPHY
+    biography.initial = "Entrez une courte biographie de moins de 5000 caractères."
 
+class ConcertForm(forms.Form):
+    group_name = FIELD_GROUP_NAME
+    members = FIELD_MEMBERS
+    email = FIELD_EMAIL
+    musical_style = FIELD_MUSICAL_STYLE
+    facebook = FIELD_FACEBOOK
+    instagram = FIELD_INSTAGRAM
+    twitter = FIELD_TWITTER
+    diet = FIELD_DIET
+    biography = FIELD_BIOGRAPHY
+
+"""
+    Replaced django.contrib.auth.forms fields
+"""
 class UserPasswordResetForm(PasswordResetForm):
-    # Replaced PasswordResetForm fields with custom fields (See docs)
     email = FIELD_EMAIL
 
-    # Class = 'form-control'
-    def __init__(self, *args, **kwargs):
-        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
-
 class UserPasswordSetForm(SetPasswordForm):
-    # Replaced SetPasswordForm fields with custom fields (See docs)
     new_password1 = FIELD_PASSWORD
     new_password2 = FIELD_CONFIRM
-
-    # Class = 'form-control'
-    def __init__(self, *args, **kwargs):
-        super(UserPasswordSetForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'

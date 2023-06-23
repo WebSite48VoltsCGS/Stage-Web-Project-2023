@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from studios.forms import SignUpForm
 from studios.forms import SignInForm
-from studios.forms import UserPasswordResetForm
+from studios.forms import GroupRegisterForm
 
 def home(request):
     return render(request, 'home.html')
@@ -34,7 +34,7 @@ def account(request):
         logout(request)
         return redirect('sign_in')
 
-    return render(request, 'account-detail.html')
+    return render(request, 'account_detail.html')
 
 def sign_in(request):
     if request.method == 'POST':
@@ -87,13 +87,27 @@ def sign_up(request):
     form = SignUpForm()
     return render(request, 'account_sign_up.html', {'form': form})
 
-def password_reset_form(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            email = request.POST["email"]
-    form = UserPasswordResetForm()
-    return render(request, 'password_reset_form.html', {'form': form})
 
-def password_reset_done(request):
-    return render(request, 'password_reset_done.html')
+
+
+
+def group_detail(request):
+    return render(request, 'group_detail.html')
+
+def group_register(request):
+    if request.method == 'POST':
+        form = GroupRegisterForm(request.POST)
+        if form.is_valid():
+            # Success
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page.
+                return redirect('account')
+
+            # Failure
+            else:
+                pass
+
+    # Return an empty form if GET request or invalid form
+    form = GroupRegisterForm()
+    return render(request, 'group_register.html', {'form': form})
