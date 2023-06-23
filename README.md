@@ -132,8 +132,9 @@ Day 10 (23/06/23)
 - [11:00-12:30] Updated and created pages with forms for groups
 - [12:30-13:00] Lunch break
 - [13:00-??:??] Updated and created pages with forms for groups
-- [14:00-14:30] Tried OpenAI for the first time and found the solution to display the attributes of the form class.
+- [14:00-14:30] Tried OpenAI for the first time and found the solution to use the attributes of the forms.Form class.
     - {{ field.field.required }} instead of {{ field.required }}
+- [14:30-14:50] Standardized forms by creating the base_form.html subtemplate
 
 ## To do list
 - OpenClassrooms

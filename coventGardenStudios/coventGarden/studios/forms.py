@@ -22,12 +22,12 @@ FIELD_USERNAME = field_name("Nom d'utilisateur")
 FIELD_LAST_NAME = field_name("Nom")
 FIELD_FIRST_NAME = field_name("Prénom")
 FIELD_GROUP_NAME = field_name("Nom de groupe")
+FIELD_MEMBERS = field_name("Membre(s)")
 FIELD_MUSICAL_STYLE = field_name("Style musical")
+FIELD_DIET = field_name("Régime alimentaire")
 FIELD_FACEBOOK = field_name("Facebook", required=False)
 FIELD_INSTAGRAM = field_name("Instagram", required=False)
 FIELD_TWITTER = field_name("Twitter", required=False)
-FIELD_DIET = field_name("Régime alimentaire")
-FIELD_MEMBERS = field_name("Membre(s)")
 FIELD_PARTICIPANTS = field_name("Participant(s) supplémentaire(s)", required=False)
 
 FIELD_EMAIL = field_email("Adresse e-mail")
@@ -61,7 +61,6 @@ class GroupRegisterForm(forms.Form):
     twitter = FIELD_TWITTER
     participants = FIELD_PARTICIPANTS
     biography = FIELD_BIOGRAPHY
-    biography.initial = "Entrez une courte biographie de moins de 5000 caractères."
 
 class ConcertForm(forms.Form):
     group_name = FIELD_GROUP_NAME
