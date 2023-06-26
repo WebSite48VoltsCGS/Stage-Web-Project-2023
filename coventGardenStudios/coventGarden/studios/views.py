@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 from studios.forms import SignUpForm
 from studios.forms import SignInForm
-from studios.forms import UserPasswordResetForm
 
 """
 WIP
@@ -152,10 +151,10 @@ Bookings
     - Create
 """
 def bookings_detail(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'bookings/bookings_detail.html')
 
 def bookings_create(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'bookings/bookings_create.html')
 
 """
 Password reset
