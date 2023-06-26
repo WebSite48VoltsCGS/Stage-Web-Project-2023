@@ -144,8 +144,7 @@ Day 11 (26/06/23)
 - [09:20-11:00] Updated README, README_ARCHITECTURE - Cleaned code
 - [11:00-12:00] Overhauled urls and views - Merged projects - Cleaned Code (WIP)
 - [12:00-12:45] Lunch break
-- [12:45-14:15] Overhauled urls and views
-- [14:15-??:??] Fixed Password Reset mail
+- [12:45-15:15] Overhauled urls and views - Fixed Password Reset
 
 ## To do list
 - [Completed] OpenClassrooms

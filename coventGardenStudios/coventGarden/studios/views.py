@@ -93,16 +93,16 @@ def account_sign_up(request):
 
 def account_log_in(request, username, password):
     # Authenticate the user
-    user = authenticate(request, username, password)
+    user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
     else:
         print("Error: A user is already logged in.")
-    return redirect('profile-detail')
+    return redirect('profile_detail')
 
 def account_log_out(request):
     logout(request)
-    return redirect('account-sign_in')
+    return redirect('account_sign_in')
 
 """
 Profile
@@ -113,19 +113,19 @@ Profile
     - Password update
 """
 def profile_detail(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def profile_update(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def profile_username_update(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def profile_email_update(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def profile_password_update(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 """
 Groups
@@ -135,16 +135,16 @@ Groups
     - Delete
 """
 def groups_detail(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def groups_create(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def groups_update(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def groups_delete(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 """
 Bookings
@@ -152,10 +152,10 @@ Bookings
     - Create
 """
 def bookings_detail(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def bookings_create(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 """
 Password reset
