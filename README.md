@@ -146,7 +146,7 @@ Day 11 (26/06/23)
 - [12:00-12:45] Lunch break
 - [12:45-15:15] Overhauled urls and views - Fixed Password Reset
 - [15:15-15:25] Overhauled urls and views - Fixed URLS
-- [15:25-15:50] Overhauled urls and views - Added placeholders
+- [15:25-16:00] Overhauled urls and views - Added placeholders
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -184,8 +184,12 @@ Day 11 (26/06/23)
 - [Dropped] Custom user
     - https://testdriven.io/blog/django-custom-user-model/
     - https://testdriven.io/blog/django-custom-user-model-migration/
-- One-to-one
+- [In progress] Model One-to-one
     - https://docs.djangoproject.com/en/4.2/topics/db/examples/one_to_one/
+    - https://learndjango.com/tutorials/django-best-practices-referencing-user-model
+- [Later] Custom user
+    - https://learndjango.com/tutorials/django-custom-user-model
+
 
 ## Readme
 

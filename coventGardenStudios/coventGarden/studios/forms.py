@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import CustomUser
 
 # Global variables
 LENGTH_NAME = 256
@@ -15,6 +17,27 @@ FIELD_FIRST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Prénom")
 FIELD_LAST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Nom")
 
 # Register your forms here
+"""
+Custom User
+    - Creation
+    - Change
+"""
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email")
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email")
+
+
+"""
+Account
+    - Sign In
+    - Sign Up
+"""
 class SignInForm(forms.Form):
     username = FIELD_USERNAME
     password = FIELD_PASSWORD
@@ -39,6 +62,11 @@ class SignUpForm(forms.Form):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
+"""
+Password Reset
+    - Reset
+    - Set
+"""
 class UserPasswordResetForm(PasswordResetForm):
     # Replaced PasswordResetForm fields with custom fields (See docs)
     email = FIELD_EMAIL
