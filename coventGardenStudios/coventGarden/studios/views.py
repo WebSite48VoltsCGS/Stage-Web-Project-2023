@@ -113,19 +113,19 @@ Profile
     - Password update
 """
 def profile_detail(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'profile/profile_detail.html')
 
 def profile_update(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'profile/profile_update.html')
 
 def profile_username_update(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'profile/profile_username_update.html')
 
 def profile_email_update(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'profile/profile_email_update.html')
 
 def profile_password_update(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'profile/profile_password_update.html')
 
 """
 Groups
@@ -135,16 +135,16 @@ Groups
     - Delete
 """
 def groups_detail(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'groups/groups_detail.html')
 
 def groups_create(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'groups/groups_create.html')
 
 def groups_update(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'groups/groups.html')
 
 def groups_delete(request):
-    return render(request, 'navigation/home.html')
+    return render(request, 'groups/groups_delete.html')
 
 """
 Bookings

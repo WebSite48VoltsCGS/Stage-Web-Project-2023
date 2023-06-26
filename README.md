@@ -145,6 +145,8 @@ Day 11 (26/06/23)
 - [11:00-12:00] Overhauled urls and views - Merged projects - Cleaned Code (WIP)
 - [12:00-12:45] Lunch break
 - [12:45-15:15] Overhauled urls and views - Fixed Password Reset
+- [15:15-15:25] Overhauled urls and views - Fixed URLS
+- [15:25-15:50] Overhauled urls and views - Added placeholders
 
 ## To do list
 - [Completed] OpenClassrooms
