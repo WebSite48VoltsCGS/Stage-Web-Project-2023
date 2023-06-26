@@ -6,7 +6,7 @@ from studios.models import Group
 
 # Fields
 def field_name(label, required=True):
-    return forms.CharField(max_length=255, label=label, required=required,
+    return forms.CharField(max_length=150, label=label, required=required,
                            widget=forms.TextInput(attrs={"class": "form-control"}))
 
 def field_email(label, required=True):

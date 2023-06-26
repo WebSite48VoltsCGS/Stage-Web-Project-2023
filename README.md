@@ -137,9 +137,14 @@ Day 10 (23/06/23)
 - [14:30-14:50] Standardized forms by creating the base_form.html subtemplate
     - pip3 install "django-phonenumber-field[phonenumberslite]"
     - pip3 install Babel
+- [14:50-18:00] Updated forms & models
+
+Day 11 (26/06/23)
+- [09:00-09:20] Creating a Custom User Model in Django (Dropped)
+- [09:20-11:00] Updated README, README_ARCHITECTURE - Cleaned code
 
 ## To do list
-- OpenClassrooms
+- [Completed] OpenClassrooms
     - Build Your First Web Pages With HTML and CSS
     - Learn Programming With JavaScript
     - Write JavaScript for the Web
@@ -154,7 +159,7 @@ Day 10 (23/06/23)
             - Learn the Command Line in Terminal
     - Intermediate Django
 
-- Authentification system
+- [Completed] Authentification system
     - Django Login and Logout Tutorial
         - https://learndjango.com/tutorials/django-login-and-logout-tutorial
     - Using the Django authentication system
@@ -165,12 +170,17 @@ Day 10 (23/06/23)
         - https://www.pythontutorial.net/django-tutorial/django-password-reset/
         - https://stackoverflow.com/questions/63960705/add-styling-to-django-password-reset-forms
         - https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
-- GitHub
+- [Completed] GitHub
     - How to setup and use multiple git repositories for one single project
         - https://bytescout.com/blog/setup-and-use-git-repositories-for-one-project.html
-- Phone
+- [Dropped] Phone
     - https://django-phonenumber-field.readthedocs.io/en/latest/index.html
     - https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
+- [Dropped] Custom user
+    - https://testdriven.io/blog/django-custom-user-model/
+    - https://testdriven.io/blog/django-custom-user-model-migration/
+- One-to-one
+    - https://docs.djangoproject.com/en/4.2/topics/db/examples/one_to_one/
 
 ## Readme
 
