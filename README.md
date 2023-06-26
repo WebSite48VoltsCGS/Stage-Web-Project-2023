@@ -142,6 +142,7 @@ Day 10 (23/06/23)
 Day 11 (26/06/23)
 - [09:00-09:20] Creating a Custom User Model in Django (Dropped)
 - [09:20-11:00] Updated README, README_ARCHITECTURE - Cleaned code
+- [11:00-12:00] Overhauled urls and views - Cleaned Code (WIP)
 
 ## To do list
 - [Completed] OpenClassrooms

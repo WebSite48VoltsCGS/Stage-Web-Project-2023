@@ -6,8 +6,22 @@ from django.contrib.auth.models import User
 
 from studios.forms import SignUpForm
 from studios.forms import SignInForm
-from studios.forms import GroupRegisterForm
+from studios.forms import UserPasswordResetForm
 
+def placeholder(request):
+    return render(request, 'home.html')
+
+
+"""
+Main
+    - Home
+    - News
+    - Studios
+    - Bar
+    - Pro area
+    - Contact
+    - Booking
+"""
 def home(request):
     return render(request, 'home.html')
 
@@ -29,12 +43,26 @@ def contact(request):
 def booking(request):
     return render(request, 'booking.html')
 
-def account(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('sign_in')
 
-    return render(request, 'account_detail.html')
+
+
+
+
+
+"""
+Account
+    - Sign in
+    - Sign out
+    - Logout
+"""
+def account_sign_in(request):
+    return render(request, 'home.html')
+
+def account_sign_up(request):
+    return render(request, 'home.html')
+
+def account_log_out(request):
+    return render(request, 'home.html')
 
 def sign_in(request):
     if request.method == 'POST':
@@ -87,21 +115,70 @@ def sign_up(request):
     form = SignUpForm()
     return render(request, 'account_sign_up.html', {'form': form})
 
+"""
+Profile
+    - Detail
+    - Update
+    - Username update
+    - Email update
+    - Password update
+"""
+def profile_detail(request):
+    return render(request, 'home.html')
 
+def profile_update(request):
+    return render(request, 'home.html')
 
+def profile_username_update(request):
+    return render(request, 'home.html')
 
+def profile_email_update(request):
+    return render(request, 'home.html')
 
-def group_detail(request):
-    return render(request, 'group_detail.html')
+def profile_password_update(request):
+    return render(request, 'home.html')
 
-def group_register(request):
+def account(request):
     if request.method == 'POST':
-        form = GroupRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
+        logout(request)
+        return redirect('sign_in')
 
-    # Return an empty form if GET request or invalid form
-    form = GroupRegisterForm()
-    return render(request, 'group_register.html', {'form': form})
+    return render(request, 'account-detail.html')
 
+"""
+Groups
+    - Detail
+    - Create
+    - Update
+    - Delete
+"""
+def groups_detail(request):
+    return render(request, 'home.html')
+
+def groups_create(request):
+    return render(request, 'home.html')
+
+def groups_update(request):
+    return render(request, 'home.html')
+
+def groups_delete(request):
+    return render(request, 'home.html')
+
+"""
+Bookings
+    - Detail
+    - Create
+"""
+def bookings_detail(request):
+    return render(request, 'home.html')
+
+def bookings_create(request):
+    return render(request, 'home.html')
+
+"""
+Password reset
+    - Form: password_reset_form.html
+    - Done: password_reset_done.html
+    - Confirm: password_reset_confirm.html
+    - Complete: password_reset_complete.html
+"""

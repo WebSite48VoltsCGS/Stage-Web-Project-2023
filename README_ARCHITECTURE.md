@@ -48,9 +48,9 @@
     - Group tables
         - Approval
         - Group name
-        - Edit group
-        - Delete group
-    - Add a group
+        - -> Edit group
+        - -> Delete group
+    - -> Add a group
 
 - My bookings
     - Booking tables and history

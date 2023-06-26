@@ -24,6 +24,9 @@ urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
 
+    # WIP
+    path('', views.placeholder, name='placeholder'),
+
     # Main
     path('', views.home, name='home'),
     path('actualites/', views.news, name='news'),
@@ -34,31 +37,44 @@ urlpatterns = [
     path('reservation/', views.booking, name='booking'),
 
     # Account
-    path('compte/profil', views.account, name='account'),
-    path('compte/connexion/', views.sign_in, name='sign_in'),
-    path('compte/inscription/', views.sign_up, name='sign_up'),
+    path('compte/connexion/', views.account_sign_in, name='account-sign_in'),
+    path('compte/inscription/', views.account_sign_up, name='account-sign_up'),
+    path('compte/deconnexion/', views.account_log_out, name='account-logout'),
+
+    # Profile
+    path('compte/mon_profil/', views.profile_detail, name='profile-detail'),
+    path('compte/mon_profil/modifier/', views.profile_update, name='profile-update'),
+    path('compte/mon_profil/modifier/username', views.profile_username_update, name='profile_username-update'),
+    path('compte/mon_profil/modifier/email', views.profile_email_update, name='profile_email-update'),
+    path('compte/mon_profil/modifier/password', views.profile_password_update, name='profile_password-update'),
+
+    # Groups
+    path('compte/mes_groupes/', views.groups_detail, name='groups-detail'),
+    path('compte/mes_groupes/ajouter/', views.groups_create, name='groups-create'),
+    path('compte/mes_groupes/modifier/', views.groups_update, name='groups-update'),
+    path('compte/mes_groupes/supprimer/', views.groups_delete, name='groups-delete'),
+
+    # Bookings
+    path('compte/mes_reservations/', views.bookings_detail, name='bookings-detail'),
+    path('compte/mes_reservations/ajouter/', views.bookings_create, name='bookings-create'),
 
     # Forgot password
     path('compte/mot-de-passe-oublie/',
          auth_views.PasswordResetView.as_view(
-             template_name='password_reset_form.html',
+             template_name='forgot_password_form.html',
              form_class=UserPasswordResetForm),
-         name='password_reset'),
+         name='forgot_password-form'),
     path('compte/mot-de-passe-oublie/envoi/',
          auth_views.PasswordResetDoneView.as_view(
-             template_name='password_reset_done.html'),
-         name='password_reset_done'),
+             template_name='forgot_password_done.html'),
+         name='forgot_password-done'),
     path('compte/mot-de-passe-oublie/modification/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(
-             template_name='password_reset_confirm.html',
+             template_name='forgot_password_confirm.html',
              form_class=UserPasswordSetForm),
-         name='password_reset_confirm'),
+         name='forgot_password-confirm'),
     path('compte/mot-de-passe-oublie/confirmation/',
-         auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
-         name='password_reset_complete'),
-
-    # Group
-    path('compte/groupe/', views.group_detail, name='group-detail'),
-    path('compte/groupe/inscription', views.group_register, name='group-register'),
-
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='forgot_password_complete.html'),
+         name='forgot_password-complete'),
 ]
