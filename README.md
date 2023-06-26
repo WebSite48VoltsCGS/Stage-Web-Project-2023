@@ -131,18 +131,21 @@ Day 10 (23/06/23)
 - [10:05-11:00] Work meeting: Presentation - Work Progress
 - [11:00-12:30] Updated and created pages with forms for groups
 - [12:30-13:00] Lunch break
-- [13:00-??:??] Updated and created pages with forms for groups
+- [13:00-14:00] Updated and created pages with forms for groups
 - [14:00-14:30] Tried OpenAI for the first time and found the solution to use the attributes of the forms.Form class.
     - {{ field.field.required }} instead of {{ field.required }}
 - [14:30-14:50] Standardized forms by creating the base_form.html subtemplate
     - pip3 install "django-phonenumber-field[phonenumberslite]"
     - pip3 install Babel
-- [14:50-18:00] Updated forms & models
+- [14:50-17:00] Updated forms & models
 
 Day 11 (26/06/23)
 - [09:00-09:20] Creating a Custom User Model in Django (Dropped)
 - [09:20-11:00] Updated README, README_ARCHITECTURE - Cleaned code
-- [11:00-12:00] Overhauled urls and views - Cleaned Code (WIP)
+- [11:00-12:00] Overhauled urls and views - Merged projects - Cleaned Code (WIP)
+- [12:00-12:45] Lunch break
+- [12:45-14:15] Overhauled urls and views
+- [14:15-??:??] Fixed Password Reset mail
 
 ## To do list
 - [Completed] OpenClassrooms

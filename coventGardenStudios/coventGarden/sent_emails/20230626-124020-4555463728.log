@@ -1,0 +1,51 @@
+Content-Type: multipart/alternative;
+ boundary="===============5329611379763062629=="
+MIME-Version: 1.0
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: a@cgs.com
+Date: Mon, 26 Jun 2023 12:40:20 -0000
+Message-ID: <168778322061.60191.6209281020795524186@olva>
+
+--===============5329611379763062629==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/compte/mot-de-passe-oublie/modification/NA/bqej78-e55ef7380387bc6c9f52ad9ae45b69e4/
+
+Your username, in case you’ve forgotten: a
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+--===============5329611379763062629==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+
+2	You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+3	
+4	Please go to the following page and choose a new password:
+5	
+6	http://127.0.0.1:8000/compte/mot-de-passe-oublie/modification/NA/bqej78-e55ef7380387bc6c9f52ad9ae45b69e4/
+7	
+8	Your username, in case you’ve forgotten: a
+9	
+10	Thanks for using our site!
+11	
+12	The 127.0.0.1:8000 team
+13	
+14	
+--===============5329611379763062629==--
+
+-------------------------------------------------------------------------------

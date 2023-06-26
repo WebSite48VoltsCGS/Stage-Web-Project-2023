@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from django.contrib.auth import views as auth_views
 from studios import views
 from studios.forms import UserPasswordResetForm, UserPasswordSetForm
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView
+)
 
 urlpatterns = [
     # Admin
@@ -27,7 +32,7 @@ urlpatterns = [
     # WIP
     path('', views.placeholder, name='placeholder'),
 
-    # Main
+    # Navigation
     path('', views.home, name='home'),
     path('actualites/', views.news, name='news'),
     path('studios/', views.studios, name='studios'),
@@ -37,44 +42,45 @@ urlpatterns = [
     path('reservation/', views.booking, name='booking'),
 
     # Account
-    path('compte/connexion/', views.account_sign_in, name='account-sign_in'),
-    path('compte/inscription/', views.account_sign_up, name='account-sign_up'),
-    path('compte/deconnexion/', views.account_log_out, name='account-logout'),
+    path('compte/connexion/', views.account_sign_in, name='account_sign_in'),
+    path('compte/inscription/', views.account_sign_up, name='account_sign_up'),
+    path('compte/deconnexion/', views.account_log_out, name='account_log_out'),
 
     # Profile
-    path('compte/mon_profil/', views.profile_detail, name='profile-detail'),
-    path('compte/mon_profil/modifier/', views.profile_update, name='profile-update'),
-    path('compte/mon_profil/modifier/username', views.profile_username_update, name='profile_username-update'),
-    path('compte/mon_profil/modifier/email', views.profile_email_update, name='profile_email-update'),
-    path('compte/mon_profil/modifier/password', views.profile_password_update, name='profile_password-update'),
+    path('compte/mon_profil/', views.profile_detail, name='profile_detail'),
+    path('compte/mon_profil/modifier/', views.profile_update, name='profile_update'),
+    path('compte/mon_profil/modifier/username', views.profile_username_update, name='profile_username_update'),
+    path('compte/mon_profil/modifier/email', views.profile_email_update, name='profile_email_update'),
+    path('compte/mon_profil/modifier/password', views.profile_password_update, name='profile_password_update'),
 
     # Groups
-    path('compte/mes_groupes/', views.groups_detail, name='groups-detail'),
-    path('compte/mes_groupes/ajouter/', views.groups_create, name='groups-create'),
-    path('compte/mes_groupes/modifier/', views.groups_update, name='groups-update'),
-    path('compte/mes_groupes/supprimer/', views.groups_delete, name='groups-delete'),
+    path('compte/mes_groupes/', views.groups_detail, name='groups_detail'),
+    path('compte/mes_groupes/ajouter/', views.groups_create, name='groups_create'),
+    path('compte/mes_groupes/modifier/', views.groups_update, name='groups_update'),
+    path('compte/mes_groupes/supprimer/', views.groups_delete, name='groups_delete'),
 
     # Bookings
-    path('compte/mes_reservations/', views.bookings_detail, name='bookings-detail'),
-    path('compte/mes_reservations/ajouter/', views.bookings_create, name='bookings-create'),
+    path('compte/mes_reservations/', views.bookings_detail, name='bookings_detail'),
+    path('compte/mes_reservations/ajouter/', views.bookings_create, name='bookings_create'),
 
-    # Forgot password
-    path('compte/mot-de-passe-oublie/',
-         auth_views.PasswordResetView.as_view(
-             template_name='forgot_password_form.html',
+    # Password Reset
+    path('compte/mot-de-passe/oublie/',
+         PasswordResetView.as_view(
+             template_name='password_reset/password_reset_forgot.html',
+             html_email_template_name='password_reset/password_reset_email.html',
              form_class=UserPasswordResetForm),
-         name='forgot_password-form'),
+         name='password_reset_forgot'),
     path('compte/mot-de-passe-oublie/envoi/',
-         auth_views.PasswordResetDoneView.as_view(
-             template_name='forgot_password_done.html'),
-         name='forgot_password-done'),
+         PasswordResetDoneView.as_view(
+             template_name='password_reset/password_reset_done.html'),
+         name='password_reset_done'),
     path('compte/mot-de-passe-oublie/modification/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(
-             template_name='forgot_password_confirm.html',
+         PasswordResetConfirmView.as_view(
+             template_name='password_reset/password_reset_confirm.html',
              form_class=UserPasswordSetForm),
-         name='forgot_password-confirm'),
+         name='password_reset_confirm'),
     path('compte/mot-de-passe-oublie/confirmation/',
-         auth_views.PasswordResetCompleteView.as_view(
-             template_name='forgot_password_complete.html'),
-         name='forgot_password-complete'),
+         PasswordResetCompleteView.as_view(
+             template_name='password_reset/password_reset_complete.html'),
+         name='password_reset_complete'),
 ]

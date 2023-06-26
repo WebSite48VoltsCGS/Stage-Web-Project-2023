@@ -8,12 +8,16 @@ from studios.forms import SignUpForm
 from studios.forms import SignInForm
 from studios.forms import UserPasswordResetForm
 
+"""
+WIP
+    - Placeholder
+"""
 def placeholder(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 
 """
-Main
+Navigation
     - Home
     - News
     - Studios
@@ -23,72 +27,46 @@ Main
     - Booking
 """
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'navigation/home.html')
 
 def news(request):
-    return render(request, 'news.html')
+    return render(request, 'navigation/news.html')
 
 def studios(request):
-    return render(request, 'studios.html')
+    return render(request, 'navigation/studios.html')
 
 def bar(request):
-    return render(request, 'bar.html')
+    return render(request, 'navigation/bar.html')
 
 def pro_area(request):
-    return render(request, 'pro_area.html')
+    return render(request, 'navigation/pro_area.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'navigation/contact.html')
 
 def booking(request):
-    return render(request, 'booking.html')
-
-
-
-
-
-
+    return render(request, 'navigation/booking.html')
 
 """
 Account
     - Sign in
     - Sign out
-    - Logout
+    - Log out
 """
 def account_sign_in(request):
-    return render(request, 'home.html')
-
-def account_sign_up(request):
-    return render(request, 'home.html')
-
-def account_log_out(request):
-    return render(request, 'home.html')
-
-def sign_in(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
         if form.is_valid():
-            # Authenticate the user
+            # Log in the user
             username = request.POST["username"]
             password = request.POST["password"]
-            user = authenticate(request, username=username, password=password)
+            account_log_in(request, username, password)
 
-            # Successful login
-            if user is not None:
-                login(request, user)
-                # Redirect to a success page.
-                return redirect('account')
-
-            # Invalid login errors
-            else:
-                # Return an 'invalid login' error message.
-                pass
-
-    # Return an empty form if GET request or login is invalid
+    # Return an empty form if GET request or form is invalid
     form = SignInForm()
-    return render(request, 'account_sign_in.html', {'form': form})
+    return render(request, 'account/account_sign_in.html', {'form': form})
 
-def sign_up(request):
+def account_sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -100,20 +78,31 @@ def sign_up(request):
             confirm_password = request.POST["confirm_password"]
 
             if password == confirm_password:
+                # Create a new user
                 user = User.objects.create_user(username, email, password)
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
 
-                # Authenticate
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect('account')
-                else:
-                    print("Error: Login to newly created account failed")
+                # Log in the user
+                account_log_in(request, username, password)
+
+    # Return an empty form if GET request or form is invalid
     form = SignUpForm()
-    return render(request, 'account_sign_up.html', {'form': form})
+    return render(request, 'account/account_sign_up.html', {'form': form})
+
+def account_log_in(request, username, password):
+    # Authenticate the user
+    user = authenticate(request, username, password)
+    if user is not None:
+        login(request, user)
+    else:
+        print("Error: A user is already logged in.")
+    return redirect('profile-detail')
+
+def account_log_out(request):
+    logout(request)
+    return redirect('account-sign_in')
 
 """
 Profile
@@ -137,13 +126,6 @@ def profile_email_update(request):
 
 def profile_password_update(request):
     return render(request, 'home.html')
-
-def account(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('sign_in')
-
-    return render(request, 'account-detail.html')
 
 """
 Groups
@@ -177,7 +159,7 @@ def bookings_create(request):
 
 """
 Password reset
-    - Form: password_reset_form.html
+    - Forgot: password_reset_forgot.html
     - Done: password_reset_done.html
     - Confirm: password_reset_confirm.html
     - Complete: password_reset_complete.html
