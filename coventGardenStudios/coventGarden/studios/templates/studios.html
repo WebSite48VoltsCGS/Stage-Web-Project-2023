@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="{% static 'studios/css/3D-view.css' %}" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap">
 
 {% endblock %}
 
@@ -25,6 +26,7 @@
 
 {% block content %}
 <!-- container -->
+
 <div class="container">
 	<ol class="breadcrumb">
 		<li><a href="{% url 'home' %}">Accueil</a></li>
@@ -40,26 +42,27 @@
 </div>
 
 <!-- container -->
+		<div class="stud">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="horaires">
 							<h2>Horaires :</h2><br>
-							<table>
+							<table class="table-center">
 								<tbody>
 									<tr>
 										<td>Lundi - Vendredi</td>
-										<td>16h00 </td>
+										<td>16h00 -  </td>
 										<td>00h00</td>
 									</tr>
 									<tr>
 										<td>Samedi *</td>
-										<td>10h00 </td>
+										<td>10h00 - </td>
 										<td>18h00</td>
 									</tr>
 									<tr>
 										<td>Dimanche</td>
-										<td>13h00 </td>
+										<td>13h00 - </td>
 										<td>21h00</td>
 									</tr>
 								</tbody>
@@ -70,7 +73,7 @@
 					</div>
 					<div class="col-sm-6">
 						<h2>Tarifs :</h2><br>
-						<table>
+						<table class="table-center">
 							<tbody>
 								<tr>
 									<td>1 heure</td>
@@ -89,7 +92,7 @@
 									<td>68€</td>
 								</tr>
 								<tr>
-									<td>heure supplémentaire</td>
+									<td>Heure supplémentaire</td>
 									<td>17€</td>
 								</tr>
 							</tbody>
@@ -97,9 +100,14 @@
 					</div>
 				</div>
 			</div>
-
+		
+		<div class="button">
+			<a class="btn btn-action btn-lg" href="{% url 'placeholder' %}" role="button">Réserver un studio</a>
+		</div>
+	</div>
 			<!-- Début des studios -->
 			<div class="container">	
+				<div class="stud">
 				<h3>Supernova</h3>
 				<br>
 				<div class="row">
@@ -120,7 +128,9 @@
 						</div>
 					</div>
 				</div>
+				</div>
 
+				<div class="stud">	
 				<h3>Octopuss</h3>
 				<div class="row">
 					<div class="col-sm-6">
@@ -142,7 +152,9 @@
 						</div>
 					</div>
 				</div>
+				</div>
 
+				<div class="stud">
 				<h3>Rainbow</h3>
 				<div class="row">
 					<div class="col-sm-6">
@@ -164,7 +176,9 @@
 						</div>
 					</div>
 				</div>
+				</div>
 
+				<div class="stud">
 				<h3>California</h3>
 				<div class="row">
 					<div class="col-sm-6">
@@ -185,6 +199,7 @@
 							<div id="panorama-california" class="panorama-california-container"></div>
 						</div>
 					</div>
+				</div>
 				</div>
 
 				<h3>Scène</h3>
@@ -209,7 +224,7 @@
 					</div>
 				</div>
 			</div>
-
+</div>
 
 	<script src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
 	<script>
@@ -251,7 +266,7 @@
 					window.addEventListener('DOMContentLoaded', function () {
 						var pannellumViewer = pannellum.viewer('panorama-rainbow', {
 							"type": "equirectangular",
-							"panorama": "https://st2.depositphotos.com/1002200/6221/i/450/depositphotos_62210735-stock-photo-360-degrees-panoramic-view-from.jpg",
+							"panorama": "../static/studios/images/test360.jpg",
 							"autoLoad": true,
 							"autoRotate": -2,
 							"title": "Studio RAINBOW",

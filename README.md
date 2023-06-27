@@ -153,6 +153,9 @@ Day 12 (76/06/23)
 - [08:45-09:15] Custom User - Started a new project
 - [09:15-09:55] Custom User - Migration of files from the old project to the new one
 - [09:55-10:25] Custom User - Added a test field to user
+- [09:55-10:35] Custom User - Fixed Password Reset (Urls)
+- [10:35-11:00] GitHub - Merged projects
+
 
 
 ## To do list
