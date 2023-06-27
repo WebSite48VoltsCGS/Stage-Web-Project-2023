@@ -154,8 +154,9 @@ Day 12 (76/06/23)
 - [09:15-09:55] Custom User - Migration of files from the old project to the new one
 - [09:55-10:25] Custom User - Added a test field to user
 - [09:55-10:35] Custom User - Fixed Password Reset (Urls)
-- [10:35-11:30] GitHub - Merged projects
-
+- [10:35-12:00] GitHub - Merged projects
+- [12:00-12:30] Lunch Break
+- [12:30-13:30] Overhauled fields - Updated forms, models - Added fields
 
 
 ## To do list

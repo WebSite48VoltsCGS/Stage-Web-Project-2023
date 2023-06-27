@@ -76,10 +76,15 @@ def account_sign_in(request):
             username = request.POST["username"]
             password = request.POST["password"]
             account_log_in(request, username, password)
+        else:
+            # Return an empty form if form is invalid
+            form = SignUpForm()
+            return render(request, 'account/account_sign_up.html', {'form': form})
 
-    # Return an empty form if GET request or form is invalid
-    form = SignInForm()
-    return render(request, 'account/account_sign_in.html', {'form': form})
+    # Return an empty form if GET request
+    else:
+        form = SignUpForm()
+        return render(request, 'account/account_sign_up.html', {'form': form})
 
 def account_sign_up(request):
     if request.method == 'POST':
@@ -101,10 +106,15 @@ def account_sign_up(request):
 
                 # Log in the user
                 account_log_in(request, username, password)
+            else:
+                # Return an empty form if form is invalid
+                form = SignUpForm()
+                return render(request, 'account/account_sign_up.html', {'form': form})
 
-    # Return an empty form if GET request or form is invalid
-    form = SignUpForm()
-    return render(request, 'account/account_sign_up.html', {'form': form})
+    # Return an empty form if GET request
+    else:
+        form = SignUpForm()
+        return render(request, 'account/account_sign_up.html', {'form': form})
 
 def account_log_in(request, username, password):
     # Authenticate the user
@@ -116,7 +126,11 @@ def account_log_in(request, username, password):
     return redirect('profile_detail')
 
 def account_log_out(request):
-    logout(request)
+    # Disconnect the user
+    if request.user:
+        logout(request)
+    else:
+        print("Error: User is already logged out.")
     return redirect('account_sign_in')
 
 """
