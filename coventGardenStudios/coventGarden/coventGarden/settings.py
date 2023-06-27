@@ -126,7 +126,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 """
 New
 """
+# Custom user
 AUTH_USER_MODEL = "studios.CustomUser"
 
+# Authentication
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+# Forgot password
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
