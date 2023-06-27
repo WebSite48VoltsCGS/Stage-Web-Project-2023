@@ -1,13 +1,13 @@
 from django.urls import path
+from studios import views
+from .forms import UserPasswordResetForm, UserPasswordSetForm
+
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
     PasswordResetConfirmView,
     PasswordResetCompleteView
 )
-
-from studios import views
-from .forms import UserPasswordResetForm, UserPasswordSetForm
 
 urlpatterns = [
     path("signup/", views.SignUpView.as_view(), name="signup"),
