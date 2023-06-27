@@ -1,15 +1,27 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Global variables
-LENGTH_NAME = 150
-LENGTH_PASSWORD = 150
-LENGTH_EMAIL = 320
+from .fields import *
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    # Add additional fields in here
-    test_field = models.CharField(max_length=LENGTH_NAME, default="Test")
+    """
+    Default
+        username
+        first_name
+        last_name
+        email
+        password
+    """
+
+    """
+    WIP
+    phone
+    my_groups
+    my_bookings
+    
+    """
+
+    test_field = MODELS_TEST
 
     def __str__(self):
         return self.username

@@ -154,7 +154,7 @@ Day 12 (76/06/23)
 - [09:15-09:55] Custom User - Migration of files from the old project to the new one
 - [09:55-10:25] Custom User - Added a test field to user
 - [09:55-10:35] Custom User - Fixed Password Reset (Urls)
-- [10:35-11:00] GitHub - Merged projects
+- [10:35-11:30] GitHub - Merged projects
 
 
 
@@ -194,10 +194,10 @@ Day 12 (76/06/23)
 - [Dropped] Custom user
     - https://testdriven.io/blog/django-custom-user-model/
     - https://testdriven.io/blog/django-custom-user-model-migration/
-- [In progress] Model One-to-one
+- [Dropped] Model One-to-one
     - https://docs.djangoproject.com/en/4.2/topics/db/examples/one_to_one/
     - https://learndjango.com/tutorials/django-best-practices-referencing-user-model
-- [Later] Custom user
+- [Completed] Custom user
     - https://learndjango.com/tutorials/django-custom-user-model
 
 
