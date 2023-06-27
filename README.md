@@ -147,6 +147,11 @@ Day 11 (26/06/23)
 - [12:45-15:15] Overhauled urls and views - Fixed Password Reset
 - [15:15-15:25] Overhauled urls and views - Fixed URLS
 - [15:25-16:00] Overhauled urls and views - Added placeholders
+- [16:00-16:45] Custom User - Deleted the old project
+
+Day 12 (76/06/23)
+- [08:45-09:15] Custom User - Started a new project
+
 
 ## To do list
 - [Completed] OpenClassrooms
