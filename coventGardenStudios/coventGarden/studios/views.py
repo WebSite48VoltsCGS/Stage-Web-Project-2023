@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import CustomUserCreationForm
-from .forms import SignInForm, SignUpForm, TestForm
+from .forms import SignInForm, SignUpForm, UserUpdateForm, ConfirmPasswordForm, TestForm
 
 User = get_user_model()
 
@@ -76,15 +76,16 @@ def account_sign_in(request):
             username = request.POST["username"]
             password = request.POST["password"]
             account_log_in(request, username, password)
+            return redirect('profile_detail')
         else:
             # Return an empty form if form is invalid
-            form = SignUpForm()
-            return render(request, 'account/account_sign_up.html', {'form': form})
+            form = SignInForm()
+            return render(request, 'account/account_sign_in.html', {'form': form})
 
     # Return an empty form if GET request
     else:
-        form = SignUpForm()
-        return render(request, 'account/account_sign_up.html', {'form': form})
+        form = SignInForm()
+        return render(request, 'account/account_sign_in.html', {'form': form})
 
 def account_sign_up(request):
     if request.method == 'POST':
@@ -106,6 +107,7 @@ def account_sign_up(request):
 
                 # Log in the user
                 account_log_in(request, username, password)
+                return redirect('profile_detail')
             else:
                 # Return an empty form if form is invalid
                 form = SignUpForm()
@@ -123,7 +125,6 @@ def account_log_in(request, username, password):
         login(request, user)
     else:
         print("Error: A user is already logged in.")
-    return redirect('profile_detail')
 
 def account_log_out(request):
     # Disconnect the user
@@ -145,7 +146,35 @@ def profile_detail(request):
     return render(request, 'profile/profile_detail.html')
 
 def profile_update(request):
-    return render(request, 'profile/profile_update.html')
+    def new_user_form():
+        current_user = request.user
+        new_form = UserUpdateForm(initial={
+            "username": current_user.username,
+            "email": current_user.email,
+            "last_name": current_user.last_name,
+            "first_name": current_user.first_name
+        })
+        return new_form
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST)
+        confirm_form = ConfirmPasswordForm(request.POST)
+        if form.is_valid() and confirm_form.is_valid():
+            if request.POST["current_password"] == request.POST["confirm_password"]:
+                user = request.user
+                user.username = request.POST["username"]
+                user.email = request.POST["email"]
+                user.last_name = request.POST["last_name"]
+                user.first_name = request.POST["first_name"]
+                user.save()
+                return redirect('profile_detail')
+            else:
+                print("Error: Password and confirmation password do not match")
+
+    # Return an empty form if GET request or invalid form
+    form = new_user_form()
+    confirm_form = ConfirmPasswordForm()
+    return render(request, 'profile/profile_update.html', {'form': form, 'confirm_form': confirm_form})
 
 def profile_username_update(request):
     """

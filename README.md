@@ -157,7 +157,9 @@ Day 12 (76/06/23)
 - [10:35-12:00] GitHub - Merged projects
 - [12:00-12:30] Lunch Break
 - [12:30-13:30] Overhauled fields - Updated forms, models - Added fields
-
+- [13:30-14:00] Updated urls - Fixed authentication system (Redirection)
+- [14:00-14:45] Looked how to add dynamically buttons on Django with Javascript
+- [14:45-16:30] Created the profile update page
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -200,7 +202,8 @@ Day 12 (76/06/23)
     - https://learndjango.com/tutorials/django-best-practices-referencing-user-model
 - [Completed] Custom user
     - https://learndjango.com/tutorials/django-custom-user-model
-
+- [Dropped] Formset
+    - https://www.brennantymrak.com/articles/django-dynamic-formsets-javascript
 
 ## Readme
 

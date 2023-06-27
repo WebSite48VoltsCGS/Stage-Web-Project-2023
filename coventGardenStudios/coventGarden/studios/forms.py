@@ -29,7 +29,17 @@ class SignUpForm(forms.Form):
     last_name = FORM_LAST_NAME
     first_name = FORM_FIRST_NAME
     password = FORM_PASSWORD
-    confirm_password = FORM_CONFIRM
+    confirm_password = FORM_PASSWORD_CONFIRM
+
+class UserUpdateForm(forms.Form):
+    username = FORM_USERNAME
+    email = FORM_EMAIL
+    last_name = FORM_LAST_NAME
+    first_name = FORM_FIRST_NAME
+
+class ConfirmPasswordForm(forms.Form):
+    current_password = FORM_PASSWORD_CURRENT
+    confirm_password = FORM_PASSWORD_CONFIRM
 
 class UserPasswordResetForm(PasswordResetForm):
     # Replaced PasswordResetForm fields with custom fields (See docs)
@@ -38,7 +48,7 @@ class UserPasswordResetForm(PasswordResetForm):
 class UserPasswordSetForm(SetPasswordForm):
     # Replaced SetPasswordForm fields with custom fields (See docs)
     new_password1 = FORM_PASSWORD
-    new_password2 = FORM_CONFIRM
+    new_password2 = FORM_PASSWORD_CONFIRM
 
 class TestForm(forms.Form):
     test = FORM_GROUP_NAME
