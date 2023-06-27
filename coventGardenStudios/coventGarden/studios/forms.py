@@ -14,6 +14,7 @@ LENGTH_EMAIL = 320
 FIELD_USERNAME = forms.CharField(max_length=LENGTH_NAME, label="Nom d'utilisateur")
 FIELD_FIRST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Prénom")
 FIELD_LAST_NAME = forms.CharField(max_length=LENGTH_NAME, label="Nom")
+FIELD_GROUP_NAME = forms.CharField(max_length=LENGTH_NAME, label="Nom de groupe")
 
 FIELD_EMAIL = forms.EmailField(max_length=LENGTH_EMAIL, label="Adresse e-mail")
 
@@ -79,5 +80,14 @@ class UserPasswordSetForm(SetPasswordForm):
     # Class = 'form-control'
     def __init__(self, *args, **kwargs):
         super(UserPasswordSetForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+class TestForm(forms.Form):
+    test = FIELD_GROUP_NAME
+
+    # Class = 'form-control'
+    def __init__(self, *args, **kwargs):
+        super(TestForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'

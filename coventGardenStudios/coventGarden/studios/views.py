@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import CustomUserCreationForm
-from .forms import SignInForm, SignUpForm
+from .forms import SignInForm, SignUpForm, TestForm
 
 User = get_user_model()
 
@@ -134,7 +134,23 @@ def profile_update(request):
     return render(request, 'profile/profile_update.html')
 
 def profile_username_update(request):
-    return render(request, 'profile/profile_username_update.html')
+    """
+    WIP
+        Testing user fields
+    """
+    if request.method == 'POST':
+        form = TestForm(request.POST)
+        if form.is_valid():
+            test = request.POST["test"]
+            user = request.user
+            user.test_field = test
+            user.save()
+            print("Test successful")
+            return redirect('profile_detail')
+
+    # Return an empty form if GET request or form is invalid
+    form = TestForm()
+    return render(request, 'profile/profile_username_update.html', {'form': form})
 
 def profile_email_update(request):
     return render(request, 'profile/profile_email_update.html')

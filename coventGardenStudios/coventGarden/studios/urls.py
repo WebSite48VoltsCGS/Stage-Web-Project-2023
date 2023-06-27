@@ -31,7 +31,7 @@ urlpatterns = [
     # Profile
     path('compte/mon_profil/', views.profile_detail, name='profile_detail'),
     path('compte/mon_profil/modifier/', views.profile_update, name='profile_update'),
-    path('compte/mon_profil/modifier/nom_utilisateur', views.profile_username_update, name='profile_username_update'),
+    path('compte/mon_profil/modifier/utilisateur', views.profile_username_update, name='profile_username_update'),
     path('compte/mon_profil/modifier/email', views.profile_email_update, name='profile_email_update'),
     path('compte/mon_profil/modifier/mot_de_passe', views.profile_password_update, name='profile_password_update'),
 
