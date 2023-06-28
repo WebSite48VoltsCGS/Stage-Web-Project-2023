@@ -1,10 +1,14 @@
 from django import forms
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Global variables
-LENGTH_NAME = 150
-LENGTH_PASSWORD = 150
-LENGTH_EMAIL = 320
+LENGTH_NAME = 255       # Char field maximum length is 255
+LENGTH_PASSWORD = 255   # Password maximum length value is 4096
+LENGTH_EMAIL = 320      # Email maximum length value
+LENGTH_PHONE = 10       # Phone number default length value
+LENGTH_URL = 200        # URL default length value
+LENGTH_TEXT = 5000
 
 # Labels
 LABEL_USERNAME = "Nom d'utilisateur"
@@ -33,3 +37,15 @@ FORM_PASSWORD_CONFIRM = forms.CharField(max_length=LENGTH_PASSWORD, label=LABEL_
 
 # Models
 MODELS_TEST = models.CharField(max_length=LENGTH_NAME, default="Test")
+MODEL_USER_PHONE = models.CharField(max_length=LENGTH_PHONE, blank=True)
+
+# CustomGroup Model
+MODEL_NAME = models.CharField(max_length=LENGTH_NAME)
+MODEL_EMAIL = models.CharField(max_length=LENGTH_EMAIL)
+MODEL_GROUP_PHONE = models.IntegerField(max_length=LENGTH_PHONE)
+MODEL_MEMBERS = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(20)])
+MODEL_GENRE = models.CharField(max_length=LENGTH_NAME)
+MODEL_FACEBOOK = models.URLField(max_length=LENGTH_URL, blank=True)
+MODEL_INSTAGRAM = models.URLField(max_length=LENGTH_URL, blank=True)
+MODEL_TWITTER = models.URLField(max_length=LENGTH_URL, blank=True)
+MODEL_BIOGRAPHY = models.TextField(max_length=LENGTH_TEXT)

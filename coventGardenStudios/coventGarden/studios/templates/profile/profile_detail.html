@@ -41,6 +41,7 @@
 					Nom: {{ user.last_name }}<br>
 					Prénom: {{ user.first_name }}<br>
 					E-mail: {{ user.email }}<br>
+					Téléphone: {{ user.phone }}<br>
 					Test Field: {{ user.test_field }}<br>
 				</div>
 			</div>
@@ -53,7 +54,7 @@
 				</form>
 			</div>
 			<div class="col-lg-6 text-right">
-				<form action="" method="post">
+				<form action="{% url 'account_log_out' %}" method="post">
 					{% csrf_token %}
 					<button class="btn btn-action" type="submit">Déconnexion</button>
 				</form>

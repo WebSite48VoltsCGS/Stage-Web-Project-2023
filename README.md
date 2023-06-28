@@ -149,7 +149,7 @@ Day 11 (26/06/23)
 - [15:25-16:00] Overhauled urls and views - Added placeholders
 - [16:00-16:45] Custom User - Deleted the old project
 
-Day 12 (76/06/23)
+Day 12 (27/06/23)
 - [08:45-09:15] Custom User - Started a new project
 - [09:15-09:55] Custom User - Migration of files from the old project to the new one
 - [09:55-10:25] Custom User - Added a test field to user
@@ -160,6 +160,10 @@ Day 12 (76/06/23)
 - [13:30-14:00] Updated urls - Fixed authentication system (Redirection)
 - [14:00-14:45] Looked how to add dynamically buttons on Django with Javascript
 - [14:45-16:30] Created the profile update page
+
+Day 13 (28/06/23)
+- [08:45-10:15] Custom Group - Created the groups creation page - Updated the groups detail page
+
 
 ## To do list
 - [Completed] OpenClassrooms

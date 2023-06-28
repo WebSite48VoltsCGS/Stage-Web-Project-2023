@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm, PasswordResetForm, SetPasswordForm)
-from .models import CustomUser
+from .models import CustomUser, CustomGroup
 from .fields import *
 
 # Register your forms here
@@ -19,6 +19,10 @@ class CustomUserChangeForm(UserChangeForm):
 """
 Main
 """
+class ConfirmPasswordForm(forms.Form):
+    current_password = FORM_PASSWORD_CURRENT
+    confirm_password = FORM_PASSWORD_CONFIRM
+
 class SignInForm(forms.Form):
     username = FORM_USERNAME
     password = FORM_PASSWORD
@@ -37,10 +41,6 @@ class UserUpdateForm(forms.Form):
     last_name = FORM_LAST_NAME
     first_name = FORM_FIRST_NAME
 
-class ConfirmPasswordForm(forms.Form):
-    current_password = FORM_PASSWORD_CURRENT
-    confirm_password = FORM_PASSWORD_CONFIRM
-
 class UserPasswordResetForm(PasswordResetForm):
     # Replaced PasswordResetForm fields with custom fields (See docs)
     email = FORM_EMAIL
@@ -49,6 +49,17 @@ class UserPasswordSetForm(SetPasswordForm):
     # Replaced SetPasswordForm fields with custom fields (See docs)
     new_password1 = FORM_PASSWORD
     new_password2 = FORM_PASSWORD_CONFIRM
+
+class GroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = CustomGroup
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 class TestForm(forms.Form):
     test = FORM_GROUP_NAME
