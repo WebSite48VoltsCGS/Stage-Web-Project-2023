@@ -5,11 +5,12 @@ from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
-from .forms import CustomUserCreationForm
+from .models import CustomGroup
 from .forms import (
     SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
-    GroupCreateForm, TestForm
+    CustomUserCreationForm, GroupCreateForm,
+    TestForm
 )
 
 User = get_user_model()
@@ -188,7 +189,12 @@ Groups
     - Delete
 """
 def groups_detail(request):
-    return render(request, 'groups/groups_detail.html')
+    all_groups = CustomGroup.objects.all()
+    my_groups = []
+    for group in all_groups:
+        if group.user == request.user:
+            my_groups.append(group)
+    return render(request, 'groups/groups_detail.html', {'my_groups': my_groups})
 
 def groups_create(request):
     def empty_form():
@@ -213,11 +219,24 @@ def groups_create(request):
     form = empty_form()
     return render(request, 'groups/groups_create.html', {'form': form})
 
-def groups_update(request):
-    return render(request, 'groups/groups.html')
+def groups_update(request, group_id):
+    group = CustomGroup.objects.get(id=group_id)
+    if request.method == 'POST':
+        form = GroupCreateForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('groups_detail')
+    form = GroupCreateForm(instance=group)
+    return render(request, 'groups/groups_update.html', {'form': form})
 
-def groups_delete(request):
-    return render(request, 'groups/groups_delete.html')
+def groups_delete(request, group_id):
+    group = CustomGroup.objects.get(id=group_id)
+
+    if request.method == 'POST':
+        group.delete()
+        return redirect('groups_detail')
+
+    return render(request, 'groups/groups_delete.html', {'group': group})
 
 """
 Bookings

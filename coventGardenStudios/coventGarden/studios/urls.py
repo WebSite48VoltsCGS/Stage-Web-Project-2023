@@ -35,8 +35,8 @@ urlpatterns = [
     # Groups
     path('compte/mes_groupes/', views.groups_detail, name='groups_detail'),
     path('compte/mes_groupes/ajouter/', views.groups_create, name='groups_create'),
-    path('compte/mes_groupes/modifier/', views.groups_update, name='groups_update'),
-    path('compte/mes_groupes/supprimer/', views.groups_delete, name='groups_delete'),
+    path('compte/mes_groupes/modifier/<int:group_id>/', views.groups_update, name='groups_update'),
+    path('compte/mes_groupes/supprimer//<int:group_id>/', views.groups_delete, name='groups_delete'),
 
     # Bookings
     path('compte/mes_reservations/', views.bookings_detail, name='bookings_detail'),

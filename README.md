@@ -164,7 +164,9 @@ Day 12 (27/06/23)
 Day 13 (28/06/23)
 - [08:45-10:15] Custom Group - Created the groups creation page - Updated the groups detail page
 - [10:15-11:00] GitHub - Pushed to development - Oversaw the planning integration
-- [11:00-12:30] Custom group - Add a ForeignKey field linking the group to the current user
+- [11:00-12:30] Custom group - Added a ForeignKey field linking the group to the current user
+- [12:30-13:15] Lunch Break
+- [13:15-14:45] Custom group - Added a group update and delete pages
 
 ## To do list
 - [Completed] OpenClassrooms
