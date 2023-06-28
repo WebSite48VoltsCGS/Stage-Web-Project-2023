@@ -9,7 +9,8 @@ from .forms import CustomUserCreationForm
 from .forms import (
     SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
-    GroupCreateForm, TestForm)
+    GroupCreateForm, TestForm
+)
 
 User = get_user_model()
 
@@ -201,7 +202,11 @@ def groups_create(request):
     if request.method == 'POST':
         form = GroupCreateForm(request.POST)
         if form.is_valid():
-            form.save()
+            # ForeignKey
+            group = form.save(commit=False)
+            group.user = request.user
+            group.save()
+
             return redirect('groups_detail')
 
     # Return an empty form if GET request or invalid form

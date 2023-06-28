@@ -28,6 +28,10 @@ class CustomUser(AbstractUser):
         return self.username
 
 class CustomGroup(models.Model):
+    user = models.ForeignKey(
+        to=CustomUser,
+        on_delete=models.CASCADE,
+    )
     name = MODEL_NAME
     email = MODEL_EMAIL
     phone = MODEL_GROUP_PHONE
@@ -40,6 +44,7 @@ class CustomGroup(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
 """
     - Group name
     - E-mail

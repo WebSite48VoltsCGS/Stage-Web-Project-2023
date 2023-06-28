@@ -163,7 +163,8 @@ Day 12 (27/06/23)
 
 Day 13 (28/06/23)
 - [08:45-10:15] Custom Group - Created the groups creation page - Updated the groups detail page
-
+- [10:15-11:00] GitHub - Pushed to development - Oversaw the planning integration
+- [11:00-12:30] Custom group - Add a ForeignKey field linking the group to the current user
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -208,6 +209,12 @@ Day 13 (28/06/23)
     - https://learndjango.com/tutorials/django-custom-user-model
 - [Dropped] Formset
     - https://www.brennantymrak.com/articles/django-dynamic-formsets-javascript
+- [Completed] Modify form values after initialization
+    - https://docs.djangoproject.com/en/4.0/topics/forms/modelforms/#the-save-method
+    - https://stackoverflow.com/questions/22210046/django-form-what-is-the-best-way-to-modify-posted-data-before-validating
+    - https://stackoverflow.com/questions/66933597/link-the-current-user-to-a-field-in-modelform-django
+- [Completed] Create a form with all fields from model but one
+    - https://stackoverflow.com/questions/17918184/editing-the-model-object-with-update-view-django-by-excluding-fields
 
 ## Readme
 

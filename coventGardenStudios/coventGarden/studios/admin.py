@@ -12,9 +12,10 @@ class CustomUserAdmin(UserAdmin):
     list_display = ["email", "username"]
 
 class CustomGroupAdmin(admin.ModelAdmin):
-    list_display = ["name", "email",
+    list_display = ["user",
+                    "name", "email",
                     "phone", "members", "genre",
                     "facebook", "instagram", "biography"]
 
-admin.site.register(CustomGroup, CustomGroupAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(CustomGroup, CustomGroupAdmin)

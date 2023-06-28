@@ -51,9 +51,11 @@ class UserPasswordSetForm(SetPasswordForm):
     new_password2 = FORM_PASSWORD_CONFIRM
 
 class GroupCreateForm(forms.ModelForm):
+    # User will be added manually in views.py
     class Meta:
         model = CustomGroup
         fields = '__all__'
+        exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
