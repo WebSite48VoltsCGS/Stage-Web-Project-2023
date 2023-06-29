@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 from .fields import *
 
@@ -46,15 +47,10 @@ class CustomGroup(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-"""
-    - Group name
-    - E-mail
-    - Phone
-    - Members
-    - Musical style
-    - Facebook
-    - Instagram
-    - Twitter
-    - Biography
-    - Approval
-"""
+class Event(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=200, default='Untitled Event')
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(default=timezone.now)
+    description = models.TextField(blank=True)
+    recurrence = models.CharField(max_length=200, blank=True)

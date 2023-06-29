@@ -173,6 +173,7 @@ Day 14 (29/06/23)
 - [08:45-12:00] Code Reviewing - Updated, Fixed, Cleaned Code & HTML - Updated Sign Up page - Updated ForeignKey (Related name) - Fixed invalid form redirection - Updated Base template
 - [12:00-12:45] Lunch Break
 - [12:45-14:35] Custom Group - Added a groups update page - Cleaned Code & HTML - Updated title, breadcrumb, text
+- [14:35-15:25] Merged projects - Added Planning, Calendar, Concert
 
 ## To do list
 - [Completed] OpenClassrooms

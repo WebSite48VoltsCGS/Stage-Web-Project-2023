@@ -13,10 +13,11 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('actualites/', views.news, name='news'),
     path('studios/', views.studios, name='studios'),
+    path('concert/', views.concert, name='concert'),
     path('bar/', views.bar, name='bar'),
     path('espace_pro/', views.pro_area, name='pro_area'),
-    path('contact/', views.contact, name='contact'),
     path('reservation/', views.booking, name='booking'),
+    path('contact/', views.contact, name='contact'),
 
     # Account
     path('compte/connexion/', views.account_sign_in, name='account_sign_in'),
@@ -36,6 +37,13 @@ urlpatterns = [
     # Bookings
     path('compte/mes_reservations/', views.bookings_detail, name='bookings_detail'),
     path('compte/mes_reservations/ajouter/', views.bookings_create, name='bookings_create'),
+
+    # Planning
+    path('all_events/', views.all_events, name='all_events'),
+    path('add_event/', views.add_event, name='add_event'),
+    path('update/', views.update, name='update'),
+    path('remove/', views.remove, name='remove'),
+    path('calendar/', views.calendar_view, name='calendar'),
 
     # Password Reset
     path('compte/mot-de-passe/oublie/',

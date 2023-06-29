@@ -32,7 +32,7 @@
 </head>
 
 <body class="home">
-	
+
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
@@ -54,7 +54,7 @@
 					<li><a href="{% url 'home' %}">Accueil</a></li>
 					<li><a href="{% url 'news' %}">Actualités</a></li>
 					<li><a href="{% url 'studios' %}">Studios</a></li>
-					<li><a href="{% url 'placeholder' %}">Concert</a></li>
+					<li><a href="{% url 'concert' %}">Concert</a></li>
 					<li><a href="{% url 'bar' %}">Bar</a></li>
 					<li><a href="{% url 'booking' %}">Réservation</a></li>
 					<li><a href="{% url 'contact' %}">Contact</a></li>
@@ -158,9 +158,10 @@
 								<a href="{% url 'home' %}">Accueil</a> /
 								<a href="{% url 'news' %}">Actualités</a> /
 								<a href="{% url 'studios' %}">Studios</a> /
+								<a href="{% url 'concert' %}">Concert</a> /
 								<a href="{% url 'bar' %}">Bar</a> /
+								<a href="{% url 'booking' %}">Réservation</a> /
 								<a href="{% url 'contact' %}">Contact</a> /
-								<a href="{% url 'booking' %}">Réservation</a>
 							</p>
 						</div>
 					</div>
@@ -185,6 +186,9 @@
 	<script src="{% static 'studios/js/headroom.min.js' %}"></script>
 	<script src="{% static 'studios/js/jQuery.headroom.min.js' %}"></script>
 	<script src="{% static 'studios/js/template.js' %}"></script>
+
+	<!-- Custom JavaSript for our template -->
+	{% block scripts %}{% endblock %}
 </body>
 
 </html>

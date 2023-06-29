@@ -1,10 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.http import JsonResponse
 
+from .models import CustomGroup, Event
 from .forms import (
     SignInForm, SignUpForm, GroupCreateForm,
-    UserUpdateForm, ConfirmPasswordForm)
-from .models import CustomGroup
+    UserUpdateForm, ConfirmPasswordForm,
+    EventForm)
+
+from datetime import timedelta
 
 User = get_user_model()
 
@@ -35,6 +39,9 @@ def news(request):
 
 def studios(request):
     return render(request, 'studios.html')
+
+def concert(request):
+    return render(request, 'concert.html')
 
 def bar(request):
     return render(request, 'bar.html')
@@ -246,6 +253,93 @@ def bookings_detail(request):
 
 def bookings_create(request):
     return render(request, 'bookings/bookings_create.html')
+
+
+"""
+Planning
+"""
+def generate_occurrences(event):
+    occurrences = [event.start_time]
+
+    if event.recurrence == 'daily':
+        current_time = event.start_time
+        while current_time < event.end_time:
+            current_time += timedelta(days=1)
+            occurrences.append(current_time)
+
+    return occurrences
+
+
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('calendar')
+    else:
+        form = EventForm()
+    return render(request, 'create_event.html', {'form': form})
+
+
+def index(request):
+    all_events = Event.objects.all()
+
+    events = []
+    for event in all_events:
+        occurrences = generate_occurrences(event)
+        for occurrence in occurrences:
+            events.append({
+                'title': event.title,
+                'id': event.id,
+                'start': occurrence.strftime("%Y-%m-%d %H:%M:%S"),
+                'end': occurrence.strftime("%Y-%m-%d %H:%M:%S"),
+            })
+
+    context = {
+        "events": events,
+    }
+    return render(request, 'index.html', context)
+
+
+def all_events(request):
+    events = Event.objects.all()
+    out = []
+    for event in events:
+        out.append({
+            'title': event.title,
+            'id': event.id,
+            'start': event.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+            'end': event.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+        })
+    return JsonResponse(out, safe=False)
+
+
+def update(request):
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+    event = Event.objects.get(id=id)
+    event.start_time = start
+    event.end_time = end
+    event.title = title
+    event.save()
+    data = {}
+    return JsonResponse(data)
+
+
+def remove(request):
+    id = request.GET.get("id", None)
+    event = Event.objects.get(id=id)
+    event.delete()
+    data = {}
+    return JsonResponse(data)
+
+
+def calendar_view(request):
+    events = Event.objects.all()
+    context = {'events': events}
+    return render(request, 'calendar.html', context)
 
 
 """
