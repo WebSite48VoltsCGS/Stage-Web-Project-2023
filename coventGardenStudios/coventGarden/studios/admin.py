@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, CustomGroup, Event
+from .models import CustomUser, CustomGroup, Event, TechnicalSheet
 
 # Register your models here.
 class CustomUserAdmin(UserAdmin):
@@ -19,7 +19,10 @@ class CustomGroupAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ["user", "title", "start_time", "end_time", "description"]
 
+class TechnicalSheetAdmin(admin.ModelAdmin):
+    list_display = ["user", "pdf_file"]
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(CustomGroup, CustomGroupAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(TechnicalSheet, TechnicalSheetAdmin)

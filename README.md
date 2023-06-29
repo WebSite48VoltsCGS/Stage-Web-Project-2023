@@ -174,6 +174,7 @@ Day 14 (29/06/23)
 - [12:00-12:45] Lunch Break
 - [12:45-14:35] Custom Group - Added a groups update page - Cleaned Code & HTML - Updated title, breadcrumb, text
 - [14:35-15:25] Merged projects - Added Planning, Calendar, Concert
+- [15:25-16:30] Merged projects - Added File Storage - Updated News, Pro Area
 
 ## To do list
 - [Completed] OpenClassrooms

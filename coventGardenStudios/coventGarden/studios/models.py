@@ -13,15 +13,6 @@ class CustomUser(AbstractUser):
         email
         password
     """
-
-    """
-    WIP
-    phone
-    my_groups
-    my_bookings
-    
-    """
-
     test_field = MODELS_TEST
     phone = MODEL_USER_PHONE
 
@@ -54,3 +45,7 @@ class Event(models.Model):
     end_time = models.DateTimeField(default=timezone.now)
     description = models.TextField(blank=True)
     recurrence = models.CharField(max_length=200, blank=True)
+
+class TechnicalSheet(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    pdf_file = models.FileField(upload_to='media/public', null=True)

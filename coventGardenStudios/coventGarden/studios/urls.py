@@ -2,9 +2,12 @@ from django.urls import path
 from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 )
+from django.conf.urls.static import static
 
+from coventGarden import settings
 from studios import views
 from .forms import UserPasswordResetForm, UserPasswordSetForm
+
 
 urlpatterns = [
     path('', views.placeholder, name='placeholder'),
@@ -65,4 +68,4 @@ urlpatterns = [
          PasswordResetCompleteView.as_view(
              template_name='password_reset/password_reset_complete.html'),
          name='password_reset_complete'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

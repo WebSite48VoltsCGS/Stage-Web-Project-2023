@@ -1,14 +1,16 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from datetime import timedelta
 
-from .models import CustomGroup, Event
+from .models import CustomGroup, Event, TechnicalSheet
 from .forms import (
     SignInForm, SignUpForm, GroupCreateForm,
     UserUpdateForm, ConfirmPasswordForm,
-    EventForm)
+    EventForm, TechnicalSheetForm)
 
-from datetime import timedelta
 
 User = get_user_model()
 
@@ -46,8 +48,25 @@ def concert(request):
 def bar(request):
     return render(request, 'bar.html')
 
+@csrf_exempt
+@login_required
 def pro_area(request):
-    return render(request, 'pro_area.html')
+    if request.method == 'POST':
+        technical_sheet = TechnicalSheet.objects.all().filter(user=request.user).first()
+        if not technical_sheet:
+            technical_sheet = TechnicalSheet()
+
+        form = TechnicalSheetForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Process
+            deposited_file = form.cleaned_data['pdf_file']
+            technical_sheet.pdf_file = deposited_file
+            technical_sheet.user = request.user
+            technical_sheet.save()
+            return render(request, 'pro_area.html', {'form': form})
+
+    form = TechnicalSheetForm()
+    return render(request, 'pro_area.html', {'form': form})
 
 def contact(request):
     return render(request, 'contact.html')

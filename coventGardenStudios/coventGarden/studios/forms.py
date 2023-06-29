@@ -87,5 +87,12 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = ['title', 'start_time', 'end_time', 'recurrence']
 
+"""
+Concert
+    - Technical sheet
+"""
+class TechnicalSheetForm(forms.Form):
+    pdf_file = forms.FileField(label='Déposer la Fiche Technique')
+
 class TestForm(forms.Form):
     test = FORM_GROUP_NAME
