@@ -170,9 +170,9 @@ Day 13 (28/06/23)
 - [14:45-16:30] Code Reviewing - Cleaned Code & HTML - Updated sign up page - Updated ForeignKey related name
 
 Day 14 (29/06/23)
-- [08:45-12:00] Code Reviewing - Cleaned Code & HTML - Updated Sign Up page - Updated ForeignKey (Related name) - Fixed invalid form redirection - Updated Base template
-
-- [xx:xx-xx:xx] Custom Group - Added a groups update page
+- [08:45-12:00] Code Reviewing - Updated, Fixed, Cleaned Code & HTML - Updated Sign Up page - Updated ForeignKey (Related name) - Fixed invalid form redirection - Updated Base template
+- [12:00-12:45] Lunch Break
+- [12:45-14:35] Custom Group - Added a groups update page - Cleaned Code & HTML - Updated title, breadcrumb, text
 
 ## To do list
 - [Completed] OpenClassrooms

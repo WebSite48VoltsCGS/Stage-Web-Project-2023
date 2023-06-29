@@ -2,7 +2,7 @@
 
 {% block title %}
 
-<title>Identification</title>
+<title>Se connecter à son compte</title>
 
 {% endblock %}
 
@@ -27,7 +27,8 @@
 	<!-- Breadcrumb -->
 	<ol class="breadcrumb">
 		<li><a href="{% url 'home' %}">Accueil</a></li>
-		<li class="active">Identification</li>
+		<li>Compte</li>
+		<li class="active">Connexion</li>
 	</ol> <!-- /Breadcrumb -->
 
 	<div class="row">
@@ -37,7 +38,7 @@
 
 			<!-- Header -->
 			<header class="page-header">
-				<h1 class="page-title">Accéder à son compte</h1>
+				<h1 class="page-title">Se connecter à son compte</h1>
 			</header> <!-- /Header -->
 
 			<!-- Form -->
@@ -47,7 +48,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<!-- Title / Text -->
-							<h3 class="thin text-center">Se connecter à son compte</h3>
+							<h3 class="thin text-center">Mon compte</h3>
 							<p class="text-center text-muted">Vous n'avez pas encore de compte? <a href="{% url 'account_sign_up' %}">Inscrivez-vous</a></p>
 
 							<hr>

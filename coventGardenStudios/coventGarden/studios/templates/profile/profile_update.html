@@ -2,7 +2,7 @@
 
 {% block title %}
 
-<title>Placeholder</title>
+<title>Modifier mon profil</title>
 
 {% endblock %}
 
@@ -27,8 +27,8 @@
 	<!-- Breadcrumb -->
 	<ol class="breadcrumb">
 		<li><a href="{% url 'home' %}">Accueil</a></li>
-		<li><a href="{% url 'profile_detail' %}">Profil</a></li>
-		<li class="active"><a href="{% url 'profile_update' %}">Modifier mon profil</a></li>
+		<li><a href="{% url 'profile_detail' %}">Compte</a></li>
+		<li class="active"><a href="{% url 'profile_update' %}">Modifier</a></li>
 	</ol> <!-- /Breadcrumb -->
 
 	<div class="row">
@@ -38,7 +38,7 @@
 
 			<!-- Header -->
 			<header class="page-header">
-				<h1 class="page-title">Profil</h1>
+				<h1 class="page-title">Modifier mon profil</h1>
 			</header> <!-- /Header -->
 
 			<!-- Form -->
@@ -48,9 +48,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<!-- Title / Text -->
-							<h3 class="thin text-center">Modifier son profil</h3>
-							<p class="text-center text-muted">Voulez-vous revenir à votre profil? <a href="{% url 'profile_detail' %}">Cliquez ici.</a></p>
-	
+							<h3 class="thin text-center">Changer ses informations</h3>
+							<p class="text-center text-muted">Vous voulez revenir à votre profil? <a href="{% url 'profile_detail' %}">Cliquez ici</a></p>
+
 							<hr>
 
 							<!-- Include form(s) here -->
@@ -58,6 +58,8 @@
 
 							<hr>
 
+							<h3 class="thin text-center">Vérification</h3>
+							<p class="text-center text-muted">Veuillez rentrer votre mot de passe afin de compléter vos changements.</a></p>
 							{% include "base/base_confirm_form.html" %}
 
 							<hr>

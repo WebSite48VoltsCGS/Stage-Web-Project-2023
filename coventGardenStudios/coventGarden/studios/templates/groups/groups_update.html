@@ -2,7 +2,7 @@
 
 {% block title %}
 
-<title>Placeholder</title>
+<title>Modifier un groupe</title>
 
 {% endblock %}
 
@@ -27,8 +27,8 @@
 	<!-- Breadcrumb -->
 	<ol class="breadcrumb">
 		<li><a href="{% url 'home' %}">Accueil</a></li>
-		<li>Placeholder</li>
-		<li class="active">Placeholder</li>
+		<li><a href="{% url 'groups_detail' %}">Groupes</a></li>
+		<li class="active">Modifier</li>
 	</ol> <!-- /Breadcrumb -->
 
 	<div class="row">
@@ -38,7 +38,7 @@
 
 			<!-- Header -->
 			<header class="page-header">
-				<h1 class="page-title">Placeholder</h1>
+				<h1 class="page-title">Modifier un groupe</h1>
 			</header> <!-- /Header -->
 
 			<!-- Form -->
@@ -48,8 +48,8 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<!-- Title / Text -->
-							<h3 class="thin text-center">Placeholder</h3>
-							<p class="text-center text-muted">Placeholder? <a href="{% url 'placeholder' %}">Ajouter un lien</a></p>
+							<h3 class="thin text-center">Changer les informations</h3>
+							<p class="text-center text-muted">Vous voulez retourner à la liste des groupes? <a href="{% url 'placeholder' %}">Cliquez ici</a></p>
 
 							<hr>
 

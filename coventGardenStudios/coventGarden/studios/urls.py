@@ -24,14 +24,14 @@ urlpatterns = [
     path('compte/deconnexion/', views.account_log_out, name='account_log_out'),
 
     # Profile
-    path('compte/mon_profil/', views.profile_detail, name='profile_detail'),
-    path('compte/mon_profil/modifier/', views.profile_update, name='profile_update'),
+    path('compte/', views.profile_detail, name='profile_detail'),
+    path('compte/modifier/', views.profile_update, name='profile_update'),
 
     # Groups
     path('compte/mes_groupes/', views.groups_detail, name='groups_detail'),
     path('compte/mes_groupes/ajouter/', views.groups_create, name='groups_create'),
     path('compte/mes_groupes/modifier/<int:group_id>/', views.groups_update, name='groups_update'),
-    path('compte/mes_groupes/supprimer//<int:group_id>/', views.groups_delete, name='groups_delete'),
+    path('compte/mes_groupes/supprimer/<int:group_id>/', views.groups_delete, name='groups_delete'),
 
     # Bookings
     path('compte/mes_reservations/', views.bookings_detail, name='bookings_detail'),
