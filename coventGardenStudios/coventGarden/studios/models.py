@@ -31,6 +31,7 @@ class CustomGroup(models.Model):
     user = models.ForeignKey(
         to=CustomUser,
         on_delete=models.CASCADE,
+        related_name='my_groups'
     )
     name = MODEL_NAME
     email = MODEL_EMAIL

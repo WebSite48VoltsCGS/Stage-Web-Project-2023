@@ -164,9 +164,15 @@ Day 12 (27/06/23)
 Day 13 (28/06/23)
 - [08:45-10:15] Custom Group - Created the groups creation page - Updated the groups detail page
 - [10:15-11:00] GitHub - Pushed to development - Oversaw the planning integration
-- [11:00-12:30] Custom group - Added a ForeignKey field linking the group to the current user
+- [11:00-12:30] Custom Group - Added a ForeignKey field linking the group to the current user
 - [12:30-13:15] Lunch Break
 - [13:15-14:45] Custom group - Added a group update and delete pages
+- [14:45-16:30] Code Reviewing - Cleaned Code & HTML - Updated sign up page - Updated ForeignKey related name
+
+Day 14 (29/06/23)
+- [08:45-12:00] Code Reviewing - Cleaned Code & HTML - Updated Sign Up page - Updated ForeignKey (Related name) - Fixed invalid form redirection - Updated Base template
+
+- [xx:xx-xx:xx] Custom Group - Added a groups update page
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -217,6 +223,9 @@ Day 13 (28/06/23)
     - https://stackoverflow.com/questions/66933597/link-the-current-user-to-a-field-in-modelform-django
 - [Completed] Create a form with all fields from model but one
     - https://stackoverflow.com/questions/17918184/editing-the-model-object-with-update-view-django-by-excluding-fields
+- [Completed] Get all ForeignKey from one model linked to another model
+    - https://docs.djangoproject.com/en/4.2/topics/db/examples/many_to_one/
+    - https://codereview.stackexchange.com/questions/194906/cleanest-way-to-get-list-of-django-objects-that-have-same-foreign-key-and-displa
 
 ## Readme
 

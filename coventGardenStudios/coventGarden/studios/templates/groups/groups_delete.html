@@ -21,45 +21,58 @@
 
 {% block content %}
 
-<!-- container -->
+<!-- Container -->
 <div class="container">
 
+	<!-- Breadcrumb -->
 	<ol class="breadcrumb">
 		<li><a href="{% url 'home' %}">Accueil</a></li>
 		<li><a href="{% url 'profile_detail' %}">Profil</a></li>
 		<li class="active"><a href="{% url 'profile_detail' %}">Modifier mon profil</a></li>
-	</ol>
+	</ol> <!-- /Breadcrumb -->
 
-	<!-- Article main content -->
-	<article class="col-xs-12 maincontent">
-		<header class="page-header">
-			<h1 class="page-title">Profil</h1>
-		</header>
-		
-		<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<h3 class="thin text-center">Supprimer mon groupe</h3>
-					<p class="text-center text-muted">Voulez-vous revenir à votre profil? <a href="{% url 'groups_detail' %}">Cliquez ici.</a></p>
-					<hr>
+	<div class="row">
 
-					<div class="row">
-						<div class="col-lg-6 text-left">
-								<button class="btn btn-action" onclick="window.location.href='{% url 'groups_detail' %}'">Annuler
-						</div>
-						<div class="col-lg-6 text-right">
-							<form action="" method="post">
-								{% csrf_token %}
-								<button class="btn btn-action" type="submit">Confirmer</button>
-							</form>
+		<!-- Article main content -->
+		<article class="col-xs-12 maincontent">
+			
+			<!-- Header -->
+			<header class="page-header">
+				<h1 class="page-title">Profil</h1>
+			</header> <!-- /Header -->
+			
+			<!-- Form -->
+			<form method="post">
+				{% csrf_token %}
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<!-- Title / Text -->
+							<h3 class="thin text-center">Supprimer mon groupe</h3>
+							<p class="text-center text-muted">Vous voulez revenir à vos groupes? <a href="{% url 'groups_detail' %}">Cliquez ici</a></p>
+
+							<hr>
+
+							<!-- Button(s) -->
+							<div class="row">
+								<!-- Redirect -->
+								<div class="col-lg-6 text-left">
+									<button class="btn btn-action" type="button" onclick="window.location.href='{% url 'groups_detail' %}'">Annuler
+								</div>
+
+								<!-- Confirm -->
+								<div class="col-lg-6 text-right">
+									<button class="btn btn-action" type="submit">Confirmer</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-	</article>
-	<!-- /Article -->
+			</form> <!-- /Form -->
+
+		</article> <!-- /Article -->
+
+	</div>
 
 </div>	<!-- /container -->
 
