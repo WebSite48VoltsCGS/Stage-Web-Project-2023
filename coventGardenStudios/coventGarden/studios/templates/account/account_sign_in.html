@@ -1,17 +1,16 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
+<!-- Insert title -->
 {% block title %}
 
-<title>Se connecter à son compte</title>
+<title>Placeholder</title>
 
 {% endblock %}
 
 
-{% block style %}
 
-{% endblock %}
-
-
+<!-- Insert main header -->
 {% block header %}
 
 <header id="head" class="secondary"></header>
@@ -19,6 +18,8 @@
 {% endblock %}
 
 
+
+<!-- Insert content -->
 {% block content %}
 
 <!-- Container -->
@@ -26,22 +27,23 @@
 
 	<!-- Breadcrumb -->
 	<ol class="breadcrumb">
-		<li><a href="{% url 'home' %}">Accueil</a></li>
+        <li><a href="{% url 'home' %}">Accueil</a></li>
 		<li>Compte</li>
 		<li class="active">Connexion</li>
 	</ol> <!-- /Breadcrumb -->
 
+	<!-- Main content -->
 	<div class="row">
 
-		<!-- Article main content -->
+		<!-- Article -->
 		<article class="col-xs-12 maincontent">
 
 			<!-- Header -->
 			<header class="page-header">
 				<h1 class="page-title">Se connecter à son compte</h1>
-			</header>
+		  	</header>
 
-			<!-- Form -->
+			<!-- Content 1: Form -->
 			<form method="post">
 				{% csrf_token %}
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -60,12 +62,12 @@
 
 							<!-- Button(s) -->
 							<div class="row">
-								<!-- Redirect -->
+								<!-- Left: Redirect -->
 								<div class="col-lg-6 text-left">
 									<b><a href="{% url 'password_reset_forgot' %}">Mot de passe oublié?</a></b>
 								</div>
 
-								<!-- Confirm -->
+								<!-- Right: Confirm -->
 								<div class="col-lg-6 text-right">
 									<button class="btn btn-action" type="submit">Connexion</button>
 								</div>
@@ -73,12 +75,26 @@
 						</div>
 					</div>
 				</div>
-			</form> <!-- /Form -->
+			</form>
 
 		</article> <!-- /Article -->
-		
-	</div>
-	
+
+	</div> <!-- /Main content -->
+
 </div> <!-- /Container -->
+
+{% endblock %}
+
+
+
+<!-- Custom CSS styles file(s) -->
+{% block style %}
+
+{% endblock %}
+
+
+
+<!-- Custom JavaScript file(s) -->
+{% block scripts %}
 
 {% endblock %}

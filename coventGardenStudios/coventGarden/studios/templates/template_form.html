@@ -1,5 +1,7 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
+<!-- Insert title -->
 {% block title %}
 
 <title>Placeholder</title>
@@ -7,11 +9,8 @@
 {% endblock %}
 
 
-{% block style %}
 
-{% endblock %}
-
-
+<!-- Insert main header -->
 {% block header %}
 
 <header id="head" class="secondary"></header>
@@ -19,6 +18,8 @@
 {% endblock %}
 
 
+
+<!-- Insert content -->
 {% block content %}
 
 <!-- Container -->
@@ -31,9 +32,10 @@
 		<li class="active">Placeholder</li>
 	</ol> <!-- /Breadcrumb -->
 
+	<!-- Main content -->
 	<div class="row">
 
-		<!-- Article main content -->
+		<!-- Article -->
 		<article class="col-xs-12 maincontent">
 
 			<!-- Header -->
@@ -41,13 +43,13 @@
 				<h1 class="page-title">Placeholder</h1>
 			</header>
 
-			<!-- Form -->
+			<!-- Content 1: Form -->
 			<form method="post">
 				{% csrf_token %}
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<!-- Text -->
+							<!-- Title / Text -->
 							<h3 class="thin text-center">Placeholder</h3>
 							<p class="text-center text-muted">Placeholder? <a href="{% url 'placeholder' %}">Ajouter un lien</a></p>
 
@@ -60,12 +62,12 @@
 
 							<!-- Button(s) -->
 							<div class="row">
-								<!-- Redirect -->
+								<!-- Left: Redirect -->
 								<div class="col-lg-6 text-left">
 									<b><a href="{% url 'placeholder' %}">Ajouter un lien</a></b>
 								</div>
 
-								<!-- Confirm -->
+								<!-- Right: Confirm -->
 								<div class="col-lg-6 text-right">
 									<button class="btn btn-action" type="submit">Confirmer</button>
 								</div>
@@ -73,25 +75,41 @@
 						</div>
 					</div>
 				</div>
-			</form> <!-- /Form -->
+			</form>
 
 			<!-- Button(s) -->
 			<div class="row">
+				<!-- Left -->
 				<div class="col-lg-6 text-left">
 					<button class="btn btn-action" type="button" onclick="window.location.href='{% url 'placeholder' %}'">Annuler</button>
 				</div>
 
+				<!-- Right -->
 				<div class="col-lg-6 text-right">
 					<form action="{% url 'placeholder' %}">
 						<button class="btn btn-action">Placeholder</button>
 					</form>
 				</div>
-			</div> <!-- /Button(s) -->
+			</div>
 
 		</article> <!-- /Article -->
 
-	</div>
+	</div> <!-- /Main content -->
 
 </div> <!-- /Container -->
+
+{% endblock %}
+
+
+
+<!-- Custom CSS styles file(s) -->
+{% block style %}
+
+{% endblock %}
+
+
+
+<!-- Custom JavaScript file(s) -->
+{% block scripts %}
 
 {% endblock %}

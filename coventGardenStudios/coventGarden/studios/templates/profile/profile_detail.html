@@ -1,17 +1,16 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
+<!-- Insert title -->
 {% block title %}
 
-<title>Mon compte</title>
+<title>Validation de la demande</title>
 
 {% endblock %}
 
 
-{% block style %}
 
-{% endblock %}
-
-
+<!-- Insert main header -->
 {% block header %}
 
 <header id="head" class="secondary"></header>
@@ -19,6 +18,8 @@
 {% endblock %}
 
 
+
+<!-- Insert content -->
 {% block content %}
 
 <!-- Container -->
@@ -30,21 +31,21 @@
 		<li class="active">Compte</li>
 	</ol> <!-- /Breadcrumb -->
 
+	<!-- Main content -->
 	<div class="row">
 
-		<!-- Article main content -->
+		<!-- Article -->
 		<article class="col-xs-12 maincontent">
 
 			<!-- Header -->
 			<header class="page-header">
-				<h1 class="page-title">Mon compte</h1>
+				<h1 class="page-title">Validation de la demande</h1>
 			</header>
 
-			<!-- Panel -->
+			<!-- Content 1: Text -->
 			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<!-- Text -->
 						Nom: {{ user.last_name }}<br>
 						Prénom: {{ user.first_name }}<br>
 						E-mail: {{ user.email }}<br>
@@ -52,28 +53,43 @@
 						Test Field: {{ user.test_field }}<br>
 					</div>
 				</div>
-			</div> <!-- Panel -->
+			</div>
 
 			<!-- Button(s) -->
 			<div class="row">
+				<!-- Left -->
 				<div class="col-lg-6 text-left">
 					<form action="{% url 'profile_update' %}">
 						<button class="btn btn-action">Modifier son profil</button>
 					</form>
 				</div>
 
+				<!-- Right -->
 				<div class="col-lg-6 text-right">
 					<form action="{% url 'account_log_out' %}">
 						<button class="btn btn-action">Déconnexion</button>
 					</form>
 				</div>
-			</div> <!-- /Button(s) -->
+			</div>
 
 		</article> <!-- /Article -->
 
-	</div>
+	</div> <!-- /Main content -->
 
 </div> <!-- /Container -->
 
+{% endblock %}
+
+
+
+<!-- Custom CSS styles file(s) -->
+{% block style %}
+
+{% endblock %}
+
+
+
+<!-- Custom JavaScript file(s) -->
+{% block scripts %}
 
 {% endblock %}

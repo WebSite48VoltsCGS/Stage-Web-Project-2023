@@ -177,8 +177,11 @@ Day 14 (29/06/23)
 - [15:25-16:30] Merged projects - Added File Storage - Updated News, Pro Area
 
 Day 15 (30/06/23)
-- [08:45-12:00] Merged projects (News, Studios, Responsive pages) - Clean, standardized code
-- [12:00-12:35] Merged projects (Booking) - Clean, standardized code
+- [08:45-12:00] Merged projects (News / Studios / Responsive pages) - Cleaned & Standardized code
+- [12:00-12:45] Merged projects (Booking) - Cleaned & Standardized code
+- [12:45-13:05] Lunch Break
+- [13:05-15:35] Cleaned & Standardized code
+- [15:35-16:15] Work meeting
 
 ## To do list
 - [Completed] OpenClassrooms
