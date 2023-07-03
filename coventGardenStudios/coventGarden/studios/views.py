@@ -39,16 +39,45 @@ Navigation
     - Booking
 """
 def home(request):
-    return render(request, 'home.html')
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Covent Garden",
+    }
+
+    return render(request, 'home.html', context)
 
 def news(request):
-    return render(request, 'news.html')
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Actualités",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Actualités"}],
+    }
+
+    return render(request, 'news.html', context)
 
 def studios(request):
-    return render(request, 'studios.html')
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Studios",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Studios"}],
+    }
+
+    return render(request, 'studios.html', context)
 
 def concert(request):
-    return render(request, 'concert.html')
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Concert",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Concert"}],
+    }
+
+    return render(request, 'concert.html', context)
 
 def bar(request):
     return render(request, 'bar.html')
@@ -56,26 +85,44 @@ def bar(request):
 @csrf_exempt
 @login_required
 def pro_area(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Espace Pro",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Espace Pro"}],
+        "form": None
+    }
+
     # Submit form
     if request.method == 'POST':
         technical_sheet = TechnicalSheet.objects.all().filter(user=request.user).first()
         if not technical_sheet:
             technical_sheet = TechnicalSheet()
 
-        form = TechnicalSheetForm(request.POST, request.FILES)
-        if form.is_valid():
+        context["form"] = TechnicalSheetForm(request.POST, request.FILES)
+        if context["form"].is_valid():
             # Process
-            deposited_file = form.cleaned_data['pdf_file']
+            deposited_file = context["form"].cleaned_data['pdf_file']
             technical_sheet.pdf_file = deposited_file
             technical_sheet.user = request.user
             technical_sheet.save()
-            return render(request, 'pro_area.html', {'form': form})
+            return render(request, 'pro_area.html', context)
 
-    form = TechnicalSheetForm()
-    return render(request, 'pro_area.html', {'form': form})
+    context["form"] = TechnicalSheetForm()
+    return render(request, 'pro_area.html', context)
 
 def contact(request):
-    return render(request, 'contact.html')
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Contact",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Contact"}],
+        "form": None
+    }
+
+    return render(request, 'contact.html', context)
 
 def booking(request):
     return render(request, 'booking.html')
