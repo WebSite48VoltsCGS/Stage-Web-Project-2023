@@ -185,6 +185,13 @@ Day 15 (30/06/23)
 
 Day 16 (03/07/23)
 - [08:30-11:30] Updated Template - Block (Breadcrumb / Content / Page header / Title) - Updated base, profile_detail
+- [11:30-12:00] Updated Template - Updated Block - Added custom views to PasswordReset
+- [12:00-12:45] Lunch Break
+- [12:45-14:30] Updated Template - Updated Block - Added custom views to PasswordReset
+    - Used ChatGPT as a last resort and worked
+- [14:30-15:30] Fixed my computer Wi-Fi (DNS problem impossible to modify)
+
+
 
 
 ## To do list
@@ -239,7 +246,7 @@ Day 16 (03/07/23)
 - [Completed] Get all ForeignKey from one model linked to another model
     - https://docs.djangoproject.com/en/4.2/topics/db/examples/many_to_one/
     - https://codereview.stackexchange.com/questions/194906/cleanest-way-to-get-list-of-django-objects-that-have-same-foreign-key-and-displa
-- [Progress] Variable in template
+- [Completed] Variable in template
     - Passing Variables to a Template with Django
         - https://www.youtube.com/watch?v=wkTE2QvzSmc
     - For loop
@@ -250,6 +257,8 @@ Day 16 (03/07/23)
     - Variable inside url
         - https://stackoverflow.com/questions/16219674/assign-value-of-named-url-to-a-variable-in-django-templates
         - https://stackoverflow.com/questions/52290294/django-url-tag-how-to-use-a-variable-as-url-name
+- [Progress] Overriding django.auth.views with another view
+    - https://django.readthedocs.io/en/stable/topics/class-based-views/intro.html
 
 ## Readme
 

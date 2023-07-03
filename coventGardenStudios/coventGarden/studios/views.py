@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
 from django.contrib import messages
+from django.contrib.auth.views import (
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+)
+from .forms import UserPasswordResetForm, UserPasswordSetForm
 
 from .models import CustomGroup, Event, TechnicalSheet, CustomUser, Reservation, Salle
 from .forms import (
@@ -85,10 +89,19 @@ Account
     - Log out (Redirect)
 """
 def account_sign_in(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Se connecter à son compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Connexion"}],
+        "form": None
+    }
+
     # Submit form
     if request.method == 'POST':
-        form = SignInForm(request.POST)
-        if form.is_valid():
+        context["form"] = SignInForm(request.POST)
+        if context["form"].is_valid():
             # Form input
             username = request.POST["username"]
             password = request.POST["password"]
@@ -103,14 +116,23 @@ def account_sign_in(request):
                 print("Error: User not found.")
 
     # Return an empty form if GET request or invalid form
-    form = SignInForm()
-    return render(request, 'account/account_sign_in.html', {'form': form})
+    context["form"] = SignInForm()
+    return render(request, 'account/account_sign_in.html', context)
 
 def account_sign_up(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Créer un compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Inscription"}],
+        "form": None
+    }
+
     # Submit form
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
+        context["form"] = SignUpForm(request.POST)
+        if context["form"].is_valid():
             # Form input
             username = request.POST["username"]
             first_name = request.POST["first_name"]
@@ -138,8 +160,8 @@ def account_sign_up(request):
                 print("Error: Password and confirmation password do not match")
 
     # Return an empty form if GET request or invalid form
-    form = SignUpForm()
-    return render(request, 'account/account_sign_up.html', {'form': form})
+    context["form"] = SignUpForm()
+    return render(request, 'account/account_sign_up.html', context)
 
 def account_log_out(request):
     # Disconnect the user
@@ -155,13 +177,12 @@ Profile
     - Update
 """
 def profile_detail(request):
-    # Context
+    # Context: Variables passed to the web page
     context = {
         "title": "Validation de la demande",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Compte"},
-            {"view": None, "name": "Profile"}]
+            {"view": None, "name": "Compte"}]
     }
 
     # Redirect to login page if user is not logged in
@@ -171,6 +192,16 @@ def profile_detail(request):
     return render(request, 'profile/profile_detail.html', context)
 
 def profile_update(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Modifier mon profil",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "profile_detail", "name": "Compte"},
+            {"view": None, "name": "Modifier"}],
+        "form": None, "confirm_form": None
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
@@ -188,9 +219,9 @@ def profile_update(request):
 
     # Submit form
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST)
-        confirm_form = ConfirmPasswordForm(request.POST)
-        if form.is_valid() and confirm_form.is_valid():
+        context["form"] = UserUpdateForm(request.POST)
+        context["confirm_form"] = ConfirmPasswordForm(request.POST)
+        if context["form"].is_valid() and context["confirm_form"].is_valid():
             if request.POST["current_password"] == request.POST["confirm_password"]:
                 # Form input
                 user = request.user
@@ -208,9 +239,10 @@ def profile_update(request):
                 print("Error: Password and confirmation password do not match")
 
     # Return an empty form if GET request or invalid form
-    form = create_form()
-    confirm_form = ConfirmPasswordForm()
-    return render(request, 'profile/profile_update.html', {'form': form, 'confirm_form': confirm_form})
+    context["form"] = create_form()
+    context["confirm_form"] = ConfirmPasswordForm()
+    return render(request, 'profile/profile_update.html', context)
+
 
 
 """
@@ -221,16 +253,35 @@ Groups
     - Delete
 """
 def groups_detail(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Mes groupes",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Groupes"}],
+        "my_groups": None
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
 
     # Get all groups object related to the current user
-    my_groups = request.user.my_groups.all()
+    context["my_groups"] = request.user.my_groups.all()
 
-    return render(request, 'groups/groups_detail.html', {'my_groups': my_groups})
+    return render(request, 'groups/groups_detail.html', context)
 
 def groups_create(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Créer un groupe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "groups_detail", "name": "Groupes"},
+            {"view": None, "name": "Créer"}],
+        "form": None
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
@@ -246,10 +297,10 @@ def groups_create(request):
 
     # Submit form
     if request.method == 'POST':
-        form = GroupCreateForm(request.POST)
-        if form.is_valid():
+        context["form"] = GroupCreateForm(request.POST)
+        if context["form"].is_valid():
             # Associate the group to the current user
-            group = form.save(commit=False)
+            group = context["form"].save(commit=False)
             group.user = request.user
 
             # Create a new group
@@ -259,10 +310,20 @@ def groups_create(request):
             return redirect('groups_detail')
 
     # Return an empty form if GET request or invalid form
-    form = create_form()
-    return render(request, 'groups/groups_create.html', {'form': form})
+    context["form"] = create_form()
+    return render(request, 'groups/groups_create.html', context)
 
 def groups_update(request, group_id):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Modifier un groupe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "groups_detail", "name": "Groupes"},
+            {"view": None, "name": "Modifier"}],
+        "form": None
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
@@ -272,35 +333,46 @@ def groups_update(request, group_id):
 
     # Submit form
     if request.method == 'POST':
-        form = GroupCreateForm(request.POST, instance=group)
-        if form.is_valid():
+        context["form"] = GroupCreateForm(request.POST, instance=group)
+        if context["form"].is_valid():
             # Update the group
-            form.save()
+            context["form"].save()
 
             # Redirect on success
             return redirect('groups_detail')
 
     # Return an empty form if GET request or invalid form
-    form = GroupCreateForm(instance=group)
-    return render(request, 'groups/groups_update.html', {'form': form})
+    context["form"] = GroupCreateForm(instance=group)
+    return render(request, 'groups/groups_update.html', context)
 
 def groups_delete(request, group_id):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Supprimer un groupe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "groups_detail", "name": "Groupes"},
+            {"view": None, "name": "Supprimer"}],
+        "group": None
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
 
     # Get group object with its id
-    group = CustomGroup.objects.get(id=group_id)
+    context["group"] = CustomGroup.objects.get(id=group_id)
 
     # Submit form
     if request.method == 'POST':
         # Delete the group
-        group.delete()
+        context["group"].delete()
 
         # Redirect on success
         return redirect('groups_detail')
 
-    return render(request, 'groups/groups_delete.html', {'group': group})
+    return render(request, 'groups/groups_delete.html', context)
+
 
 
 """
@@ -309,18 +381,107 @@ Bookings
     - Create
 """
 def bookings_detail(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Supprimer un groupe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Réservations"}],
+        "my_bookings": None,
+    }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
 
-    return render(request, 'bookings/bookings_detail.html')
+    # Get all groups object related to the current user
+    context["my_groups"] = request.user.my_groups.all()
+
+    return render(request, 'bookings/bookings_detail.html', context)
 
 def bookings_create(request):
+    # Context: Variables passed to the web page
+    context = {
+        "title": "Créer un groupe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "bookings_detail", "name": "Réservations"},
+            {"view": None, "name": "Créer"}],
+        }
+
     # Redirect to login page if user is not logged in
     if not request.user.is_authenticated:
         return redirect("account_sign_in")
 
-    return render(request, 'bookings/bookings_create.html')
+    # Return an empty form if GET request or invalid form
+    return render(request, 'bookings/bookings_create.html', context)
+
+
+
+"""
+Password reset
+    - Forgot: password_reset_forgot.html
+    - Done: password_reset_done.html
+    - Confirm: password_reset_confirm.html
+    - Complete: password_reset_complete.html
+"""
+class CustomPasswordResetForgot(PasswordResetView):
+    template_name = 'password_reset/password_reset_forgot.html'
+    html_email_template_name = 'password_reset/password_reset_email.html'
+    form_class = UserPasswordResetForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Context: Variables passed to the web page
+        context["title"] = "Récupérer son compte"
+        context["breadcrumb"] = [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Mot de passe oublié"}]
+        return context
+
+class CustomPasswordResetDone(PasswordResetView):
+    template_name = 'password_reset/password_reset_done.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Context: Variables passed to the web page
+        context["title"] = "Validation de la demande"
+        context["breadcrumb"] = [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"}]
+        return context
+
+class CustomPasswordResetConfirm(PasswordResetView):
+    template_name = 'password_reset/password_reset_confirm.html',
+    form_class = UserPasswordSetForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Context: Variables passed to the web page
+        context["title"] = "Modifier mon mot de passe"
+        context["breadcrumb"] = [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Modifier"}]
+        return context
+
+class CustomPasswordResetComplete(PasswordResetView):
+    template_name = 'password_reset/password_reset_complete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Context: Variables passed to the web page
+        context["title"] = "Confirmation"
+        context["breadcrumb"] = [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Modifier"},
+            {"view": None, "name": "Confirmation"}]
+        return context
+
 
 
 """
@@ -531,11 +692,3 @@ def all_booking(request):
             'end': current.date_end.strftime("%Y-%m-%d %H:%M:%S"),
         })
     return JsonResponse(datas, safe=False)
-
-"""
-Password reset
-    - Forgot: password_reset_forgot.html
-    - Done: password_reset_done.html
-    - Confirm: password_reset_confirm.html
-    - Complete: password_reset_complete.html
-"""
