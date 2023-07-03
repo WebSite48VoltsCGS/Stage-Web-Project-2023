@@ -10,7 +10,7 @@
 	<meta name="author"      content="">
 	
 	<!-- Title -->
-	{% block title %}{% endblock %}
+	<title>{{title}}</title>
 
 	<!-- Styles -->
 	<link rel="shortcut icon" href="{% static 'studios/images/gt_favicon.png' %}">
@@ -84,9 +84,28 @@
 		</div>
 	</div> <!-- /Navbar -->
 
+	
 
+
+	<!-- Header -->
 	{% block header %}{% endblock %}
-	{% block content %}{% endblock %}
+
+	<!-- Container -->
+	<div class="container">
+		<!-- Breadcrumb -->
+		{% include 'base/base_breadcrumb.html' %}
+
+		<!-- Main content-->
+		<div class="row">
+			<article class="col-xs-12 maincontent">
+				{% block page_header %}{% endblock %}
+				{% block content %}{% endblock %}
+			</article>
+		</div>
+	</div> <!-- /Container -->
+
+
+
 
 	<!-- Footer -->
 	<footer id="footer" class="top-space">

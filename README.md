@@ -183,6 +183,10 @@ Day 15 (30/06/23)
 - [13:05-15:35] Cleaned & Standardized code
 - [15:35-16:15] Work meeting
 
+Day 16 (03/07/23)
+- [08:30-11:30] Updated Template - Block (Breadcrumb / Content / Page header / Title) - Updated base, profile_detail
+
+
 ## To do list
 - [Completed] OpenClassrooms
     - Build Your First Web Pages With HTML and CSS
@@ -235,6 +239,17 @@ Day 15 (30/06/23)
 - [Completed] Get all ForeignKey from one model linked to another model
     - https://docs.djangoproject.com/en/4.2/topics/db/examples/many_to_one/
     - https://codereview.stackexchange.com/questions/194906/cleanest-way-to-get-list-of-django-objects-that-have-same-foreign-key-and-displa
+- [Progress] Variable in template
+    - Passing Variables to a Template with Django
+        - https://www.youtube.com/watch?v=wkTE2QvzSmc
+    - For loop
+        - https://stackoverflow.com/questions/6170259/django-if-forloop-first-question
+        - https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#for
+    - List of lists
+        - https://stackoverflow.com/questions/4651172/reference-list-item-by-index-within-django-template/29664945#29664945
+    - Variable inside url
+        - https://stackoverflow.com/questions/16219674/assign-value-of-named-url-to-a-variable-in-django-templates
+        - https://stackoverflow.com/questions/52290294/django-url-tag-how-to-use-a-variable-as-url-name
 
 ## Readme
 

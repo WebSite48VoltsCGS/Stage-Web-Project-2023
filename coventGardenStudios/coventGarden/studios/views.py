@@ -52,6 +52,7 @@ def bar(request):
 @csrf_exempt
 @login_required
 def pro_area(request):
+    # Submit form
     if request.method == 'POST':
         technical_sheet = TechnicalSheet.objects.all().filter(user=request.user).first()
         if not technical_sheet:
@@ -84,6 +85,7 @@ Account
     - Log out (Redirect)
 """
 def account_sign_in(request):
+    # Submit form
     if request.method == 'POST':
         form = SignInForm(request.POST)
         if form.is_valid():
@@ -105,6 +107,7 @@ def account_sign_in(request):
     return render(request, 'account/account_sign_in.html', {'form': form})
 
 def account_sign_up(request):
+    # Submit form
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -152,11 +155,28 @@ Profile
     - Update
 """
 def profile_detail(request):
-    return render(request, 'profile/profile_detail.html')
+    # Context
+    context = {
+        "title": "Validation de la demande",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Compte"},
+            {"view": None, "name": "Profile"}]
+    }
+
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
+    return render(request, 'profile/profile_detail.html', context)
 
 def profile_update(request):
-    def empty_form():
-        # Form initial value(s)
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
+    # Create a new form with initial values
+    def create_form():
         current_user = request.user
         new_form = UserUpdateForm(initial={
             "username": current_user.username,
@@ -166,6 +186,7 @@ def profile_update(request):
         })
         return new_form
 
+    # Submit form
     if request.method == 'POST':
         form = UserUpdateForm(request.POST)
         confirm_form = ConfirmPasswordForm(request.POST)
@@ -187,7 +208,7 @@ def profile_update(request):
                 print("Error: Password and confirmation password do not match")
 
     # Return an empty form if GET request or invalid form
-    form = empty_form()
+    form = create_form()
     confirm_form = ConfirmPasswordForm()
     return render(request, 'profile/profile_update.html', {'form': form, 'confirm_form': confirm_form})
 
@@ -200,13 +221,21 @@ Groups
     - Delete
 """
 def groups_detail(request):
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
     # Get all groups object related to the current user
     my_groups = request.user.my_groups.all()
 
     return render(request, 'groups/groups_detail.html', {'my_groups': my_groups})
 
 def groups_create(request):
-    def empty_form():
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
+    def create_form():
         # Form initial value(s)
         current_user = request.user
         new_form = GroupCreateForm(initial={
@@ -215,6 +244,7 @@ def groups_create(request):
         })
         return new_form
 
+    # Submit form
     if request.method == 'POST':
         form = GroupCreateForm(request.POST)
         if form.is_valid():
@@ -229,13 +259,18 @@ def groups_create(request):
             return redirect('groups_detail')
 
     # Return an empty form if GET request or invalid form
-    form = empty_form()
+    form = create_form()
     return render(request, 'groups/groups_create.html', {'form': form})
 
 def groups_update(request, group_id):
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
     # Get group object with its id
     group = CustomGroup.objects.get(id=group_id)
 
+    # Submit form
     if request.method == 'POST':
         form = GroupCreateForm(request.POST, instance=group)
         if form.is_valid():
@@ -250,9 +285,14 @@ def groups_update(request, group_id):
     return render(request, 'groups/groups_update.html', {'form': form})
 
 def groups_delete(request, group_id):
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
     # Get group object with its id
     group = CustomGroup.objects.get(id=group_id)
 
+    # Submit form
     if request.method == 'POST':
         # Delete the group
         group.delete()
@@ -269,9 +309,17 @@ Bookings
     - Create
 """
 def bookings_detail(request):
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
     return render(request, 'bookings/bookings_detail.html')
 
 def bookings_create(request):
+    # Redirect to login page if user is not logged in
+    if not request.user.is_authenticated:
+        return redirect("account_sign_in")
+
     return render(request, 'bookings/bookings_create.html')
 
 
@@ -291,6 +339,7 @@ def generate_occurrences(event):
 
 
 def add_event(request):
+    # Submit form
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
@@ -380,6 +429,7 @@ def list_users(request):
 
 def accompte(request):
 
+    # Submit form
     if request.method == 'POST':
 
         salle_id = int(request.POST["salle_id"])
@@ -413,6 +463,7 @@ def payment(request):
 
     print(request.POST)
 
+    # Submit form
     if request.method == 'POST':
 
         salle_id = int(request.POST["salle_id"])
