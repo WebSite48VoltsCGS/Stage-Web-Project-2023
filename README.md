@@ -195,12 +195,15 @@ Day 16 (03/07/23)
 
 Day 17 (04/07/23)
 - [08:30-09:00] Password Reset - Bug Fixes (Views / Urls / email_template_name & html_email_template)
-- [09:00-09:20] Helped fixing admin / models / settings errors
-- [09:00-09:30] Password Reset - Bug Fixes (Views / Urls / email_template_name & html_email_template)
+- [09:00-09:20] Helped with fixing admin / models / settings errors
+- [09:20-09:30] Password Reset - Bug Fixes (Views / Urls / email_template_name & html_email_template)
     - Syntax error on template_name
     - Used both email_template_name (Default) & html_email_template (Custom)
-
-
+- [09:30-10:05] Helped with fixing pro_area forms
+- [10:05-11:10] Class-based views - Updated Acccount / Profile / Group
+- [11:10-11:15] Helped with fixing Python imports
+- [11:15-12:30] Class-based views - Updated Acccount / Profile / Group
+- [xx:xx-xx:xx] Form Validators
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -267,6 +270,13 @@ Day 17 (04/07/23)
         - https://stackoverflow.com/questions/52290294/django-url-tag-how-to-use-a-variable-as-url-name
 - [Completed] Overriding django.auth.views with another view
     - https://django.readthedocs.io/en/stable/topics/class-based-views/intro.html
+- [Progress] Class-based views
+    - https://docs.djangoproject.com/en/4.2/topics/class-based-views/
+    - https://docs.djangoproject.com/en/4.2/topics/class-based-views/intro/
+    - https://forum.djangoproject.com/t/access-request-user-with-django-class-view/2689/2
+- [Progress] Form validators
+    - https://www.youtube.com/watch?v=kRXiMIFKzoQ
+
 
 ## Readme
 

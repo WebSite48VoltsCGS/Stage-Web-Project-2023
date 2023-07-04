@@ -5,9 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
 from django.contrib import messages
+
+# Password Reset
 from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 )
+
+# Class-based views
+from django.views import View
+
 from .forms import UserPasswordResetForm, UserPasswordSetForm
 
 from .models import CustomGroup, Event, TechnicalSheet, CustomUser, Reservation, Salle
@@ -130,57 +136,74 @@ def booking(request):
 
 """
 Account
-    - Sign in
-    - Sign out
-    - Log in (Redirect)
+    - AccountSignInView
+    - AccountSignUpView
     - Log out (Redirect)
 """
-def account_sign_in(request):
-    # Context: Variables passed to the web page
+class AccountSignInView(View):
+    form_class = SignInForm
+    template_name = "account/account_sign_in.html"
     context = {
         "title": "Se connecter à son compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Connexion"}],
-        "form": None
+            {"view": None, "name": "Connexion"}]
     }
 
-    # Submit form
-    if request.method == 'POST':
-        context["form"] = SignInForm(request.POST)
-        if context["form"].is_valid():
-            # Form input
+    def get(self, request):
+        self.context["form"] = self.form_class()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        # Form input
+        form = self.form_class(request.POST)
+
+        # Success
+        if form.is_valid():
+            # Form processing
             username = request.POST["username"]
             password = request.POST["password"]
 
             # Log in the user
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                # Redirect on success
                 login(request, user)
+
+                # Redirect on success
                 return redirect('profile_detail')
+
+            # User not found
             else:
-                print("Error: User not found.")
+                self.context["form"] = form
+                return render(request, self.template_name, self.context)
 
-    # Return an empty form if GET request or invalid form
-    context["form"] = SignInForm()
-    return render(request, 'account/account_sign_in.html', context)
+        # Failure
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
 
-def account_sign_up(request):
-    # Context: Variables passed to the web page
+
+class AccountSignUpView(View):
+    form_class = SignUpForm
+    template_name = "account/account_sign_up.html"
     context = {
         "title": "Créer un compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Inscription"}],
-        "form": None
+            {"view": None, "name": "Inscription"}]
     }
 
-    # Submit form
-    if request.method == 'POST':
-        context["form"] = SignUpForm(request.POST)
-        if context["form"].is_valid():
-            # Form input
+    def get(self, request):
+        self.context["form"] = self.form_class()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        # Form(s)
+        form = self.form_class(request.POST)
+
+        # Success
+        if form.is_valid():
+            # Form processing
             username = request.POST["username"]
             first_name = request.POST["first_name"]
             last_name = request.POST["last_name"]
@@ -188,6 +211,7 @@ def account_sign_up(request):
             password = request.POST["password"]
             confirm_password = request.POST["confirm_password"]
 
+            # Password verification successful
             if password == confirm_password:
                 # Create a new user
                 user = User.objects.create_user(
@@ -198,33 +222,34 @@ def account_sign_up(request):
                 # Log in the user
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
-                    # Redirect on success
                     login(request, user)
-                    return redirect('profile_detail')
-                else:
-                    print("Error: User not found.")
-            else:
-                print("Error: Password and confirmation password do not match")
 
-    # Return an empty form if GET request or invalid form
-    context["form"] = SignUpForm()
-    return render(request, 'account/account_sign_up.html', context)
+                    # Redirect on success
+                    return redirect('profile_detail')
+
+            # Password verification failed
+            else:
+                self.context["form"] = form
+                return render(request, self.template_name, self.context)
+
+        # Failure
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
+
 
 def account_log_out(request):
-    # Disconnect the user
     logout(request)
-
-    # Redirect on success
     return redirect('account_sign_in')
 
 
 """
 Profile
-    - Detail
-    - Update
+    - ProfileDetailView
+    - ProfileUpdateView
 """
-def profile_detail(request):
-    # Context: Variables passed to the web page
+class ProfileDetailView(View):
+    template_name = "profile/profile_detail.html"
     context = {
         "title": "Validation de la demande",
         "breadcrumb": [
@@ -232,45 +257,54 @@ def profile_detail(request):
             {"view": None, "name": "Compte"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    return render(request, 'profile/profile_detail.html', context)
+        return render(request, self.template_name, self.context)
 
-def profile_update(request):
-    # Context: Variables passed to the web page
+
+class ProfileUpdateView(View):
+    form_class = UserUpdateForm
+    form_confirm_class = ConfirmPasswordForm
+    template_name = "profile/profile_update.html"
     context = {
         "title": "Modifier mon profil",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": "profile_detail", "name": "Compte"},
             {"view": None, "name": "Modifier"}],
-        "form": None, "confirm_form": None
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def form_class_initial(self):
+        initial = {
+            "username": self.request.user.username,
+            "email": self.request.user.email,
+            "last_name": self.request.user.last_name,
+            "first_name": self.request.user.first_name
+        }
+        return initial
 
-    # Create a new form with initial values
-    def create_form():
-        current_user = request.user
-        new_form = UserUpdateForm(initial={
-            "username": current_user.username,
-            "email": current_user.email,
-            "last_name": current_user.last_name,
-            "first_name": current_user.first_name
-        })
-        return new_form
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    # Submit form
-    if request.method == 'POST':
-        context["form"] = UserUpdateForm(request.POST)
-        context["confirm_form"] = ConfirmPasswordForm(request.POST)
-        if context["form"].is_valid() and context["confirm_form"].is_valid():
+        self.context["form"] = self.form_class(initial=self.form_class_initial())
+        self.context["confirm_form"] = self.form_confirm_class()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        # Form(s)
+        form = self.form_class(request.POST)
+        form_confirm = self.form_confirm_class(request.POST)
+
+        # Success
+        if form.is_valid() and form_confirm.is_valid():
+            # Password verification successful
             if request.POST["current_password"] == request.POST["confirm_password"]:
-                # Form input
+                # Form processing
                 user = request.user
                 user.username = request.POST["username"]
                 user.email = request.POST["email"]
@@ -282,72 +316,89 @@ def profile_update(request):
 
                 # Redirect on success
                 return redirect('profile_detail')
-            else:
-                print("Error: Password and confirmation password do not match")
 
-    # Return an empty form if GET request or invalid form
-    context["form"] = create_form()
-    context["confirm_form"] = ConfirmPasswordForm()
-    return render(request, 'profile/profile_update.html', context)
+            # Password verification failed
+            else:
+                self.context["form"] = form
+                self.context["form_confirm"] = form
+                return render(request, self.template_name, self.context)
+
+        # Failure
+        else:
+            self.context["form"] = form
+            self.context["form_confirm"] = form
+            return render(request, self.template_name, self.context)
 
 
 
 """
 Groups
-    - Detail
-    - Create
-    - Update
-    - Delete
+    - GroupDetailView
+    - GroupCreateView
+    - GroupUpdateView
+    - GroupDeleteView
 """
-def groups_detail(request):
-    # Context: Variables passed to the web page
+class GroupDetailView(View):
+    template_name = "groups/groups_detail.html"
     context = {
         "title": "Mes groupes",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Groupes"}],
-        "my_groups": None
+            {"view": None, "name": "Groupes"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def form_class_initial(self):
+        initial = {
+            "username": self.request.user.username,
+            "email": self.request.user.email,
+            "last_name": self.request.user.last_name,
+            "first_name": self.request.user.first_name
+        }
+        return initial
 
-    # Get all groups object related to the current user
-    context["my_groups"] = request.user.my_groups.all()
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    return render(request, 'groups/groups_detail.html', context)
+        self.context["my_groups"] = request.user.my_groups.all()
+        return render(request, self.template_name, self.context)
 
-def groups_create(request):
-    # Context: Variables passed to the web page
+
+class GroupCreateView(View):
+    form_class = GroupCreateForm
+    template_name = "groups/groups_create.html"
     context = {
         "title": "Créer un groupe",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": "groups_detail", "name": "Groupes"},
-            {"view": None, "name": "Créer"}],
-        "form": None
+            {"view": None, "name": "Créer"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def form_class_initial(self):
+        initial = {
+            "email": self.request.user.email,
+            "phone": self.request.user.phone,
+        }
+        return initial
 
-    def create_form():
-        # Form initial value(s)
-        current_user = request.user
-        new_form = GroupCreateForm(initial={
-            "email": current_user.email,
-            "phone": current_user.phone,
-        })
-        return new_form
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    # Submit form
-    if request.method == 'POST':
-        context["form"] = GroupCreateForm(request.POST)
-        if context["form"].is_valid():
-            # Associate the group to the current user
-            group = context["form"].save(commit=False)
+        self.context["form"] = self.form_class(initial=self.form_class_initial())
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        # Form(s)
+        form = self.form_class(request.POST)
+
+        # Success
+        if form.is_valid():
+            # Associate the current user to the group
+            group = form.save(commit=False)
             group.user = request.user
 
             # Create a new group
@@ -356,69 +407,85 @@ def groups_create(request):
             # Redirect on success
             return redirect('groups_detail')
 
-    # Return an empty form if GET request or invalid form
-    context["form"] = create_form()
-    return render(request, 'groups/groups_create.html', context)
+        # Failure
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
 
-def groups_update(request, group_id):
-    # Context: Variables passed to the web page
+
+class GroupUpdateView(View):
+    form_class = GroupCreateForm
+    template_name = "groups/groups_create.html"
     context = {
         "title": "Modifier un groupe",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": "groups_detail", "name": "Groupes"},
-            {"view": None, "name": "Modifier"}],
-        "form": None
+            {"view": None, "name": "Modifier"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def get(self, request, group_id):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    # Get group object with its id
-    group = CustomGroup.objects.get(id=group_id)
+        group = CustomGroup.objects.get(id=group_id)
+        self.context["form"] = self.form_class(instance=group)
+        return render(request, self.template_name, self.context)
 
-    # Submit form
-    if request.method == 'POST':
-        context["form"] = GroupCreateForm(request.POST, instance=group)
-        if context["form"].is_valid():
-            # Update the group
-            context["form"].save()
+    def post(self, request, group_id):
+        # Get group object with its id
+        group = CustomGroup.objects.get(id=group_id)
+
+        # Form(s)
+        form = self.form_class(request.POST, instance=group)
+
+        # Success
+        if form.is_valid():
+            # Associate the current user to the group
+            group = form.save(commit=False)
+            group.user = request.user
+
+            # Create a new group
+            group.save()
 
             # Redirect on success
             return redirect('groups_detail')
 
-    # Return an empty form if GET request or invalid form
-    context["form"] = GroupCreateForm(instance=group)
-    return render(request, 'groups/groups_update.html', context)
+        # Failure
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
 
-def groups_delete(request, group_id):
-    # Context: Variables passed to the web page
+
+class GroupDeleteView(View):
+    template_name = "groups/groups_delete.html"
     context = {
         "title": "Supprimer un groupe",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": "groups_detail", "name": "Groupes"},
-            {"view": None, "name": "Supprimer"}],
-        "group": None
+            {"view": None, "name": "Supprimer"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def get(self, request, group_id):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    # Get group object with its id
-    context["group"] = CustomGroup.objects.get(id=group_id)
+        return render(request, self.template_name, self.context)
 
-    # Submit form
-    if request.method == 'POST':
+    def post(self, request, group_id):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
+
         # Delete the group
-        context["group"].delete()
+        group = CustomGroup.objects.get(id=group_id)
+        group.delete()
 
         # Redirect on success
         return redirect('groups_detail')
-
-    return render(request, 'groups/groups_delete.html', context)
 
 
 
