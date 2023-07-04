@@ -191,7 +191,14 @@ Day 16 (03/07/23)
     - Used ChatGPT as a last resort and worked
 - [14:30-15:30] Fixed my computer Wi-Fi (DNS problem impossible to modify)
 - [15:30-16:30] Updated Template - Updated Block
+- [16:30-17:00] Merged Projects
 
+Day 17 (04/07/23)
+- [08:30-09:00] Password Reset - Bug Fixes (Views / Urls / email_template_name & html_email_template)
+- [09:00-09:20] Helped fixing admin / models / settings errors
+- [09:00-09:30] Password Reset - Bug Fixes (Views / Urls / email_template_name & html_email_template)
+    - Syntax error on template_name
+    - Used both email_template_name (Default) & html_email_template (Custom)
 
 
 
