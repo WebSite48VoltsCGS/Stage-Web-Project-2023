@@ -203,7 +203,13 @@ Day 17 (04/07/23)
 - [10:05-11:10] Class-based views - Updated Acccount / Profile / Group
 - [11:10-11:15] Helped with fixing Python imports
 - [11:15-12:30] Class-based views - Updated Acccount / Profile / Group
+- [12:30-13:00] Lunch Break
+- [13:00-15:00] Merged projects (Pro Area / Groups) - Added Class-based views (WIP) - Fixed Pro Area
+- [15:00-15:30] Work meeting
+- [xx:xx-xx:xx] Class-based views - Updated 
 - [xx:xx-xx:xx] Form Validators
+
+
 
 ## To do list
 - [Completed] OpenClassrooms
