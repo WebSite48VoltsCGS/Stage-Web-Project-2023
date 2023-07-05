@@ -16,11 +16,10 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('actualites/', views.NewsView.as_view(), name='news'),
     path('studios/', views.StudiosView.as_view(), name='studios'),
-    path('concert/', views.concert, name='concert'),
+    path('concert/', views.ConcertView.as_view(), name='concert'),
     path('bar/', views.BarView.as_view(), name='bar'),
-    path('espace_pro/', views.pro_area, name='pro_area'),
-    path('reservation/', views.BookingView.as_view(), name='booking'),
-    path('contact/', views.contact, name='contact'),
+    path('reservation/', views.booking, name='booking'),
+    path('contact/', views.ContactView.as_view(), name='contact'),
 
     # Account
     path('compte/connexion/', views.AccountSignInView.as_view(), name='account_sign_in'),
@@ -38,8 +37,11 @@ urlpatterns = [
     path('compte/mes_groupes/supprimer/<int:group_id>/', views.GroupDeleteView.as_view(), name='groups_delete'),
 
     # Bookings
-    path('compte/mes_reservations/', views.bookings_detail, name='bookings_detail'),
-    path('compte/mes_reservations/ajouter/', views.bookings_create, name='bookings_create'),
+    path('compte/mes_reservations/', views.BookingsDetailView.as_view(), name='bookings_detail'),
+    path('compte/mes_reservations/ajouter/', views.BookingsCreateView.as_view(), name='bookings_create'),
+
+    # Pro Area
+    path('espace_pro/', views.ProAreaView.as_view(), name='pro_area'),
 
     # Planning
     path('all_events/', views.all_events, name='all_events'),
@@ -55,11 +57,14 @@ urlpatterns = [
     path('compte/mot-de-passe-oublie/confirmation/', views.CustomPasswordResetComplete.as_view(), name='password_reset_complete'),
 
     # Booking
-    path('api/all_booking/', views.all_booking, name='all_booking'),
     path('users/', views.list_users, name='list_users'),
     path('salles/', views.list_salles, name='list_salles'),
-    path('paiement-accompte/', views.accompte, name='accompte'),
-    path('payment/', views.payment, name='payment'),
+    path('pa/', views.accompte, name='accompte'),
+    path('all_booking/', views.all_booking, name='all_booking'),
+    path('payment_successful', views.payment_successful, name='payment_successful'),
+    path('payment_cancelled', views.payment_cancelled, name='payment_cancelled'),
+    path('stripe_webhook', views.stripe_webhook, name='stripe_web'),
+    path('create-checkout-session/', views.product_page, name='product_page'),
 
     # Deleted
     path('delete_technical_sheet/<int:pk>/', views.delete_technical_sheet, name='delete_technical_sheet'),

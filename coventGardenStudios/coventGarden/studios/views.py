@@ -1,36 +1,40 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import JsonResponse
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from datetime import timedelta, datetime
-from django.contrib import messages
-
-# Password Reset
-from django.contrib.auth.views import (
-    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-)
 
 # Class-based views
 from django.views import View
 
-from .forms import UserPasswordResetForm, UserPasswordSetForm
+# Account
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
-from .models import CustomGroup, Event, TechnicalSheet, CustomUser, Reservation, Salle
+# Password Reset
+from django.contrib.auth.views import (
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView)
+
+# Booking
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from datetime import timedelta, datetime, time
+
+# Pro Area
+from django.contrib import messages
+
+# Import
+from .models import CustomGroup, Event, Concert, TechnicalSheet, CustomUser, Reservation, Salle
 from .forms import (
-    SignInForm, SignUpForm, GroupCreateForm,
+    SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
-    TechnicalSheetForm, ConcertForm,
+    UserPasswordResetForm, UserPasswordSetForm,
+    CustomGroupForm, TechnicalSheetForm, ConcertForm,
     EventForm, ReservationForm)
-
 
 User = get_user_model()
 
 # Create your views here.
 """
-WIP
-    - Placeholder
+Placeholder
 """
+
+
 def placeholder(request):
     return render(request, 'home.html')
 
@@ -39,12 +43,14 @@ def placeholder(request):
 Navigation
     - HomeView
     - NewsView
-    - Studios
-    - Concert
-    - Bar
-    - Booking
-    - Contact
+    - StudiosView
+    - ConcertView
+    - BarView
+    - booking
+    - ContactView
 """
+
+
 class HomeView(View):
     template_name = "home.html"
     context = {
@@ -53,6 +59,7 @@ class HomeView(View):
 
     def get(self, request):
         return render(request, self.template_name, self.context)
+
 
 class NewsView(View):
     template_name = "news.html"
@@ -66,6 +73,7 @@ class NewsView(View):
     def get(self, request):
         return render(request, self.template_name, self.context)
 
+
 class StudiosView(View):
     template_name = "studios.html"
     context = {
@@ -77,6 +85,20 @@ class StudiosView(View):
 
     def get(self, request):
         return render(request, self.template_name, self.context)
+
+
+class ConcertView(View):
+    template_name = "concert.html"
+    context = {
+        "title": "Concert",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Concert"}]
+    }
+
+    def get(self, request):
+        return render(request, self.template_name, self.context)
+
 
 class BarView(View):
     template_name = "bar.html"
@@ -90,25 +112,19 @@ class BarView(View):
     def get(self, request):
         return render(request, self.template_name, self.context)
 
-def contact(request):
-    # Context: Variables passed to the web page
+
+def booking(request):
+    salles = Salle.objects.all()
+    return render(request, 'booking.html', context={"salles": salles})
+
+
+class ContactView(View):
+    template_name = "contact.html"
     context = {
         "title": "Contact",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": None, "name": "Contact"}]
-    }
-
-    return render(request, 'contact.html', context)
-
-
-class BookingView(View):
-    template_name = "booking.html"
-    context = {
-        "title": "Réservation",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Réservation"}]
     }
 
     def get(self, request):
@@ -121,6 +137,8 @@ Account
     - AccountSignUpView
     - Log out (Redirect)
 """
+
+
 class AccountSignInView(View):
     form_class = SignInForm
     template_name = "account/account_sign_in.html"
@@ -179,7 +197,7 @@ class AccountSignUpView(View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        # Form(s)
+        # Form input
         form = self.form_class(request.POST)
 
         # Success
@@ -225,14 +243,74 @@ def account_log_out(request):
 
 
 """
+Password Reset
+    - CustomPasswordResetForgot
+    - CustomPasswordResetDone
+    - CustomPasswordResetConfirm
+    - CustomPasswordResetComplete
+"""
+
+
+class CustomPasswordResetForgot(PasswordResetView):
+    form_class = UserPasswordResetForm
+    template_name = 'password_reset/password_reset_forgot.html'
+    email_template_name = 'password_reset/password_reset_email.html'
+    extra_context = {
+        "title": "Récupérer son compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Mot de passe oublié"}]
+    }
+
+
+class CustomPasswordResetDone(PasswordResetDoneView):
+    template_name = 'password_reset/password_reset_done.html'
+    extra_context = {
+        "title": "Validation de la demande",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"}]
+    }
+
+
+class CustomPasswordResetConfirm(PasswordResetConfirmView):
+    form_class = UserPasswordSetForm
+    template_name = 'password_reset/password_reset_confirm.html'
+    extra_context = {
+        "title": "Modifier mon mot de passe",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Modifier"}]
+    }
+
+
+class CustomPasswordResetComplete(PasswordResetCompleteView):
+    template_name = 'password_reset/password_reset_complete.html'
+    extra_context = {
+        "title": "Confirmation",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Modifier"},
+            {"view": None, "name": "Confirmation"}]
+    }
+
+
+"""
 Profile
     - ProfileDetailView
     - ProfileUpdateView
 """
+
+
 class ProfileDetailView(View):
     template_name = "profile/profile_detail.html"
     context = {
-        "title": "Validation de la demande",
+        "title": "Mon compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": None, "name": "Compte"}]
@@ -277,7 +355,7 @@ class ProfileUpdateView(View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        # Form(s)
+        # Form input
         form = self.form_class(request.POST)
         form_confirm = self.form_confirm_class(request.POST)
 
@@ -301,15 +379,14 @@ class ProfileUpdateView(View):
             # Password verification failed
             else:
                 self.context["form"] = form
-                self.context["form_confirm"] = form
+                self.context["form_confirm"] = form_confirm
                 return render(request, self.template_name, self.context)
 
         # Failure
         else:
             self.context["form"] = form
-            self.context["form_confirm"] = form
+            self.context["form_confirm"] = form_confirm
             return render(request, self.template_name, self.context)
-
 
 
 """
@@ -319,6 +396,8 @@ Groups
     - GroupUpdateView
     - GroupDeleteView
 """
+
+
 class GroupDetailView(View):
     template_name = "groups/groups_detail.html"
     context = {
@@ -327,15 +406,6 @@ class GroupDetailView(View):
             {"view": "home", "name": "Accueil"},
             {"view": None, "name": "Groupes"}]
     }
-
-    def form_class_initial(self):
-        initial = {
-            "username": self.request.user.username,
-            "email": self.request.user.email,
-            "last_name": self.request.user.last_name,
-            "first_name": self.request.user.first_name
-        }
-        return initial
 
     def get(self, request):
         # Redirect to login page if user is not logged in
@@ -347,7 +417,7 @@ class GroupDetailView(View):
 
 
 class GroupCreateView(View):
-    form_class = GroupCreateForm
+    form_class = CustomGroupForm
     template_name = "groups/groups_create.html"
     context = {
         "title": "Créer un groupe",
@@ -373,7 +443,7 @@ class GroupCreateView(View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        # Form(s)
+        # Form input
         form = self.form_class(request.POST)
 
         # Success
@@ -395,7 +465,7 @@ class GroupCreateView(View):
 
 
 class GroupUpdateView(View):
-    form_class = GroupCreateForm
+    form_class = CustomGroupForm
     template_name = "groups/groups_create.html"
     context = {
         "title": "Modifier un groupe",
@@ -418,7 +488,7 @@ class GroupUpdateView(View):
         # Get group object with its id
         group = CustomGroup.objects.get(id=group_id)
 
-        # Form(s)
+        # Form input
         form = self.form_class(request.POST, instance=group)
 
         # Success
@@ -469,102 +539,107 @@ class GroupDeleteView(View):
         return redirect('groups_detail')
 
 
-
 """
 Bookings
-    - Detail
-    - Create
+    - BookingsDetailView
+    - BookingsCreateView
 """
-def bookings_detail(request):
-    # Context: Variables passed to the web page
+
+
+class BookingsDetailView(View):
+    template_name = "bookings/bookings_detail.html"
     context = {
-        "title": "Supprimer un groupe",
+        "title": "Historique des réservations",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Réservations"}],
-        "my_bookings": None,
+            {"view": None, "name": "Réservations"}]
     }
 
-    # Redirect to login page if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect("account_sign_in")
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
 
-    # Get all groups object related to the current user
-    context["my_groups"] = request.user.my_groups.all()
+        # Get all groups object related to the current user
+        self.context["my_groups"] = request.user.my_groups.all()
 
-    return render(request, 'bookings/bookings_detail.html', context)
+        # Get all reservations for user
+        reservations = Reservation.objects.filter(user_id=request.user.id)
+        self.context["reservations"] = reservations
 
-def bookings_create(request):
-    # Context: Variables passed to the web page
+        return render(request, self.template_name, self.context)
+
+
+class BookingsCreateView(View):
+    template_name = "bookings/bookings_create.html"
     context = {
-        "title": "Créer un groupe",
+        "title": "Créer une réservation",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
             {"view": "bookings_detail", "name": "Réservations"},
-            {"view": None, "name": "Créer"}],
-        }
+            {"view": None, "name": "Créer"}]
+    }
 
-    # Redirect to login page if user is not logged in
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
+
+        return render(request, self.template_name, self.context)
+
+
+"""
+Pro area
+    - ProAreaView
+    - Delete technical sheet
+"""
+
+
+class ProAreaView(View):
+    template_name = "pro_area/pro_area.html"
+    context = {
+        "title": "Espace Pro",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Espace Pro"}]
+    }
+
+    def get(self, request):
+        # Redirect to login page if user is not logged in
+        if not request.user.is_authenticated:
+            return redirect("account_sign_in")
+
+        self.context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
+        self.context["form"] = TechnicalSheetForm()
+        self.context["form2"] = ConcertForm()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        self.context["form"] = TechnicalSheetForm(request.POST, request.FILES)
+        if self.context["form"].is_valid():
+            deposited_files = request.FILES.getlist('pdf_file')
+            for file in deposited_files:
+                technical_sheet = TechnicalSheet(pdf_file=file, user=request.user)
+                technical_sheet.save()
+            messages.success(request, 'Vos fiches techniques ont été déposées avec succès !')
+            return redirect('pro_area')
+
+        self.context["form2"] = ConcertForm(request.POST)
+        if self.context["form2"].is_valid():
+            self.context["form2"].save()
+            messages.success(request,
+                             'Merci pour votre proposition de concert! Un administrateur examinera votre proposition prochainement.',
+                             extra_tags='concert_for')
+            return redirect('pro_area')
+
+
+def delete_technical_sheet(request, pk):
+    # Log-in required
     if not request.user.is_authenticated:
-        return redirect("account_sign_in")
-
-    # Return an empty form if GET request or invalid form
-    return render(request, 'bookings/bookings_create.html', context)
-
-
-
-"""
-Password reset
-    - Forgot: password_reset_forgot.html
-    - Done: password_reset_done.html
-    - Confirm: password_reset_confirm.html
-    - Complete: password_reset_complete.html
-"""
-class CustomPasswordResetForgot(PasswordResetView):
-    template_name = 'password_reset/password_reset_forgot.html'
-    email_template_name = 'password_reset/password_reset_email.html'
-    form_class = UserPasswordResetForm
-    extra_context = {
-        "title": "Récupérer son compte",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Mot de passe oublié"}]
-    }
-
-class CustomPasswordResetDone(PasswordResetDoneView):
-    template_name = 'password_reset/password_reset_done.html'
-    extra_context = {
-        "title": "Validation de la demande",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
-            {"view": None, "name": "Envoi"}]
-    }
-
-class CustomPasswordResetConfirm(PasswordResetConfirmView):
-    template_name = 'password_reset/password_reset_confirm.html'
-    form_class = UserPasswordSetForm
-    extra_context = {
-        "title": "Modifier mon mot de passe",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
-            {"view": None, "name": "Envoi"},
-            {"view": None, "name": "Modifier"}]
-    }
-
-class CustomPasswordResetComplete(PasswordResetCompleteView):
-    template_name = 'password_reset/password_reset_complete.html'
-    extra_context = {
-        "title": "Confirmation",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
-            {"view": None, "name": "Envoi"},
-            {"view": None, "name": "Modifier"},
-            {"view": None, "name": "Confirmation"}]
-    }
-
+        technical_sheet = get_object_or_404(TechnicalSheet, pk=pk, user=request.user)
+        technical_sheet.delete()
+        messages.success(request, 'La fiche technique a été supprimée avec succès !')
+        return redirect('pro_area')
 
 
 """
@@ -654,16 +729,24 @@ def calendar_view(request):
     context = {'events': events}
     return render(request, 'calendar.html', context)
 
+
 """
 Salles
     -Listing all Salle
 Reservation
     - Listing reservation
 """
+
+
+def is_in_group(CustomUser):
+    return CustomUser.groups.filter(name='Client_Regulier').exists()
+
+
 def list_salles(request):
     salles = Salle.objects.all()
     salle_data = [{"id": salle.id, "title": salle.name} for salle in salles]
     return JsonResponse(salle_data, safe=False)
+
 
 def list_users(request):
     users = CustomUser.objects.all()
@@ -671,40 +754,55 @@ def list_users(request):
     return JsonResponse(user_data, safe=False)
 
 
+@login_required(login_url='account_sign_in')
 def accompte(request):
-
     # Submit form
     if request.method == 'POST':
 
         salle_id = int(request.POST["salle_id"])
-        #salle_id = int(request.POST["salle_id"])
-        salle = Salle.objects.get(id= salle_id)
+        salle = Salle.objects.get(id=salle_id)
 
         user_id = int(request.POST["user_id"])
-        user = CustomUser.objects.get(id= user_id)
+        user = CustomUser.objects.get(id=user_id)
 
         start_date = request.POST["date_start"]
         end_date = request.POST["date_end"]
 
         form = ReservationForm()
 
-        #print(form)
-
         duration = datetime.fromisoformat(end_date.rstrip('Z')) - datetime.fromisoformat(start_date.rstrip('Z'))
         duration_seconds = duration.total_seconds()
         duration_hours = duration_seconds / 3600
         print(duration_hours)
 
-        duration = 1
-        return render(request, 'payment.html', {"salle": salle, "user": user, "start_date": start_date,
-        "end_date": end_date, "duration": duration_hours, "form": form})
+        # duration = 1
+
+        if is_in_group(user):
+            description = "Reservation for user " + user.username
+            status = "En cours"
+            reservation = Reservation.objects.create(
+                description=description,
+                duration=duration_hours,
+                date_start=start_date,
+                date_end=end_date,
+                price=0,
+                status=status,
+                salle=salle,
+                user=user
+            )
+            messages.success(request, "Votre réservation a bien été prise en compte !")
+            return redirect('booking')
+
+        else:
+            return render(request, 'payment.html', {"salle": salle, "user": user, "start_date": start_date,
+                                                    "end_date": end_date, "duration": duration_hours, "form": form})
 
     else:
         return redirect('booking')
 
 
+@login_required(login_url='account_sign_in')
 def payment(request):
-
     print(request.POST)
 
     # Submit form
@@ -716,35 +814,16 @@ def payment(request):
         form = ReservationForm(request.POST)
 
         if form.is_valid():
+            salle = Salle.objects.get(id=salle_id)
+            user = CustomUser.objects.get(id=user_id)
 
-            salle = Salle.objects.get(id= salle_id)
-            user = CustomUser.objects.get(id= user_id)
-
-            description = "Reservation for user "+ user.username
+            description = "Reservation for user " + user.username
             duration = form.cleaned_data["duration"]
             date_start = form.cleaned_data["date_start"]
             date_end = form.cleaned_data["date_end"]
             price = form.cleaned_data["price"]
             status = "En cours"
-            """
-            description = ""
-            duration = request.POST["duration"]
-            date_start = request.POST["date_start"]
-            date_end = request.POST["date_end"]
-            price = request.POST["price"]
-            status = "En cours"
-            """
-            """
-            description = models.fields.CharField(max_length=1000)
-            duration = models.fields.IntegerField(choices=Duration.choices)
-            date_start = models.DateTimeField(null=False)
-            date_end = models.DateTimeField(null=False)
-            hour_begin = models.TimeField(null=False)
-            price = models.fields.IntegerField(validators=[MinValueValidator(1)])
-            status = models.fields.CharField(choices=Status.choices, max_length=20)
-            salle = models.ForeignKey(Salle, null=True, on_delete=models.SET_NULL)
-            user = models.ForeignKey(Utilisateur, null=True, on_delete=models.SET_NULL)
-            """
+
             reservation = Reservation.objects.create(
                 description=description,
                 duration=duration,
@@ -757,7 +836,6 @@ def payment(request):
             )
 
             messages.success(request, "Votre réservation a bien été prise en compte !")
-            # Redirect to the detail page of the band we just created
             return redirect('booking')
 
     else:
@@ -777,66 +855,94 @@ def all_booking(request):
     return JsonResponse(datas, safe=False)
 
 
+def all_booking_event(request):
+    reservations = Reservation.objects.all()
+    datas = []
+    for current in reservations:
+        data = {
+            'id': current.id,
+            'resourceId': current.salle.id,
+            'title': 'Indisponible',
+            'start': current.date_start.strftime("%Y-%m-%d %H:%M:%S"),
+            'end': current.date_end.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+        data['color'] = 'gainsboro'
+        data['textColor'] = 'black'
+        datas.append(data)
+    return JsonResponse(datas, safe=False)
 
-"""
-Pro area
-    - Pro area
-    - Delete technical sheet
-    - Concert
-"""
 
-@login_required
-def pro_area(request):
-    # Context: Variables passed to the web page
-    context = {
-        "title": "Espace Pro",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Espace Pro"}],
-        "form": None, "form2": None,
-        "user_files": None
-    }
+from django.shortcuts import render, redirect
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from studios.models import UserPayment
+import stripe
+import time
 
-    context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
 
+@login_required(login_url='login')
+def product_page(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     if request.method == 'POST':
-        context["form"] = TechnicalSheetForm(request.POST, request.FILES)
-        if context["form"].is_valid():
-            deposited_files = request.FILES.getlist('pdf_file')
-            for file in deposited_files:
-                technical_sheet = TechnicalSheet(pdf_file=file, user=request.user)
-                technical_sheet.save()
-            messages.success(request, 'Vos fiches techniques ont été déposées avec succès !')
-            return redirect('pro_area')
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': settings.PRODUCT_PRICE,
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            customer_creation='always',
+            # success_url = settings.REDIRECT_DOMAIN + '/payment_successful?session_id={CHECKOUT_SESSION_ID}',
+            # cancel_url = settings.REDIRECT_DOMAIN + '/payment_cancelled',
+            success_url='http://example.com/payment_successful?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url='http://example.com/payment_cancelled',
+        )
+        return redirect(checkout_session.url, code=303)
+    return render(request, 'studios/product_page.html')
 
-        context["form2"] = ConcertForm(request.POST)
-        if context["form2"].is_valid():
-            context["form2"].save()
-            messages.success(request,
-                             'Merci pour votre proposition de concert! Un administrateur examinera votre proposition prochainement.',
-                             extra_tags='concert_for')
-            return redirect('pro_area')
 
-    else:
-        context["form"] = TechnicalSheetForm()
-        context["form2"] = ConcertForm()
+## use Stripe dummy card: 4242 4242 4242 4242
+def payment_successful(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    checkout_session_id = request.GET.get('session_id', None)
+    session = stripe.checkout.Session.retrieve(checkout_session_id)
+    customer = stripe.Customer.retrieve(session.customer)
+    user_id = request.user.user_id
+    studios = UserPayment.objects.get(app_user=user_id)
+    studios.stripe_checkout_id = checkout_session_id
+    studios.save()
+    return render(request, 'studios/payment_successful.html', {'customer': customer})
 
-    return render(request, 'pro_area.html', context)
 
-@login_required
-def delete_technical_sheet(request, pk):
-    technical_sheet = get_object_or_404(TechnicalSheet, pk=pk, user=request.user)
-    technical_sheet.delete()
-    messages.success(request, 'La fiche technique a été supprimée avec succès !')
-    return redirect('pro_area')
+def payment_cancelled(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    return render(request, 'studios/payment_cancelled.html')
 
-def concert(request):
-    # Context: Variables passed to the web page
-    context = {
-        "title": "Concert",
-        "breadcrumb": [
-            {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Concert"}]
-    }
 
-    return render(request, 'concert.html', context)
+@csrf_exempt
+def stripe_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    time.sleep(10)
+    payload = request.body
+    signature_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        session_id = session.get('id', None)
+        time.sleep(15)
+        studios = UserPayment.objects.get(stripe_checkout_id=session_id)
+        studios.payment_bool = True
+        studios.save()
+    return HttpResponse(status=200)

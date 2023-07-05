@@ -213,6 +213,9 @@ Day 18 (05/07/23)
 - [08:30-09:00] Helped with fixing the sign in page
 - [09:00-10:15] Helped with integrating Stripe (Payment)
 - [10:15-11:15] Class-based views - Updated & Cleaned HTML
+- [11:15-12:15] Class-based views - Updated & Cleaned Python
+- [12:15-12:45] Lunch break
+- [12:45-13:15] Class-based views - Updated & Cleaned Python
 
 ## To do list
 - [Completed] OpenClassrooms
