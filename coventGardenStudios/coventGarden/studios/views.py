@@ -37,46 +37,58 @@ def placeholder(request):
 
 """
 Navigation
-    - Home
-    - News
+    - HomeView
+    - NewsView
     - Studios
+    - Concert
     - Bar
-    - Pro area
-    - Contact
     - Booking
+    - Contact
 """
-def home(request):
-    # Context: Variables passed to the web page
+class HomeView(View):
+    template_name = "home.html"
     context = {
-        "title": "Covent Garden",
+        "title": "Covent Garden"
     }
 
-    return render(request, 'home.html', context)
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
-def news(request):
-    # Context: Variables passed to the web page
+class NewsView(View):
+    template_name = "news.html"
     context = {
         "title": "Actualités",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Actualités"}],
+            {"view": None, "name": "Actualités"}]
     }
 
-    return render(request, 'news.html')
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
-def studios(request):
-    # Context: Variables passed to the web page
+class StudiosView(View):
+    template_name = "studios.html"
     context = {
         "title": "Studios",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Studios"}],
+            {"view": None, "name": "Studios"}]
     }
 
-    return render(request, 'studios.html')
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
-def bar(request):
-    return render(request, 'bar.html')
+class BarView(View):
+    template_name = "bar.html"
+    context = {
+        "title": "Bar",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Bar"}]
+    }
+
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
 def contact(request):
     # Context: Variables passed to the web page
@@ -84,14 +96,23 @@ def contact(request):
         "title": "Contact",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Contact"}],
-        "form": None
+            {"view": None, "name": "Contact"}]
     }
 
     return render(request, 'contact.html', context)
 
-def booking(request):
-    return render(request, 'booking.html')
+
+class BookingView(View):
+    template_name = "booking.html"
+    context = {
+        "title": "Réservation",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Réservation"}]
+    }
+
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
 
 """
@@ -815,7 +836,7 @@ def concert(request):
         "title": "Concert",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Concert"}],
+            {"view": None, "name": "Concert"}]
     }
 
     return render(request, 'concert.html', context)

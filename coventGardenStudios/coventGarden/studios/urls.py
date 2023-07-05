@@ -13,13 +13,13 @@ urlpatterns = [
     path('', views.placeholder, name='placeholder'),
 
     # Navigation
-    path('', views.home, name='home'),
-    path('actualites/', views.news, name='news'),
-    path('studios/', views.studios, name='studios'),
+    path('', views.HomeView.as_view(), name='home'),
+    path('actualites/', views.NewsView.as_view(), name='news'),
+    path('studios/', views.StudiosView.as_view(), name='studios'),
     path('concert/', views.concert, name='concert'),
-    path('bar/', views.bar, name='bar'),
+    path('bar/', views.BarView.as_view(), name='bar'),
     path('espace_pro/', views.pro_area, name='pro_area'),
-    path('reservation/', views.booking, name='booking'),
+    path('reservation/', views.BookingView.as_view(), name='booking'),
     path('contact/', views.contact, name='contact'),
 
     # Account

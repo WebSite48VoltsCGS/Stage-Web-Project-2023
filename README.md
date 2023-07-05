@@ -206,10 +206,13 @@ Day 17 (04/07/23)
 - [12:30-13:00] Lunch Break
 - [13:00-15:00] Merged projects (Pro Area / Groups) - Added Class-based views (WIP) - Fixed Pro Area
 - [15:00-15:30] Work meeting
-- [xx:xx-xx:xx] Class-based views - Updated 
+- [15:30-16:15] Class-based views - Updated & Cleaned HTML
 - [xx:xx-xx:xx] Form Validators
 
-
+Day 18 (05/07/23)
+- [08:30-09:00] Helped with fixing the sign in page
+- [09:00-10:15] Helped with integrating Stripe (Payment)
+- [10:15-11:15] Class-based views - Updated & Cleaned HTML
 
 ## To do list
 - [Completed] OpenClassrooms
