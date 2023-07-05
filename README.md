@@ -217,6 +217,9 @@ Day 18 (05/07/23)
 - [12:45-13:15] Class-based views - Updated & Cleaned Python
 - [13:15-14:30] Merged projects
 - [14:30-14:45] Helped on modifying studios.css to increase the size of the 3D view images
+- [14:45-15:20] Work meeting
+- [15:20-15:30] Helped with fixing CSS
+- [15:30-15:55] Custom Group - Added a validated checkbox for groups
 - [xx:xx-xx:xx] Form Validators
 
 ## To do list
