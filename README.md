@@ -207,7 +207,6 @@ Day 17 (04/07/23)
 - [13:00-15:00] Merged projects (Pro Area / Groups) - Added Class-based views (WIP) - Fixed Pro Area
 - [15:00-15:30] Work meeting
 - [15:30-16:15] Class-based views - Updated & Cleaned HTML
-- [xx:xx-xx:xx] Form Validators
 
 Day 18 (05/07/23)
 - [08:30-09:00] Helped with fixing the sign in page
@@ -216,6 +215,9 @@ Day 18 (05/07/23)
 - [11:15-12:15] Class-based views - Updated & Cleaned Python
 - [12:15-12:45] Lunch break
 - [12:45-13:15] Class-based views - Updated & Cleaned Python
+- [13:15-14:30] Merged projects
+- [14:30-14:45] Helped on modifying studios.css to increase the size of the 3D view images
+- [xx:xx-xx:xx] Form Validators
 
 ## To do list
 - [Completed] OpenClassrooms

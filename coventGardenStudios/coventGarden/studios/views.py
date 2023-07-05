@@ -1,3 +1,4 @@
+from datetime import datetime, time 
 from django.shortcuts import redirect, render, get_object_or_404
 
 # Class-based views
@@ -33,8 +34,6 @@ User = get_user_model()
 """
 Placeholder
 """
-
-
 def placeholder(request):
     return render(request, 'home.html')
 
@@ -49,8 +48,6 @@ Navigation
     - booking
     - ContactView
 """
-
-
 class HomeView(View):
     template_name = "home.html"
     context = {
@@ -137,8 +134,6 @@ Account
     - AccountSignUpView
     - Log out (Redirect)
 """
-
-
 class AccountSignInView(View):
     form_class = SignInForm
     template_name = "account/account_sign_in.html"
@@ -249,8 +244,6 @@ Password Reset
     - CustomPasswordResetConfirm
     - CustomPasswordResetComplete
 """
-
-
 class CustomPasswordResetForgot(PasswordResetView):
     form_class = UserPasswordResetForm
     template_name = 'password_reset/password_reset_forgot.html'
@@ -305,8 +298,6 @@ Profile
     - ProfileDetailView
     - ProfileUpdateView
 """
-
-
 class ProfileDetailView(View):
     template_name = "profile/profile_detail.html"
     context = {
@@ -396,8 +387,6 @@ Groups
     - GroupUpdateView
     - GroupDeleteView
 """
-
-
 class GroupDetailView(View):
     template_name = "groups/groups_detail.html"
     context = {
@@ -544,8 +533,6 @@ Bookings
     - BookingsDetailView
     - BookingsCreateView
 """
-
-
 class BookingsDetailView(View):
     template_name = "bookings/bookings_detail.html"
     context = {
@@ -593,10 +580,8 @@ Pro area
     - ProAreaView
     - Delete technical sheet
 """
-
-
 class ProAreaView(View):
-    template_name = "pro_area/pro_area.html"
+    template_name = "pro_area.html"
     context = {
         "title": "Espace Pro",
         "breadcrumb": [
@@ -736,8 +721,6 @@ Salles
 Reservation
     - Listing reservation
 """
-
-
 def is_in_group(CustomUser):
     return CustomUser.groups.filter(name='Client_Regulier').exists()
 
@@ -747,23 +730,22 @@ def list_salles(request):
     salle_data = [{"id": salle.id, "title": salle.name} for salle in salles]
     return JsonResponse(salle_data, safe=False)
 
-
 def list_users(request):
     users = CustomUser.objects.all()
     user_data = [{"id": user.id, "title": user.username} for user in users]
     return JsonResponse(user_data, safe=False)
 
-
 @login_required(login_url='account_sign_in')
 def accompte(request):
+
     # Submit form
     if request.method == 'POST':
 
         salle_id = int(request.POST["salle_id"])
-        salle = Salle.objects.get(id=salle_id)
+        salle = Salle.objects.get(id= salle_id)
 
         user_id = int(request.POST["user_id"])
-        user = CustomUser.objects.get(id=user_id)
+        user = CustomUser.objects.get(id= user_id)
 
         start_date = request.POST["date_start"]
         end_date = request.POST["date_end"]
@@ -774,11 +756,11 @@ def accompte(request):
         duration_seconds = duration.total_seconds()
         duration_hours = duration_seconds / 3600
         print(duration_hours)
-
-        # duration = 1
+        
+        #duration = 1
 
         if is_in_group(user):
-            description = "Reservation for user " + user.username
+            description = "Reservation for user "+ user.username
             status = "En cours"
             reservation = Reservation.objects.create(
                 description=description,
@@ -792,17 +774,17 @@ def accompte(request):
             )
             messages.success(request, "Votre réservation a bien été prise en compte !")
             return redirect('booking')
-
+    
         else:
             return render(request, 'payment.html', {"salle": salle, "user": user, "start_date": start_date,
-                                                    "end_date": end_date, "duration": duration_hours, "form": form})
+            "end_date": end_date, "duration": duration_hours, "form": form})
 
     else:
         return redirect('booking')
 
-
 @login_required(login_url='account_sign_in')
 def payment(request):
+
     print(request.POST)
 
     # Submit form
@@ -814,16 +796,17 @@ def payment(request):
         form = ReservationForm(request.POST)
 
         if form.is_valid():
-            salle = Salle.objects.get(id=salle_id)
-            user = CustomUser.objects.get(id=user_id)
 
-            description = "Reservation for user " + user.username
+            salle = Salle.objects.get(id= salle_id)
+            user = CustomUser.objects.get(id= user_id)
+
+            description = "Reservation for user "+ user.username
             duration = form.cleaned_data["duration"]
             date_start = form.cleaned_data["date_start"]
             date_end = form.cleaned_data["date_end"]
             price = form.cleaned_data["price"]
             status = "En cours"
-
+           
             reservation = Reservation.objects.create(
                 description=description,
                 duration=duration,
@@ -884,65 +867,65 @@ import time
 
 @login_required(login_url='login')
 def product_page(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    if request.method == 'POST':
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[
-                {
-                    'price': settings.PRODUCT_PRICE,
-                    'quantity': 1,
-                },
-            ],
-            mode='payment',
-            customer_creation='always',
-            # success_url = settings.REDIRECT_DOMAIN + '/payment_successful?session_id={CHECKOUT_SESSION_ID}',
-            # cancel_url = settings.REDIRECT_DOMAIN + '/payment_cancelled',
-            success_url='http://example.com/payment_successful?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='http://example.com/payment_cancelled',
+	stripe.api_key = settings.STRIPE_SECRET_KEY
+	if request.method == 'POST':
+		checkout_session = stripe.checkout.Session.create(
+			payment_method_types = ['card'],
+			line_items = [
+				{
+					'price': settings.PRODUCT_PRICE,
+					'quantity': 1,
+				},
+			],
+			mode = 'payment',
+			customer_creation = 'always',
+			# success_url = settings.REDIRECT_DOMAIN + '/payment_successful?session_id={CHECKOUT_SESSION_ID}',
+			# cancel_url = settings.REDIRECT_DOMAIN + '/payment_cancelled',
+            success_url = 'http://example.com/payment_successful?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url = 'http://example.com/payment_cancelled',
         )
-        return redirect(checkout_session.url, code=303)
-    return render(request, 'studios/product_page.html')
+		return redirect(checkout_session.url, code=303)
+	return render(request, 'studios/product_page.html')
 
 
 ## use Stripe dummy card: 4242 4242 4242 4242
 def payment_successful(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    checkout_session_id = request.GET.get('session_id', None)
-    session = stripe.checkout.Session.retrieve(checkout_session_id)
-    customer = stripe.Customer.retrieve(session.customer)
-    user_id = request.user.user_id
-    studios = UserPayment.objects.get(app_user=user_id)
-    studios.stripe_checkout_id = checkout_session_id
-    studios.save()
-    return render(request, 'studios/payment_successful.html', {'customer': customer})
+	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	checkout_session_id = request.GET.get('session_id', None)
+	session = stripe.checkout.Session.retrieve(checkout_session_id)
+	customer = stripe.Customer.retrieve(session.customer)
+	user_id = request.user.user_id
+	studios = UserPayment.objects.get(app_user=user_id)
+	studios.stripe_checkout_id = checkout_session_id
+	studios.save()
+	return render(request, 'studios/payment_successful.html', {'customer': customer})
 
 
 def payment_cancelled(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    return render(request, 'studios/payment_cancelled.html')
+	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	return render(request, 'studios/payment_cancelled.html')
 
 
 @csrf_exempt
 def stripe_webhook(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    time.sleep(10)
-    payload = request.body
-    signature_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
-        )
-    except ValueError as e:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        session_id = session.get('id', None)
-        time.sleep(15)
-        studios = UserPayment.objects.get(stripe_checkout_id=session_id)
-        studios.payment_bool = True
-        studios.save()
-    return HttpResponse(status=200)
+	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	time.sleep(10)
+	payload = request.body
+	signature_header = request.META['HTTP_STRIPE_SIGNATURE']
+	event = None
+	try:
+		event = stripe.Webhook.construct_event(
+			payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
+		)
+	except ValueError as e:
+		return HttpResponse(status=400)
+	except stripe.error.SignatureVerificationError as e:
+		return HttpResponse(status=400)
+	if event['type'] == 'checkout.session.completed':
+		session = event['data']['object']
+		session_id = session.get('id', None)
+		time.sleep(15)
+		studios = UserPayment.objects.get(stripe_checkout_id=session_id)
+		studios.payment_bool = True
+		studios.save()
+	return HttpResponse(status=200)
