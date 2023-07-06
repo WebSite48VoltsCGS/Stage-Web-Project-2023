@@ -20,6 +20,7 @@ class SignUpForm(forms.Form):
     email = FORM_EMAIL
     last_name = FORM_LAST_NAME
     first_name = FORM_FIRST_NAME
+    phone = FORM_PHONE
     password = FORM_PASSWORD_NEW
     confirm_password = FORM_PASSWORD_CONFIRM
 

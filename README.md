@@ -220,7 +220,12 @@ Day 18 (05/07/23)
 - [14:45-15:20] Work meeting
 - [15:20-15:30] Helped with fixing CSS
 - [15:30-15:55] Custom Group - Added a validated checkbox for groups
-- [15:55-16:30] Form Validators
+- [15:55-16:30] Form Validators - Password
+
+Day 19 (06/07/23)
+- [08:30-10:15] Form Validators - Password
+
+
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -291,7 +296,7 @@ Day 18 (05/07/23)
     - https://docs.djangoproject.com/en/4.2/topics/class-based-views/
     - https://docs.djangoproject.com/en/4.2/topics/class-based-views/intro/
     - https://forum.djangoproject.com/t/access-request-user-with-django-class-view/2689/2
-- [Progress] (Password) Validators
+- [Completed] Validators (Password)
     - https://www.youtube.com/watch?v=kRXiMIFKzoQ
     - https://www.letscodemore.com/blog/how-to-add-custom-password-validators-in-django/
     - https://docs.djangoproject.com/en/4.1/topics/auth/passwords/
@@ -299,6 +304,11 @@ Day 18 (05/07/23)
     - https://forum.djangoproject.com/t/importerror-cannot-import-name-ugettext-lazy-from-django-utils-translation/10943/7
     - https://stackoverflow.com/questions/63490432/django-form-password-validation
     - https://stackoverflow.com/questions/71328869/whats-gettext-lazy-on-django-is-for
+- [Progress] Validators (Unique)
+    - https://stackoverflow.com/questions/52639834/how-to-make-django-form-field-unique
+    - https://stackoverflow.com/questions/46802099/how-can-i-set-the-field-unique-in-django
+    - https://docs.djangoproject.com/en/4.2/ref/models/fields/
+    - https://stackoverflow.com/questions/53461410/make-user-email-unique-django
 
 ## Readme
 

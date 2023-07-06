@@ -8,6 +8,7 @@ from django.views import View
 
 # Account
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.db import IntegrityError
 
 # Password Reset
 from django.contrib.auth.views import (
@@ -207,15 +208,18 @@ class AccountSignUpView(View):
             password = request.POST["password"]
             confirm_password = request.POST["confirm_password"]
 
-            print()
-            print(django.contrib.auth.password_validation.password_validators_help_texts())
-
             # Password verification successful
             if password == confirm_password:
                 # Create a new user
-                user = User.objects.create_user(
-                    username=username, email=email, password=password,
-                    last_name=last_name, first_name=first_name)
+                try:
+                    print("?????????????????")
+                    user = User.objects.create_user(
+                        username=username, email=email, password=password,
+                        last_name=last_name, first_name=first_name)
+                except IntegrityError:
+                    # WIP: Add a "unique" error message
+                    self.context["form"] = form
+                    return render(request, self.template_name, self.context)
                 user.save()
 
                 # Log in the user

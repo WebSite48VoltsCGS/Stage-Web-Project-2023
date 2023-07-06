@@ -22,11 +22,14 @@ class CustomUser(AbstractUser):
         email
         password
     """
-    # user_id = models.AutoField(primary_key=True)
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['username']
-    test_field = MODELS_TEST
+    username = MODEL_USERNAME
+    first_name = MODEL_FIRST_NAME
+    last_name = MODEL_LAST_NAME
+    email = MODEL_EMAIL
     phone = MODEL_USER_PHONE
+    password = MODEL_PASSWORD
+
+    test_field = MODELS_TEST
 
     def __str__(self):
         return self.username
@@ -37,8 +40,8 @@ class CustomGroup(models.Model):
         on_delete=models.CASCADE,
         related_name='my_groups'
     )
-    name = MODEL_NAME
-    email = MODEL_EMAIL
+    name = MODEL_GROUP_NAME
+    email = MODEL_GROUP_EMAIL
     phone = MODEL_GROUP_PHONE
     members = MODEL_MEMBERS
     genre = MODEL_GENRE
