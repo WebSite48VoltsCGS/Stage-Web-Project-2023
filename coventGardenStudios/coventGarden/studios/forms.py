@@ -20,7 +20,7 @@ class SignUpForm(forms.Form):
     email = FORM_EMAIL
     last_name = FORM_LAST_NAME
     first_name = FORM_FIRST_NAME
-    password = FORM_PASSWORD
+    password = FORM_PASSWORD_NEW
     confirm_password = FORM_PASSWORD_CONFIRM
 
 
@@ -51,7 +51,7 @@ class UserPasswordResetForm(PasswordResetForm):
     email = FORM_EMAIL
 
 class UserPasswordSetForm(SetPasswordForm):
-    new_password1 = FORM_PASSWORD
+    new_password1 = FORM_PASSWORD_NEW
     new_password2 = FORM_PASSWORD_CONFIRM
 
 

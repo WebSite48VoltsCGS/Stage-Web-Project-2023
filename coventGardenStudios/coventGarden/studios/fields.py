@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from .validators import CustomPasswordValidator
 
 # Global variables
 LENGTH_NAME = 255       # Char field maximum length is 255
@@ -10,6 +11,9 @@ LENGTH_PHONE = 10       # Phone number default length value
 LENGTH_URL = 200        # URL default length value
 LENGTH_TEXT = 5000
 
+"""
+Forms
+"""
 # Labels
 LABEL_USERNAME = "Nom d'utilisateur"
 LABEL_FIRST_NAME = "Prénom"
@@ -32,14 +36,18 @@ FORM_FIRST_NAME = forms.CharField(max_length=LENGTH_NAME, label=LABEL_FIRST_NAME
 FORM_GROUP_NAME = forms.CharField(max_length=LENGTH_NAME, label=LABEL_GROUP_NAME, widget=WIDGET_TEXT)
 FORM_EMAIL = forms.EmailField(max_length=LENGTH_EMAIL, label=LABEL_EMAIL, widget=WIDGET_EMAIL)
 FORM_PASSWORD = forms.CharField(max_length=LENGTH_PASSWORD, label=LABEL_PASSWORD, widget=WIDGET_PASSWORD)
+FORM_PASSWORD_NEW = forms.CharField(max_length=LENGTH_PASSWORD, label=LABEL_PASSWORD, widget=WIDGET_PASSWORD, validators=CustomPasswordValidator)
 FORM_PASSWORD_CURRENT = forms.CharField(max_length=LENGTH_PASSWORD, label=LABEL_PASSWORD_CURRENT, widget=WIDGET_PASSWORD)
 FORM_PASSWORD_CONFIRM = forms.CharField(max_length=LENGTH_PASSWORD, label=LABEL_PASSWORD_CONFIRM, widget=WIDGET_PASSWORD)
 
-# Models
+"""
+Models
+"""
+# To be deleted or reworked
 MODELS_TEST = models.CharField(max_length=LENGTH_NAME, default="Test")
 MODEL_USER_PHONE = models.CharField(max_length=LENGTH_PHONE, blank=True)
 
-# CustomGroup Model
+# Models
 MODEL_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name="Nom de groupe")
 MODEL_EMAIL = models.CharField(max_length=LENGTH_EMAIL, verbose_name="E-mail")
 MODEL_GROUP_PHONE = models.CharField(max_length=LENGTH_PHONE, verbose_name="Numéro de téléphone")

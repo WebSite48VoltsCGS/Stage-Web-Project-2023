@@ -220,7 +220,7 @@ Day 18 (05/07/23)
 - [14:45-15:20] Work meeting
 - [15:20-15:30] Helped with fixing CSS
 - [15:30-15:55] Custom Group - Added a validated checkbox for groups
-- [xx:xx-xx:xx] Form Validators
+- [15:55-16:30] Form Validators
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -287,13 +287,18 @@ Day 18 (05/07/23)
         - https://stackoverflow.com/questions/52290294/django-url-tag-how-to-use-a-variable-as-url-name
 - [Completed] Overriding django.auth.views with another view
     - https://django.readthedocs.io/en/stable/topics/class-based-views/intro.html
-- [Progress] Class-based views
+- [Completed] Class-based views
     - https://docs.djangoproject.com/en/4.2/topics/class-based-views/
     - https://docs.djangoproject.com/en/4.2/topics/class-based-views/intro/
     - https://forum.djangoproject.com/t/access-request-user-with-django-class-view/2689/2
-- [Progress] Form validators
+- [Progress] (Password) Validators
     - https://www.youtube.com/watch?v=kRXiMIFKzoQ
-
+    - https://www.letscodemore.com/blog/how-to-add-custom-password-validators-in-django/
+    - https://docs.djangoproject.com/en/4.1/topics/auth/passwords/
+    - https://stackoverflow.com/questions/54547575/how-to-use-django-password-validation-in-my-existing-views
+    - https://forum.djangoproject.com/t/importerror-cannot-import-name-ugettext-lazy-from-django-utils-translation/10943/7
+    - https://stackoverflow.com/questions/63490432/django-form-password-validation
+    - https://stackoverflow.com/questions/71328869/whats-gettext-lazy-on-django-is-for
 
 ## Readme
 

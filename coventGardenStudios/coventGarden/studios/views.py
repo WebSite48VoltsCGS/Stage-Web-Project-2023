@@ -1,4 +1,6 @@
-from datetime import datetime, time 
+from datetime import datetime, time
+
+import django.contrib.auth.password_validation
 from django.shortcuts import redirect, render, get_object_or_404
 
 # Class-based views
@@ -205,6 +207,9 @@ class AccountSignUpView(View):
             password = request.POST["password"]
             confirm_password = request.POST["confirm_password"]
 
+            print()
+            print(django.contrib.auth.password_validation.password_validators_help_texts())
+
             # Password verification successful
             if password == confirm_password:
                 # Create a new user
@@ -342,7 +347,7 @@ class ProfileUpdateView(View):
             return redirect("account_sign_in")
 
         self.context["form"] = self.form_class(initial=self.form_class_initial())
-        self.context["confirm_form"] = self.form_confirm_class()
+        self.context["form_confirm"] = self.form_confirm_class()
         return render(request, self.template_name, self.context)
 
     def post(self, request):
@@ -756,7 +761,7 @@ def accompte(request):
         duration_seconds = duration.total_seconds()
         duration_hours = duration_seconds / 3600
         print(duration_hours)
-        
+
         #duration = 1
 
         if is_in_group(user):
@@ -774,7 +779,7 @@ def accompte(request):
             )
             messages.success(request, "Votre réservation a bien été prise en compte !")
             return redirect('booking')
-    
+
         else:
             return render(request, 'payment.html', {"salle": salle, "user": user, "start_date": start_date,
             "end_date": end_date, "duration": duration_hours, "form": form})
@@ -806,7 +811,7 @@ def payment(request):
             date_end = form.cleaned_data["date_end"]
             price = form.cleaned_data["price"]
             status = "En cours"
-           
+
             reservation = Reservation.objects.create(
                 description=description,
                 duration=duration,
@@ -860,7 +865,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from studios.models import UserPayment
+from .models import UserPayment
 import stripe
 import time
 

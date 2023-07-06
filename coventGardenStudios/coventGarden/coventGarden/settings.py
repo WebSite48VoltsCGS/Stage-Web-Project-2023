@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     'studios',
     'django_select2',
 ]
-# ---------- Required ----------
-# pip3 install django-select2
-# ------------------------------
 
 
 MIDDLEWARE = [
@@ -154,3 +151,9 @@ STRIPE_SECRET_KEY = 'sk_live_51NQQVfLFsoxR8h1Yy3tUUpbCH5e5tJxJ07EqPHYh0PVv361zTN
 
 PRODUCT_PRICE = 'price_1NQRh0LFsoxR8h1YJfhWjrxJ'
 REDIRECT_DOMAIN = "home"
+
+# ---------- Required ----------
+# pip3 install django-select2
+# pip3 install stripe
+# pip3 install 
+# ------------------------------
