@@ -2,7 +2,7 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm, Passwor
 from django.forms import ModelChoiceField, SelectDateWidget, ValidationError
 from django_select2.forms import Select2Widget
 
-from .models import CustomGroup, Event, TechnicalSheet, Concert
+from .models import CustomUser, CustomGroup, Event, TechnicalSheet, Concert
 from .fields import *
 
 # Register your forms here
@@ -24,6 +24,12 @@ class SignUpForm(forms.Form):
     password = FORM_PASSWORD_NEW
     confirm_password = FORM_PASSWORD_CONFIRM
 
+class SignupFormTest(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password1', 'password2')
 
 
 """

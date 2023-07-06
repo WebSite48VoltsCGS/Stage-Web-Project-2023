@@ -150,7 +150,7 @@ AUTH_USER_MODEL = "studios.CustomUser"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-# Forgot password
+# Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
@@ -169,5 +169,5 @@ REDIRECT_DOMAIN = "home"
 # ---------- Required ----------
 # pip3 install django-select2
 # pip3 install stripe
-# pip3 install 
+# pip3 install six
 # ------------------------------

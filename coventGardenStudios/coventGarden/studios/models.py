@@ -14,14 +14,6 @@ User
     - CustomGroup
 """
 class CustomUser(AbstractUser):
-    """
-    Default
-        username
-        first_name
-        last_name
-        email
-        password
-    """
     username = MODEL_USERNAME
     first_name = MODEL_FIRST_NAME
     last_name = MODEL_LAST_NAME

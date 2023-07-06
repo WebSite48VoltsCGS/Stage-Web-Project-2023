@@ -225,6 +225,9 @@ Day 18 (05/07/23)
 Day 19 (06/07/23)
 - [08:30-10:15] Form Validators - Password
 - [10:15-10:50] Form Validators - Unique
+- [10:50-11:30] Merged projects
+- [11:30-12:20] Work emeting: Presentation / Server / Remaining tasks
+- [12:20-xx:xx] Email confirmation
 
 
 
@@ -309,8 +312,13 @@ Day 19 (06/07/23)
     - https://stackoverflow.com/questions/52639834/how-to-make-django-form-field-unique
     - https://stackoverflow.com/questions/46802099/how-can-i-set-the-field-unique-in-django
     - https://stackoverflow.com/questions/53461410/make-user-email-unique-django
+    - https://stackoverflow.com/questions/63515591/integrityerror-unique-constraint-failed-users-customuser-email
     - https://stackoverflow.com/questions/5514621/django-error-message-displayed-for-unique-fields
-
+- [Progress] Email confirmation
+    - https://pylessons.com/django-email-confirm
+    - https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef
+    - https://stackoverflow.com/questions/70382084/import-error-force-text-from-django-utils-encoding
+    - https://stackoverflow.com/questions/47177696/noreversematch-with-keyword-argument-uidb64-with-django-2-0
 ## Readme
 
 Main: /README.md

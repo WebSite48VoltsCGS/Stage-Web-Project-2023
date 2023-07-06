@@ -25,7 +25,7 @@ from django.contrib import messages
 # Import
 from .models import CustomGroup, Event, Concert, TechnicalSheet, CustomUser, Reservation, Salle
 from .forms import (
-    SignInForm, SignUpForm,
+    SignInForm, SignUpForm, SignupFormTest,
     UserUpdateForm, ConfirmPasswordForm,
     UserPasswordResetForm, UserPasswordSetForm,
     CustomGroupForm, TechnicalSheetForm, ConcertForm,
@@ -212,7 +212,6 @@ class AccountSignUpView(View):
             if password == confirm_password:
                 # Create a new user
                 try:
-                    print("?????????????????")
                     user = User.objects.create_user(
                         username=username, email=email, password=password,
                         last_name=last_name, first_name=first_name)
@@ -239,6 +238,72 @@ class AccountSignUpView(View):
         else:
             self.context["form"] = form
             return render(request, self.template_name, self.context)
+
+
+
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+
+class NewAccountSignUpView(View):
+    form_class = SignupFormTest
+    template_name = "account/account_sign_up.html"
+    context = {
+        "title": "Créer un compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": None, "name": "Inscription"}]
+    }
+
+    def get(self, request):
+        self.context["form"] = self.form_class()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('account/account_email_confirmation.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+
+        # Failure
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 def account_log_out(request):

@@ -73,4 +73,7 @@ urlpatterns = [
 
     # Deleted
     path('delete_technical_sheet/<int:pk>/', views.delete_technical_sheet, name='delete_technical_sheet'),
+
+    path('compte/inscription/test/', views.NewAccountSignUpView.as_view(), name='signup_test'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
