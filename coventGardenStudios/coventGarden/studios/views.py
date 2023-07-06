@@ -10,6 +10,14 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.db import IntegrityError
 
+# Email confirmation
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+
 # Password Reset
 from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView)
@@ -25,7 +33,7 @@ from django.contrib import messages
 # Import
 from .models import CustomGroup, Event, Concert, TechnicalSheet, CustomUser, Reservation, Salle
 from .forms import (
-    SignInForm, SignUpForm, SignupFormTest,
+    SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
     UserPasswordResetForm, UserPasswordSetForm,
     CustomGroupForm, TechnicalSheetForm, ConcertForm,
@@ -195,10 +203,7 @@ class AccountSignUpView(View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        # Form input
         form = self.form_class(request.POST)
-
-        # Success
         if form.is_valid():
             # Form processing
             username = request.POST["username"]
@@ -210,24 +215,17 @@ class AccountSignUpView(View):
 
             # Password verification successful
             if password == confirm_password:
+                # Deactivate the new user account by default
+                user = User.objects.create_user(
+                    username=username, email=email, password=password,
+                    last_name=last_name, first_name=first_name)
+                user.is_active = False
+
                 # Create a new user
-                try:
-                    user = User.objects.create_user(
-                        username=username, email=email, password=password,
-                        last_name=last_name, first_name=first_name)
-                except IntegrityError:
-                    # WIP: Add a "unique" error message
-                    self.context["form"] = form
-                    return render(request, self.template_name, self.context)
                 user.save()
 
-                # Log in the user
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-
-                    # Redirect on success
-                    return redirect('profile_detail')
+                # Send email
+                return account_email_send(request, user, form)
 
             # Password verification failed
             else:
@@ -240,70 +238,74 @@ class AccountSignUpView(View):
             return render(request, self.template_name, self.context)
 
 
-
-
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from .tokens import account_activation_token
-from django.core.mail import EmailMessage
-
-class NewAccountSignUpView(View):
-    form_class = SignupFormTest
-    template_name = "account/account_sign_up.html"
+class AccountSignUpDoneView(View):
+    template_name = "account/account_email_done.html"
     context = {
-        "title": "Créer un compte",
+        "title": "Envoi du mail de confirmation",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": None, "name": "Inscription"}]
+            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": None, "name": "Envoi"}]
     }
 
     def get(self, request):
-        self.context["form"] = self.form_class()
         return render(request, self.template_name, self.context)
 
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
+
+class AccountSignUpConfirmView(View):
+    template_name = "account/account_email_confirm.html"
+    context = {
+        "title": "Confirmation de la création du compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Confirmation"}]
+    }
+
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
             user.save()
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your blog account.'
-            message = render_to_string('account/account_email_confirmation.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
-
-        # Failure
-        else:
-            self.context["form"] = form
             return render(request, self.template_name, self.context)
+        else:
+            return redirect("account_sign_up_failed")
 
 
-def activate(request, uidb64, token):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-    else:
-        return HttpResponse('Activation link is invalid!')
+class AccountSignUpFailedView(View):
+    template_name = "account/account_email_failed.html"
+    context = {
+        "title": "Échec de la création du compte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": None, "name": "Envoi"},
+            {"view": None, "name": "Échec"}]
+    }
+
+    def get(self, request):
+        return render(request, self.template_name, self.context)
+
+
+def account_email_send(request, user, form):
+    current_site = get_current_site(request)
+    mail_subject = 'Activate your blog account.'
+    message = render_to_string('account/account_email_template.html', {
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+    })
+    to_email = form.cleaned_data.get('email')
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    email.send()
+
+    return redirect("account_sign_up_done")
 
 
 def account_log_out(request):
@@ -913,7 +915,7 @@ def all_booking(request):
 
 def all_booking_event(request):
     reservations = Reservation.objects.all()
-    
+
     datas = []
     for current in reservations:
         data = {
@@ -926,7 +928,7 @@ def all_booking_event(request):
         data['color'] = 'gainsboro'
         data['textColor'] = 'black'
         datas.append(data)
-    
+
     dataD = []
     dateInit = datetime(2023, 1, 2)
     currentD = {
@@ -939,10 +941,10 @@ def all_booking_event(request):
 
     resources = Salle.objects.all()
     for resource in resources:
-        for i in range(365): 
-            for j in range(10, 16):  
+        for i in range(365):
+            for j in range(10, 16):
                 new_data = currentD.copy()
-                new_data['id'] += 1 
+                new_data['id'] += 1
                 new_data['resourceId'] = resource.id
                 new_data['start'] = (dateInit + timedelta(days=i)).replace(hour=j, minute=0, second=0).strftime("%Y-%m-%d %H:%M:%S")
                 new_data['end'] = (dateInit + timedelta(days=i)).replace(hour=j+1, minute=0, second=0).strftime("%Y-%m-%d %H:%M:%S")

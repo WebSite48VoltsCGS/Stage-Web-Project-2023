@@ -69,6 +69,5 @@ MODEL_MEMBERS = models.IntegerField(validators=[MinValueValidator(1), MaxValueVa
 MODEL_GENRE = models.CharField(max_length=LENGTH_NAME, verbose_name="Style musicale")
 MODEL_FACEBOOK = models.URLField(max_length=LENGTH_URL, blank=True)
 MODEL_INSTAGRAM = models.URLField(max_length=LENGTH_URL, blank=True)
-MODEL_TWITTER = models.URLField(max_length=LENGTH_URL, blank=True)
 MODEL_BIOGRAPHY = models.TextField(max_length=LENGTH_TEXT, verbose_name="Biographie")
 MODEL_VALIDATED = models.BooleanField(default=False, verbose_name="Vérifié")

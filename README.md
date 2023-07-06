@@ -227,8 +227,12 @@ Day 19 (06/07/23)
 - [10:15-10:50] Form Validators - Unique
 - [10:50-11:30] Merged projects
 - [11:30-12:20] Work emeting: Presentation / Server / Remaining tasks
-- [12:20-xx:xx] Email confirmation
-
+- [12:20-13:50] Email confirmation (WIP)
+- [13:50-14:25] Email confirmation
+- [14:25-14:45] Helped with fixing HTML (base / Container / pro_area)
+- [14:45-15:30] Email confirmation
+- [15:30-16:00] Demonstration of how to set up a website on a server
+- [16:00-15:30] Email confirmation
 
 
 ## To do list
@@ -319,6 +323,9 @@ Day 19 (06/07/23)
     - https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef
     - https://stackoverflow.com/questions/70382084/import-error-force-text-from-django-utils-encoding
     - https://stackoverflow.com/questions/47177696/noreversematch-with-keyword-argument-uidb64-with-django-2-0
+    - https://stackoverflow.com/questions/59193514/importerror-cannot-import-name-six-from-django-utils
+    - https://pypi.org/project/six/
+
 ## Readme
 
 Main: /README.md

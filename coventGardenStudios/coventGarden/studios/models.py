@@ -20,8 +20,7 @@ class CustomUser(AbstractUser):
     email = MODEL_EMAIL
     phone = MODEL_USER_PHONE
     password = MODEL_PASSWORD
-
-    test_field = MODELS_TEST
+    # is_active = False by default when creating an account using the SignUpForm
 
     def __str__(self):
         return self.username
@@ -39,7 +38,6 @@ class CustomGroup(models.Model):
     genre = MODEL_GENRE
     facebook = MODEL_FACEBOOK
     instagram = MODEL_INSTAGRAM
-    twitter = MODEL_TWITTER
     biography = MODEL_BIOGRAPHY
     validated = MODEL_VALIDATED
 

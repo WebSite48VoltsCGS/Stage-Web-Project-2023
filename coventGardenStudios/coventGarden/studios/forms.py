@@ -15,21 +15,18 @@ class SignInForm(forms.Form):
     username = FORM_USERNAME
     password = FORM_PASSWORD
 
-class SignUpForm(forms.Form):
-    username = FORM_USERNAME
-    email = FORM_EMAIL
-    last_name = FORM_LAST_NAME
-    first_name = FORM_FIRST_NAME
-    phone = FORM_PHONE
-    password = FORM_PASSWORD_NEW
+class SignUpForm(forms.ModelForm):
+    password = FORM_PASSWORD
     confirm_password = FORM_PASSWORD_CONFIRM
-
-class SignupFormTest(UserCreationForm):
-    email = forms.EmailField(max_length=200, help_text='Required')
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password', 'confirm_password')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 
 """
