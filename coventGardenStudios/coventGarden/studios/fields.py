@@ -48,9 +48,13 @@ Models
 # To be deleted or reworked
 MODELS_TEST = models.CharField(max_length=LENGTH_NAME, default="Test")
 
+# Error messages
+UNIQUER_USERNAME = {"unique": "Ce nom d'utilisateur est déjà utilisé"}
+UNIQUE_EMAIL = {"unique": "Cette adresse email est déjà utilisée."}
+
 # CustomUser
-MODEL_USERNAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_USERNAME, unique=True)
-MODEL_EMAIL = models.CharField(max_length=LENGTH_EMAIL, verbose_name=LABEL_EMAIL, unique=True)
+MODEL_USERNAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_USERNAME, unique=True, error_messages=UNIQUER_USERNAME)
+MODEL_EMAIL = models.CharField(max_length=LENGTH_EMAIL, verbose_name=LABEL_EMAIL, unique=True, error_messages=UNIQUE_EMAIL)
 MODEL_LAST_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_FIRST_NAME)
 MODEL_FIRST_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_LAST_NAME)
 MODEL_USER_PHONE = models.CharField(max_length=LENGTH_PHONE, verbose_name=LABEL_PHONE, blank=True)

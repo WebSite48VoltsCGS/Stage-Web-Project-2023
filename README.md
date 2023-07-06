@@ -224,6 +224,7 @@ Day 18 (05/07/23)
 
 Day 19 (06/07/23)
 - [08:30-10:15] Form Validators - Password
+- [10:15-10:50] Form Validators - Unique
 
 
 
@@ -307,8 +308,8 @@ Day 19 (06/07/23)
 - [Progress] Validators (Unique)
     - https://stackoverflow.com/questions/52639834/how-to-make-django-form-field-unique
     - https://stackoverflow.com/questions/46802099/how-can-i-set-the-field-unique-in-django
-    - https://docs.djangoproject.com/en/4.2/ref/models/fields/
     - https://stackoverflow.com/questions/53461410/make-user-email-unique-django
+    - https://stackoverflow.com/questions/5514621/django-error-message-displayed-for-unique-fields
 
 ## Readme
 
