@@ -139,11 +139,17 @@ class ContactView(View):
         return render(request, self.template_name, self.context)
 
 
+
+
+
 """
 Account
     - AccountSignInView
     - AccountSignUpView
-    - Log out (Redirect)
+    - AccountSignUpDoneView
+    - AccountSignUpCompleteView
+    - AccountSignUpFailedView
+    - account_log_out
 """
 class AccountSignInView(View):
     form_class = SignInForm
@@ -179,10 +185,11 @@ class AccountSignInView(View):
 
             # User not found
             else:
+                # WIP: Add a error message
                 self.context["form"] = form
                 return render(request, self.template_name, self.context)
 
-        # Failure
+        # Invalid form
         else:
             self.context["form"] = form
             return render(request, self.template_name, self.context)
@@ -211,10 +218,10 @@ class AccountSignUpView(View):
             last_name = request.POST["last_name"]
             email = request.POST["email"]
             password = request.POST["password"]
-            confirm_password = request.POST["confirm_password"]
+            password_confirm = request.POST["password_confirm"]
 
             # Password verification successful
-            if password == confirm_password:
+            if password == password_confirm:
                 # Deactivate the new user account by default
                 user = User.objects.create_user(
                     username=username, email=email, password=password,
@@ -225,21 +232,35 @@ class AccountSignUpView(View):
                 user.save()
 
                 # Send email
-                return account_email_send(request, user, form)
+                current_site = get_current_site(request)
+                mail_subject = 'Activate your blog account.'
+                message = render_to_string('account/account_sign_up_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(mail_subject, message, to=[to_email])
+                email.send()
+
+                return redirect("account_sign_up_done")
 
             # Password verification failed
             else:
+                # WIP: Add a error message
                 self.context["form"] = form
                 return render(request, self.template_name, self.context)
 
-        # Failure
+        # Invalid form
         else:
+            # WIP: Add a error message
             self.context["form"] = form
             return render(request, self.template_name, self.context)
 
 
 class AccountSignUpDoneView(View):
-    template_name = "account/account_email_done.html"
+    template_name = "account/account_sign_up_done.html"
     context = {
         "title": "Envoi du mail de confirmation",
         "breadcrumb": [
@@ -253,7 +274,7 @@ class AccountSignUpDoneView(View):
 
 
 class AccountSignUpConfirmView(View):
-    template_name = "account/account_email_confirm.html"
+    template_name = "account/account_sign_up_confirm.html"
     context = {
         "title": "Confirmation de la création du compte",
         "breadcrumb": [
@@ -264,21 +285,34 @@ class AccountSignUpConfirmView(View):
     }
 
     def get(self, request, uidb64, token):
+        # Create user
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
+
+        # Check for error
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
+
+        # Check for user and token
         if user is not None and account_activation_token.check_token(user, token):
+            # Activate user and save modification
             user.is_active = True
             user.save()
+
             return render(request, self.template_name, self.context)
+
+        # User creation failed
         else:
+            # Debug
+            print(user)
+            print(account_activation_token.check_token(user, token))
+
             return redirect("account_sign_up_failed")
 
 
 class AccountSignUpFailedView(View):
-    template_name = "account/account_email_failed.html"
+    template_name = "account/account_sign_up_failed.html"
     context = {
         "title": "Échec de la création du compte",
         "breadcrumb": [
@@ -290,22 +324,6 @@ class AccountSignUpFailedView(View):
 
     def get(self, request):
         return render(request, self.template_name, self.context)
-
-
-def account_email_send(request, user, form):
-    current_site = get_current_site(request)
-    mail_subject = 'Activate your blog account.'
-    message = render_to_string('account/account_email_template.html', {
-        'user': user,
-        'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
-    })
-    to_email = form.cleaned_data.get('email')
-    email = EmailMessage(mail_subject, message, to=[to_email])
-    email.send()
-
-    return redirect("account_sign_up_done")
 
 
 def account_log_out(request):
@@ -429,7 +447,7 @@ class ProfileUpdateView(View):
         # Success
         if form.is_valid() and form_confirm.is_valid():
             # Password verification successful
-            if request.POST["current_password"] == request.POST["confirm_password"]:
+            if request.POST["current_password"] == request.POST["password_confirm"]:
                 # Form processing
                 user = request.user
                 user.username = request.POST["username"]

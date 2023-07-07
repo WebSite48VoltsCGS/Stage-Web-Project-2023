@@ -17,11 +17,11 @@ class SignInForm(forms.Form):
 
 class SignUpForm(forms.ModelForm):
     password = FORM_PASSWORD
-    confirm_password = FORM_PASSWORD_CONFIRM
+    password_confirm = FORM_PASSWORD_CONFIRM
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password', 'confirm_password')
+        fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password', 'password_confirm')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +42,7 @@ class UserUpdateForm(forms.Form):
 
 class ConfirmPasswordForm(forms.Form):
     current_password = FORM_PASSWORD_CURRENT
-    confirm_password = FORM_PASSWORD_CONFIRM
+    password_confirm = FORM_PASSWORD_CONFIRM
 
 
 

@@ -228,11 +228,14 @@ Day 19 (06/07/23)
 - [10:50-11:30] Merged projects
 - [11:30-12:20] Work emeting: Presentation / Server / Remaining tasks
 - [12:20-13:50] Email confirmation (WIP)
-- [13:50-14:25] Email confirmation
+- [13:50-14:25] Email confirmation (WIP)
 - [14:25-14:45] Helped with fixing HTML (base / Container / pro_area)
-- [14:45-15:30] Email confirmation
+- [14:45-15:30] Email confirmation (WIP)
 - [15:30-16:00] Demonstration of how to set up a website on a server
-- [16:00-15:30] Email confirmation
+- [16:00-15:30] Email confirmation (WIP)
+
+Day 20 (07/07/23)
+- [08:30-xx:xx] Email confirmation (WIP)
 
 
 ## To do list
