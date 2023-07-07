@@ -21,6 +21,7 @@ from django.core.mail import EmailMessage
 # Password Reset
 from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView)
+from django.urls import reverse_lazy
 
 # Booking
 from django.http import JsonResponse
@@ -144,20 +145,33 @@ class ContactView(View):
 
 """
 Account
-    - AccountSignInView
-    - AccountSignUpView
+    - AccountSignInFormView
+    - AccountSignUpFormView
     - AccountSignUpDoneView
     - AccountSignUpCompleteView
     - AccountSignUpFailedView
+    - AccountPasswordForgotForm
+    - AccountPasswordForgotDone
+    - AccountPasswordForgotConfirm
+    - AccountPasswordForgotComplete
     - account_log_out
+    
+WIP
+    - AccountSignInFormView: Add a "User not found" error message
+    - AccountSignUpFormView: Add a "Password verification failed" error message
+    - account_sign_up_email: Update the email template
+    - AccountPasswordForgotConfirm:
+        - Find out how to modify the "Password reset unsuccessful" view
+        - Find the source code for PasswordResetConfirmView
 """
-class AccountSignInView(View):
+class AccountSignInFormView(View):
     form_class = SignInForm
-    template_name = "account/account_sign_in.html"
+    template_name = "account/account_sign_in_form.html"
     context = {
         "title": "Se connecter à son compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
+            {"view": "profile_detail", "name": "Compte"},
             {"view": None, "name": "Connexion"}]
     }
 
@@ -185,7 +199,6 @@ class AccountSignInView(View):
 
             # User not found
             else:
-                # WIP: Add a error message
                 self.context["form"] = form
                 return render(request, self.template_name, self.context)
 
@@ -195,13 +208,14 @@ class AccountSignInView(View):
             return render(request, self.template_name, self.context)
 
 
-class AccountSignUpView(View):
+class AccountSignUpFormView(View):
     form_class = SignUpForm
-    template_name = "account/account_sign_up.html"
+    template_name = "account/account_sign_up_form.html"
     context = {
         "title": "Créer un compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
+            {"view": "profile_detail", "name": "Compte"},
             {"view": None, "name": "Inscription"}]
     }
 
@@ -248,13 +262,11 @@ class AccountSignUpView(View):
 
             # Password verification failed
             else:
-                # WIP: Add a error message
                 self.context["form"] = form
                 return render(request, self.template_name, self.context)
 
         # Invalid form
         else:
-            # WIP: Add a error message
             self.context["form"] = form
             return render(request, self.template_name, self.context)
 
@@ -265,7 +277,7 @@ class AccountSignUpDoneView(View):
         "title": "Envoi du mail de confirmation",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": "account_sign_up_form", "name": "Inscription"},
             {"view": None, "name": "Envoi"}]
     }
 
@@ -279,7 +291,7 @@ class AccountSignUpConfirmView(View):
         "title": "Confirmation de la création du compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": "account_sign_up_form", "name": "Inscription"},
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Confirmation"}]
     }
@@ -317,7 +329,7 @@ class AccountSignUpFailedView(View):
         "title": "Échec de la création du compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "account_sign_up", "name": "Inscription"},
+            {"view": "account_sign_up_form", "name": "Inscription"},
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Échec"}]
     }
@@ -326,65 +338,67 @@ class AccountSignUpFailedView(View):
         return render(request, self.template_name, self.context)
 
 
-def account_log_out(request):
-    logout(request)
-    return redirect('account_sign_in')
-
-
-"""
-Password Reset
-    - CustomPasswordResetForgot
-    - CustomPasswordResetDone
-    - CustomPasswordResetConfirm
-    - CustomPasswordResetComplete
-"""
-class CustomPasswordResetForgot(PasswordResetView):
+class AccountPasswordForgotForm(PasswordResetView):
     form_class = UserPasswordResetForm
-    template_name = 'password_reset/password_reset_forgot.html'
-    email_template_name = 'password_reset/password_reset_email.html'
+    template_name = 'account/account_password_forgot_form.html'
+    email_template_name = 'account/account_password_forgot_email.html'
+    success_url = reverse_lazy('account_password_forgot_done')
     extra_context = {
         "title": "Récupérer son compte",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
+            {"view": "profile_detail", "name": "Compte"},
             {"view": None, "name": "Mot de passe oublié"}]
     }
 
 
-class CustomPasswordResetDone(PasswordResetDoneView):
-    template_name = 'password_reset/password_reset_done.html'
+class AccountPasswordForgotDone(PasswordResetDoneView):
+    template_name = 'account/account_password_forgot_done.html'
     extra_context = {
         "title": "Validation de la demande",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": "profile_detail", "name": "Compte"},
+            {"view": "account_password_forgot_form", "name": "Mot de passe oublié"},
             {"view": None, "name": "Envoi"}]
     }
 
 
-class CustomPasswordResetConfirm(PasswordResetConfirmView):
+class AccountPasswordForgotConfirm(PasswordResetConfirmView):
     form_class = UserPasswordSetForm
-    template_name = 'password_reset/password_reset_confirm.html'
+    template_name = 'account/account_password_forgot_confirm.html'
+    success_url = reverse_lazy('account_password_forgot_complete')
     extra_context = {
         "title": "Modifier mon mot de passe",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": "profile_detail", "name": "Compte"},
+            {"view": "account_password_forgot_form", "name": "Mot de passe oublié"},
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Modifier"}]
     }
 
 
-class CustomPasswordResetComplete(PasswordResetCompleteView):
-    template_name = 'password_reset/password_reset_complete.html'
+class AccountPasswordForgotComplete(PasswordResetCompleteView):
+    template_name = 'account/account_password_forgot_complete.html'
     extra_context = {
         "title": "Confirmation",
         "breadcrumb": [
             {"view": "home", "name": "Accueil"},
-            {"view": "password_reset_forgot", "name": "Mot de passe oublié"},
+            {"view": "profile_detail", "name": "Compte"},
+            {"view": "account_password_forgot_form", "name": "Mot de passe oublié"},
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Modifier"},
             {"view": None, "name": "Confirmation"}]
     }
+
+
+def account_log_out(request):
+    logout(request)
+    return redirect('account_sign_in_form')
+
+
+
 
 
 """
@@ -404,7 +418,7 @@ class ProfileDetailView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         return render(request, self.template_name, self.context)
 
@@ -433,7 +447,7 @@ class ProfileUpdateView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         self.context["form"] = self.form_class(initial=self.form_class_initial())
         self.context["form_confirm"] = self.form_confirm_class()
@@ -493,7 +507,7 @@ class GroupDetailView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         self.context["my_groups"] = request.user.my_groups.all()
         return render(request, self.template_name, self.context)
@@ -520,7 +534,7 @@ class GroupCreateView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         self.context["form"] = self.form_class(initial=self.form_class_initial())
         return render(request, self.template_name, self.context)
@@ -561,7 +575,7 @@ class GroupUpdateView(View):
     def get(self, request, group_id):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         group = CustomGroup.objects.get(id=group_id)
         self.context["form"] = self.form_class(instance=group)
@@ -605,14 +619,14 @@ class GroupDeleteView(View):
     def get(self, request, group_id):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         return render(request, self.template_name, self.context)
 
     def post(self, request, group_id):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         # Delete the group
         group = CustomGroup.objects.get(id=group_id)
@@ -639,7 +653,7 @@ class BookingsDetailView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         # Get all groups object related to the current user
         self.context["my_groups"] = request.user.my_groups.all()
@@ -664,7 +678,7 @@ class BookingsCreateView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         return render(request, self.template_name, self.context)
 
@@ -686,7 +700,7 @@ class ProAreaView(View):
     def get(self, request):
         # Redirect to login page if user is not logged in
         if not request.user.is_authenticated:
-            return redirect("account_sign_in")
+            return redirect("account_sign_in_form")
 
         self.context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
         self.context["form"] = TechnicalSheetForm()
@@ -829,7 +843,7 @@ def list_users(request):
     user_data = [{"id": user.id, "title": user.username} for user in users]
     return JsonResponse(user_data, safe=False)
 
-@login_required(login_url='account_sign_in')
+@login_required(login_url='account_sign_in_form')
 def accompte(request):
 
     # Submit form
@@ -876,7 +890,7 @@ def accompte(request):
     else:
         return redirect('booking')
 
-@login_required(login_url='account_sign_in')
+@login_required(login_url='account_sign_in_form')
 def payment(request):
 
     print(request.POST)

@@ -54,7 +54,7 @@ UNIQUE_EMAIL = {"unique": "Cette adresse email est déjà utilisée."}
 
 # CustomUser
 MODEL_USERNAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_USERNAME, unique=True, error_messages=UNIQUER_USERNAME)
-MODEL_EMAIL = models.CharField(max_length=LENGTH_EMAIL, verbose_name=LABEL_EMAIL, unique=True, error_messages=UNIQUE_EMAIL)
+MODEL_EMAIL = models.EmailField(max_length=LENGTH_EMAIL, verbose_name=LABEL_EMAIL, unique=True, error_messages=UNIQUE_EMAIL)
 MODEL_LAST_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_FIRST_NAME)
 MODEL_FIRST_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name=LABEL_LAST_NAME)
 MODEL_USER_PHONE = models.CharField(max_length=LENGTH_PHONE, verbose_name=LABEL_PHONE, blank=True)
@@ -63,7 +63,7 @@ MODEL_PASSWORD_CONFIRM = models.CharField(max_length=LENGTH_PASSWORD, verbose_na
 
 # CustomGroup
 MODEL_GROUP_NAME = models.CharField(max_length=LENGTH_NAME, verbose_name="Nom de groupe")
-MODEL_GROUP_EMAIL = models.CharField(max_length=LENGTH_EMAIL, verbose_name="E-mail")
+MODEL_GROUP_EMAIL = models.EmailField(max_length=LENGTH_EMAIL, verbose_name="E-mail")
 MODEL_GROUP_PHONE = models.CharField(max_length=LENGTH_PHONE, verbose_name="Numéro de téléphone")
 MODEL_MEMBERS = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(20)], verbose_name="Nombre de membres")
 MODEL_GENRE = models.CharField(max_length=LENGTH_NAME, verbose_name="Style musicale")

@@ -227,16 +227,18 @@ Day 19 (06/07/23)
 - [10:15-10:50] Form Validators - Unique
 - [10:50-11:30] Merged projects
 - [11:30-12:20] Work emeting: Presentation / Server / Remaining tasks
-- [12:20-13:50] Email confirmation (WIP)
-- [13:50-14:25] Email confirmation (WIP)
+- [12:20-13:50] Email Confirmation - Tutorial
+- [13:50-14:25] Email Confirmation - Cleaning code
 - [14:25-14:45] Helped with fixing HTML (base / Container / pro_area)
-- [14:45-15:30] Email confirmation (WIP)
+- [14:45-15:30] Email Confirmation - Views
 - [15:30-16:00] Demonstration of how to set up a website on a server
-- [16:00-15:30] Email confirmation (WIP)
+- [16:00-15:30] Email Confirmation - Views
 
 Day 20 (07/07/23)
-- [08:30-xx:xx] Email confirmation (WIP)
+- [08:30-09:15] Email Confirmation - Views
+- [09:15-10:50] Account / Password Forgot / URL - Cleaned code & project - Updated Password Forgot (Success URL)
 
+- [xx:xx-xx:xx] Merged project - Email confirmation - Updated Account / Password Forgot (Success URL) / URL - Cleaned Code & Project
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -321,13 +323,17 @@ Day 20 (07/07/23)
     - https://stackoverflow.com/questions/53461410/make-user-email-unique-django
     - https://stackoverflow.com/questions/63515591/integrityerror-unique-constraint-failed-users-customuser-email
     - https://stackoverflow.com/questions/5514621/django-error-message-displayed-for-unique-fields
-- [Progress] Email confirmation
+- [Complete] Email confirmation
     - https://pylessons.com/django-email-confirm
     - https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef
     - https://stackoverflow.com/questions/70382084/import-error-force-text-from-django-utils-encoding
     - https://stackoverflow.com/questions/47177696/noreversematch-with-keyword-argument-uidb64-with-django-2-0
     - https://stackoverflow.com/questions/59193514/importerror-cannot-import-name-six-from-django-utils
     - https://pypi.org/project/six/
+- [Complete] Password Reset (Success URL)
+    - https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.PasswordResetView
+    - https://github.com/pennersr/django-allauth/issues/468
+    - https://www.fullstackpython.com/django-urls-reverse-lazy-examples.html
 
 ## Readme
 
