@@ -33,13 +33,14 @@ from datetime import timedelta, datetime, time
 from django.contrib import messages
 
 # Import
-from .models import CustomGroup, Event, Concert, TechnicalSheet, CustomUser, Reservation, Salle
+from .models import CustomGroup, Event, Concert, CustomUser, Reservation, Salle
 from .forms import (
-    LogoForm, SignInForm, SignUpForm,
+    SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
     UserPasswordResetForm, UserPasswordSetForm,
-    CustomGroupForm, TechnicalSheetForm, ConcertForm,
-    EventForm, ReservationForm)
+    CustomGroupForm, ConcertForm,
+    EventForm, ReservationForm,
+    UploadTechnicalSheetForm, UploadLogoForm)
 
 User = get_user_model()
 
@@ -544,7 +545,10 @@ Groups
     - GroupUpdateView
     - GroupDeleteView
 """
+
 class GroupDetailView(LoginRequiredMixin, View):
+    form_technical_sheet = UploadTechnicalSheetForm
+    form_logo = UploadLogoForm
     redirect_field_name = ''
     template_name = "groups/groups_detail.html"
     context = {
@@ -556,30 +560,19 @@ class GroupDetailView(LoginRequiredMixin, View):
 
     def get(self, request):
         self.context["my_groups"] = request.user.my_groups.all()
-        self.context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
-        self.context["form"] = TechnicalSheetForm()
-        self.context["form3"] = LogoForm()
+        self.context["form_technical_sheet"] = self.form_technical_sheet()
+        self.context["form_logo"] = self.form_logo()
+
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        self.context["form"] = TechnicalSheetForm(request.POST, request.FILES)
-        if self.context["form"].is_valid():
-            deposited_files = request.FILES.getlist('pdf_file')
-            for file in deposited_files:
-                technical_sheet = TechnicalSheet(pdf_file=file, user=request.user)
-                technical_sheet.save()
-            messages.success(request, 'Vos fiches techniques ont été déposées avec succès !')
-            return redirect('groups_detail')
-        
-        self.context["form3"] = LogoForm(request.POST, request.FILES)
-        if self.context["form3"].is_valid():
-            deposited_logos = request.FILES.getlist('pdf_logo')
-            for file in deposited_logos:
-                logo = LogoForm(pdf_logo=file, user=request.user)
-                logo.save()
-            messages.success(request, 'Vos Logos ont été déposées avec succès !')
-            return redirect('groups_detail')
-        
+        self.context["form_technical_sheet"] = self.form_technical_sheet(request.POST, request.FILES)
+        self.context["form_logo"] = self.form_logo(request.POST, request.FILES)
+        if self.context["form_technical_sheet"].is_valid():
+            pass
+        if self.context["form_logo"].is_valid():
+            pass
+
         return render(request, self.template_name, self.context)
 
 
@@ -648,7 +641,7 @@ class GroupUpdateView(LoginRequiredMixin, View):
         group = CustomGroup.objects.get(id=group_id)
 
         # Form input
-        form = self.form_class(request.POST, instance=group)
+        form = self.form_class(request.POST, request.FILES, instance=group)
 
         # Success
         if form.is_valid():

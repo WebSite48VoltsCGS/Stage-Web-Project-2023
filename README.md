@@ -242,7 +242,7 @@ Day 20 (07/07/23)
 - [13:30-14:00] Mail - Added mailto
 - [14:00-14:30] Overhauled Models (WIP)
 - [14:30-16:05] Merged & CustomGroup - Updated forms, models, views, settings, HTML
-
+- [16:05-17:00] Custom Group - Updated Views (groups_detail / groups_create / groups_update) - Updated Models (CustomGroup) - Fixed Forms (UserUpdateForm) & Deleted (TechnicalSheet) - Updated Settings (MEDIA_ROOT) - Updated HTML (groups, template_form, files upload))
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -352,6 +352,8 @@ Day 20 (07/07/23)
     - https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/
     - https://www.javatpoint.com/django-file-upload#:~:text=Django%20provides%20built%2Din%20library,%2Fform%2Ddata%22%20property.
     - https://ordinarycoders.com/blog/article/django-file-image-uploads
+    - https://chartio.com/resources/tutorials/how-to-filter-for-empty-or-null-values-in-a-django-queryset/
+    - https://stackoverflow.com/questions/64881423/django-open-rendered-html-file
 
 ## Readme
 

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm, Passwor
 from django.forms import ModelChoiceField, SelectDateWidget, ValidationError
 from django_select2.forms import Select2Widget
 
-from .models import CustomUser, CustomGroup, Event, TechnicalSheet, Concert
+from .models import CustomUser, CustomGroup, Event, Concert
 from .fields import *
 
 # Register your forms here
@@ -27,7 +27,7 @@ class SignUpForm(forms.ModelForm):
 
 
 """
-Profile
+Update User
     - UserUpdateForm
     - ConfirmPasswordForm
 """
@@ -43,9 +43,8 @@ class ConfirmPasswordForm(forms.Form):
     password_confirm = FORM_PASSWORD_CONFIRM
 
 
-
 """
-Password Reset
+Password Forgot
     - UserPasswordResetForm
     - UserPasswordSetForm
 """
@@ -57,14 +56,12 @@ class UserPasswordSetForm(SetPasswordForm):
     new_password2 = FORM_PASSWORD_CONFIRM
 
 
-
 """
-Group
-    - GroupCreateForm
-    - TechnicalsheetForm
-    - LogoForm
+CustomGroup
+    - CustomGroupForm
+    - UploadTechnicalSheetForm
+    - UploadLogoForm
 """
-# Create your forms here.
 class CustomGroupForm(forms.ModelForm):
     class Meta:
         model = CustomGroup
@@ -76,15 +73,6 @@ class CustomGroupForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-class TechnicalSheetForm(forms.ModelForm):
-    class Meta:
-        model = TechnicalSheet
-        fields = ['pdf_file']
-
-class LogoForm(forms.ModelForm):
-    class Meta:
-        model = TechnicalSheet
-        fields = ['pdf_logo']
 
 """
 Booking
