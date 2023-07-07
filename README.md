@@ -237,8 +237,12 @@ Day 19 (06/07/23)
 Day 20 (07/07/23)
 - [08:30-09:15] Email Confirmation - Views
 - [09:15-10:50] Account / Password Forgot / URL - Cleaned code & project - Updated Password Forgot (Success URL)
-- [10:50-xx:xx] Redirection - Added Dispatch (User authenticated) / LoginRequiredMixin (User not authenticated) - Updated Admin (Fields)
-- [xx:xx-xx:xx] Merged project - Email confirmation - Updated Account / Password Forgot (Success URL) / URL - Cleaned Code & Project - Added Dispatch / LoginRequiredMixin (Redirection if or not authenticated) - Updated Admin (Fields)
+- [10:50-12:00] Redirection - Added Dispatch (User authenticated) / LoginRequiredMixin (User not authenticated) - Updated Admin (Fields)
+- [12:00-13:30] Merged project - Email confirmation - Updated Account / Password Forgot (Success URL) / URL - Cleaned Code & Project - Added Dispatch / LoginRequiredMixin (Redirection if or not authenticated) - Updated Admin (Fields)
+- [13:30-14:00] Mail - Added mailto
+- [14:00-14:30] Overhauled Models (WIP)
+- [14:30-16:05] Merged & CustomGroup - Updated forms, models, views, settings, HTML
+
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -339,6 +343,15 @@ Day 20 (07/07/23)
     - https://stackoverflow.com/questions/47808652/what-is-dispatch-used-for-in-django
     - https://stackoverflow.com/questions/28555260/django-login-required-for-class-views
     - https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
+- [Progress] Model
+    - https://stackoverflow.com/questions/12370177/django-set-default-widget-in-model-definition
+    - https://docs.djangoproject.com/en/dev/howto/custom-model-fields/#specifying-the-form-field-for-a-model-field
+    - https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.formfield
+- [Progress] Fixing Group upload files
+    - https://docs.djangoproject.com/fr/2.2/topics/http/file-uploads/
+    - https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/
+    - https://www.javatpoint.com/django-file-upload#:~:text=Django%20provides%20built%2Din%20library,%2Fform%2Ddata%22%20property.
+    - https://ordinarycoders.com/blog/article/django-file-image-uploads
 
 ## Readme
 

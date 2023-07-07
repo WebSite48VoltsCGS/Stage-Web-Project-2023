@@ -16,12 +16,9 @@ class SignInForm(forms.Form):
     password = FORM_PASSWORD
 
 class SignUpForm(forms.ModelForm):
-    password = FORM_PASSWORD
-    password_confirm = FORM_PASSWORD_CONFIRM
-
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password', 'password_confirm')
+        fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,9 +36,10 @@ class UserUpdateForm(forms.Form):
     email = FORM_EMAIL
     last_name = FORM_LAST_NAME
     first_name = FORM_FIRST_NAME
+    phone = FORM_PHONE
 
 class ConfirmPasswordForm(forms.Form):
-    current_password = FORM_PASSWORD_CURRENT
+    password = FORM_PASSWORD
     password_confirm = FORM_PASSWORD_CONFIRM
 
 
@@ -63,9 +61,11 @@ class UserPasswordSetForm(SetPasswordForm):
 """
 Group
     - GroupCreateForm
+    - TechnicalsheetForm
+    - LogoForm
 """
+# Create your forms here.
 class CustomGroupForm(forms.ModelForm):
-    # User will be added manually in views.py
     class Meta:
         model = CustomGroup
         fields = '__all__'
@@ -76,7 +76,15 @@ class CustomGroupForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
+class TechnicalSheetForm(forms.ModelForm):
+    class Meta:
+        model = TechnicalSheet
+        fields = ['pdf_file']
 
+class LogoForm(forms.ModelForm):
+    class Meta:
+        model = TechnicalSheet
+        fields = ['pdf_logo']
 
 """
 Booking
@@ -94,10 +102,6 @@ Pro Area
     - TechnicalSheetForm
     - ConcertForm
 """
-class TechnicalSheetForm(forms.ModelForm):
-    class Meta:
-        model = TechnicalSheet
-        fields = ['pdf_file']
 
 
 class ConcertForm(forms.ModelForm):

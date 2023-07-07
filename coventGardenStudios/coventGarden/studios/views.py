@@ -35,7 +35,7 @@ from django.contrib import messages
 # Import
 from .models import CustomGroup, Event, Concert, TechnicalSheet, CustomUser, Reservation, Salle
 from .forms import (
-    SignInForm, SignUpForm,
+    LogoForm, SignInForm, SignUpForm,
     UserUpdateForm, ConfirmPasswordForm,
     UserPasswordResetForm, UserPasswordSetForm,
     CustomGroupForm, TechnicalSheetForm, ConcertForm,
@@ -506,13 +506,14 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         # Success
         if form.is_valid() and form_confirm.is_valid():
             # Password verification successful
-            if request.POST["current_password"] == request.POST["password_confirm"]:
+            if request.POST["password"] == request.POST["password_confirm"]:
                 # Form processing
                 user = request.user
                 user.username = request.POST["username"]
                 user.email = request.POST["email"]
                 user.last_name = request.POST["last_name"]
                 user.first_name = request.POST["first_name"]
+                user.phone = request.POST["phone"]
 
                 # Update the user
                 user.save()
@@ -531,6 +532,9 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             self.context["form"] = form
             self.context["form_confirm"] = form_confirm
             return render(request, self.template_name, self.context)
+
+
+
 
 
 """
@@ -552,6 +556,30 @@ class GroupDetailView(LoginRequiredMixin, View):
 
     def get(self, request):
         self.context["my_groups"] = request.user.my_groups.all()
+        self.context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
+        self.context["form"] = TechnicalSheetForm()
+        self.context["form3"] = LogoForm()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        self.context["form"] = TechnicalSheetForm(request.POST, request.FILES)
+        if self.context["form"].is_valid():
+            deposited_files = request.FILES.getlist('pdf_file')
+            for file in deposited_files:
+                technical_sheet = TechnicalSheet(pdf_file=file, user=request.user)
+                technical_sheet.save()
+            messages.success(request, 'Vos fiches techniques ont été déposées avec succès !')
+            return redirect('groups_detail')
+        
+        self.context["form3"] = LogoForm(request.POST, request.FILES)
+        if self.context["form3"].is_valid():
+            deposited_logos = request.FILES.getlist('pdf_logo')
+            for file in deposited_logos:
+                logo = LogoForm(pdf_logo=file, user=request.user)
+                logo.save()
+            messages.success(request, 'Vos Logos ont été déposées avec succès !')
+            return redirect('groups_detail')
+        
         return render(request, self.template_name, self.context)
 
 
@@ -569,8 +597,9 @@ class GroupCreateView(LoginRequiredMixin, View):
 
     def form_class_initial(self):
         initial = {
+            "name": self.request.user.username,
             "email": self.request.user.email,
-            "phone": self.request.user.phone,
+            "phone": self.request.user.phone
         }
         return initial
 
@@ -579,10 +608,7 @@ class GroupCreateView(LoginRequiredMixin, View):
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        # Form input
-        form = self.form_class(request.POST)
-
-        # Success
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             # Associate the current user to the group
             group = form.save(commit=False)
@@ -641,6 +667,12 @@ class GroupUpdateView(LoginRequiredMixin, View):
             self.context["form"] = form
             return render(request, self.template_name, self.context)
 
+@login_required
+def delete_technical_sheet(request, pk):
+    technical_sheet = get_object_or_404(TechnicalSheet, pk=pk, user=request.user)
+    technical_sheet.delete()
+    messages.success(request, 'La fiche technique a été supprimée avec succès !')
+    return redirect('groups_detail')
 
 class GroupDeleteView(LoginRequiredMixin, View):
     redirect_field_name = ''
@@ -748,15 +780,8 @@ class ProAreaView(LoginRequiredMixin, View):
                              'Merci pour votre proposition de concert! Un administrateur examinera votre proposition prochainement.',
                              extra_tags='concert_for')
             return redirect('pro_area')
-
-
-def delete_technical_sheet(request, pk):
-    # Log-in required
-    if not request.user.is_authenticated:
-        technical_sheet = get_object_or_404(TechnicalSheet, pk=pk, user=request.user)
-        technical_sheet.delete()
-        messages.success(request, 'La fiche technique a été supprimée avec succès !')
-        return redirect('pro_area')
+        
+        return render(request, self.template_name, self.context)
 
 
 """
@@ -881,14 +906,16 @@ def accompte(request):
 
         start_date = request.POST["date_start"]
         end_date = request.POST["date_end"]
-
+        
         form = ReservationForm()
 
         duration = datetime.fromisoformat(end_date.rstrip('Z')) - datetime.fromisoformat(start_date.rstrip('Z'))
         duration_seconds = duration.total_seconds()
         duration_hours = duration_seconds / 3600
-        print(duration_hours)
 
+        price = 0.5*duration_hours*20
+        start_date = datetime.fromisoformat(start_date.rstrip('Z'))
+        end_date = datetime.fromisoformat(end_date.rstrip('Z'))
         #duration = 1
 
         if is_in_group(user):
@@ -902,14 +929,15 @@ def accompte(request):
                 price=0,
                 status=status,
                 salle=salle,
-                user=user
+                user=user,
+                is_active=True
             )
             messages.success(request, "Votre réservation a bien été prise en compte !")
             return redirect('booking')
 
         else:
             return render(request, 'payment.html', {"salle": salle, "user": user, "start_date": start_date,
-            "end_date": end_date, "duration": duration_hours, "form": form})
+            "end_date": end_date, "duration": duration_hours,"price":price, "form": form})
 
     else:
         return redirect('booking')
@@ -947,7 +975,8 @@ def payment(request):
                 price=price,
                 status=status,
                 salle=salle,
-                user=user
+                user=user,
+                is_active=True
             )
 
             messages.success(request, "Votre réservation a bien été prise en compte !")
@@ -968,7 +997,6 @@ def all_booking(request):
         })
     return JsonResponse(datas, safe=False)
 
-
 def all_booking_event(request):
     reservations = Reservation.objects.all()
 
@@ -978,8 +1006,8 @@ def all_booking_event(request):
             'id': current.id,
             'resourceId': current.salle.id,
             'title': 'Indisponible',
-            'start': current.date_start.strftime("%Y-%m-%d %H:%M:%S"),
-            'end': current.date_end.strftime("%Y-%m-%d %H:%M:%S"),
+            'start': current.date_start,
+            'end': current.date_end,
         }
         data['color'] = 'gainsboro'
         data['textColor'] = 'black'
@@ -1010,6 +1038,26 @@ def all_booking_event(request):
 
     return JsonResponse(datas, safe=False)
 
+@login_required(login_url='account_sign_in')
+def set_reservation(request, id_reservation):
+    reservation = Reservation.objects.get(id=id_reservation)
+
+    current_datetime = datetime.now()
+    start_datetime = reservation.date_start
+
+    if current_datetime < start_datetime - timedelta(hours=48) or reservation.date_end > current_datetime :
+        if reservation.is_active == True:
+            reservation.is_active = False
+            message = "Votre réservation a bien été annuler !"
+        else:
+            reservation.is_active=True
+            message = "Votre réservation a bien été prise en compte !"
+        reservation.save()
+    else:
+        message = "Votre réservation ne peut plus être modifiée !"
+
+    messages.success(request, message)  
+    return redirect('bookings_detail')
 
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -1035,10 +1083,8 @@ def payment(request):
 			],
 			mode = 'payment',
 			customer_creation = 'always',
-			# success_url = settings.REDIRECT_DOMAIN + '/payment_successful?session_id={CHECKOUT_SESSION_ID}',
-			# cancel_url = settings.REDIRECT_DOMAIN + '/payment_cancelled',
-            success_url = 'http://example.com/payment_successful?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url = 'http://example.com/payment_cancelled',
+            success_url = 'http://127.0.0.1:8000?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url = 'http://127.0.0.1:8000?session_id={CHECKOUT_SESSION_ID}',
         )
 		return redirect(checkout_session.url, code=303)
 	return render(request, 'studios/payment.html')
@@ -1046,11 +1092,11 @@ def payment(request):
 
 ## use Stripe dummy card: 4242 4242 4242 4242
 def payment_successful(request):
-	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	stripe.api_key = settings.STRIPE_SECRET_KEY
 	checkout_session_id = request.GET.get('session_id', None)
 	session = stripe.checkout.Session.retrieve(checkout_session_id)
 	customer = stripe.Customer.retrieve(session.customer)
-	user_id = request.user.user_id
+	user_id = request.user.user_userna
 	studios = UserPayment.objects.get(app_user=user_id)
 	studios.stripe_checkout_id = checkout_session_id
 	studios.save()
@@ -1058,20 +1104,20 @@ def payment_successful(request):
 
 
 def payment_cancelled(request):
-	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	stripe.api_key = settings.STRIPE_SECRET_KEY
 	return render(request, 'studios/payment_cancelled.html')
 
 
 @csrf_exempt
 def stripe_webhook(request):
-	stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+	stripe.api_key = settings.STRIPE_SECRET_KEY
 	time.sleep(10)
 	payload = request.body
 	signature_header = request.META['HTTP_STRIPE_SIGNATURE']
 	event = None
 	try:
 		event = stripe.Webhook.construct_event(
-			payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
+			payload, signature_header, settings.STRIPE_WEBHOOK_SECRET
 		)
 	except ValueError as e:
 		return HttpResponse(status=400)

@@ -11,19 +11,21 @@ class CustomUserAdmin(UserAdmin):
 
 class CustomGroupAdmin(admin.ModelAdmin):
     list_display = ["user", "name", "email",
-                    "phone", "members", "validated"]
+                    "phone", "members",
+                    "technical_sheet", "logo",
+                    "validated"]
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ["user", "title", "start_time", "end_time", "description"]
 
 class TechnicalSheetAdmin(admin.ModelAdmin):
-    list_display = ["user", "pdf_file"]
+    list_display = ["user", "pdf_file", "pdf_logo"]
 
 class SalleAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('description', 'duration', 'date_start', 'date_end', 'price', 'status', 'salle', 'user')
+    list_display = ('description', 'duration', 'date_start','date_end', 'price', 'status', 'salle', 'user', 'is_active')
 
 class ConcertAdmin(admin.ModelAdmin):
     list_display = ["user", 'groupe1', 'groupe2', 'groupe3', 'date', 'validated']
