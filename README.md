@@ -237,8 +237,8 @@ Day 19 (06/07/23)
 Day 20 (07/07/23)
 - [08:30-09:15] Email Confirmation - Views
 - [09:15-10:50] Account / Password Forgot / URL - Cleaned code & project - Updated Password Forgot (Success URL)
-
-- [xx:xx-xx:xx] Merged project - Email confirmation - Updated Account / Password Forgot (Success URL) / URL - Cleaned Code & Project
+- [10:50-xx:xx] Redirection - Added Dispatch (User authenticated) / LoginRequiredMixin (User not authenticated) - Updated Admin (Fields)
+- [xx:xx-xx:xx] Merged project - Email confirmation - Updated Account / Password Forgot (Success URL) / URL - Cleaned Code & Project - Added Dispatch / LoginRequiredMixin (Redirection if or not authenticated) - Updated Admin (Fields)
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -317,23 +317,28 @@ Day 20 (07/07/23)
     - https://forum.djangoproject.com/t/importerror-cannot-import-name-ugettext-lazy-from-django-utils-translation/10943/7
     - https://stackoverflow.com/questions/63490432/django-form-password-validation
     - https://stackoverflow.com/questions/71328869/whats-gettext-lazy-on-django-is-for
-- [Progress] Validators (Unique)
+- [Completed] Validators (Unique)
     - https://stackoverflow.com/questions/52639834/how-to-make-django-form-field-unique
     - https://stackoverflow.com/questions/46802099/how-can-i-set-the-field-unique-in-django
     - https://stackoverflow.com/questions/53461410/make-user-email-unique-django
     - https://stackoverflow.com/questions/63515591/integrityerror-unique-constraint-failed-users-customuser-email
     - https://stackoverflow.com/questions/5514621/django-error-message-displayed-for-unique-fields
-- [Complete] Email confirmation
+- [Completed] Email confirmation
     - https://pylessons.com/django-email-confirm
     - https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef
     - https://stackoverflow.com/questions/70382084/import-error-force-text-from-django-utils-encoding
     - https://stackoverflow.com/questions/47177696/noreversematch-with-keyword-argument-uidb64-with-django-2-0
     - https://stackoverflow.com/questions/59193514/importerror-cannot-import-name-six-from-django-utils
     - https://pypi.org/project/six/
-- [Complete] Password Reset (Success URL)
+- [Completed] Password Reset (Success URL)
     - https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.PasswordResetView
     - https://github.com/pennersr/django-allauth/issues/468
     - https://www.fullstackpython.com/django-urls-reverse-lazy-examples.html
+- [Progress] Redirection
+    - https://stackoverflow.com/questions/61993023/django-redirect-logged-in-users-from-reset-password-page
+    - https://stackoverflow.com/questions/47808652/what-is-dispatch-used-for-in-django
+    - https://stackoverflow.com/questions/28555260/django-login-required-for-class-views
+    - https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
 
 ## Readme
 

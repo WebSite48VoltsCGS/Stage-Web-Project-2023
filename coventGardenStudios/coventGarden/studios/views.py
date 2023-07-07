@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 
 # Class-based views
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Account
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -175,6 +176,12 @@ class AccountSignInFormView(View):
             {"view": None, "name": "Connexion"}]
     }
 
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         self.context["form"] = self.form_class()
         return render(request, self.template_name, self.context)
@@ -218,6 +225,12 @@ class AccountSignUpFormView(View):
             {"view": "profile_detail", "name": "Compte"},
             {"view": None, "name": "Inscription"}]
     }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request):
         self.context["form"] = self.form_class()
@@ -281,6 +294,12 @@ class AccountSignUpDoneView(View):
             {"view": None, "name": "Envoi"}]
     }
 
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         return render(request, self.template_name, self.context)
 
@@ -295,6 +314,12 @@ class AccountSignUpConfirmView(View):
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Confirmation"}]
     }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request, uidb64, token):
         # Create user
@@ -316,10 +341,6 @@ class AccountSignUpConfirmView(View):
 
         # User creation failed
         else:
-            # Debug
-            print(user)
-            print(account_activation_token.check_token(user, token))
-
             return redirect("account_sign_up_failed")
 
 
@@ -333,6 +354,12 @@ class AccountSignUpFailedView(View):
             {"view": None, "name": "Envoi"},
             {"view": None, "name": "Échec"}]
     }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request):
         return render(request, self.template_name, self.context)
@@ -351,6 +378,12 @@ class AccountPasswordForgotForm(PasswordResetView):
             {"view": None, "name": "Mot de passe oublié"}]
     }
 
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
+
 
 class AccountPasswordForgotDone(PasswordResetDoneView):
     template_name = 'account/account_password_forgot_done.html'
@@ -362,6 +395,12 @@ class AccountPasswordForgotDone(PasswordResetDoneView):
             {"view": "account_password_forgot_form", "name": "Mot de passe oublié"},
             {"view": None, "name": "Envoi"}]
     }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
 
 
 class AccountPasswordForgotConfirm(PasswordResetConfirmView):
@@ -378,6 +417,12 @@ class AccountPasswordForgotConfirm(PasswordResetConfirmView):
             {"view": None, "name": "Modifier"}]
     }
 
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
+
 
 class AccountPasswordForgotComplete(PasswordResetCompleteView):
     template_name = 'account/account_password_forgot_complete.html'
@@ -391,6 +436,12 @@ class AccountPasswordForgotComplete(PasswordResetCompleteView):
             {"view": None, "name": "Modifier"},
             {"view": None, "name": "Confirmation"}]
     }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
 
 
 def account_log_out(request):
@@ -406,7 +457,8 @@ Profile
     - ProfileDetailView
     - ProfileUpdateView
 """
-class ProfileDetailView(View):
+class ProfileDetailView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "profile/profile_detail.html"
     context = {
         "title": "Mon compte",
@@ -416,14 +468,11 @@ class ProfileDetailView(View):
     }
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         return render(request, self.template_name, self.context)
 
 
-class ProfileUpdateView(View):
+class ProfileUpdateView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     form_class = UserUpdateForm
     form_confirm_class = ConfirmPasswordForm
     template_name = "profile/profile_update.html"
@@ -445,10 +494,6 @@ class ProfileUpdateView(View):
         return initial
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         self.context["form"] = self.form_class(initial=self.form_class_initial())
         self.context["form_confirm"] = self.form_confirm_class()
         return render(request, self.template_name, self.context)
@@ -495,7 +540,8 @@ Groups
     - GroupUpdateView
     - GroupDeleteView
 """
-class GroupDetailView(View):
+class GroupDetailView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "groups/groups_detail.html"
     context = {
         "title": "Mes groupes",
@@ -505,15 +551,12 @@ class GroupDetailView(View):
     }
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         self.context["my_groups"] = request.user.my_groups.all()
         return render(request, self.template_name, self.context)
 
 
-class GroupCreateView(View):
+class GroupCreateView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     form_class = CustomGroupForm
     template_name = "groups/groups_create.html"
     context = {
@@ -532,10 +575,6 @@ class GroupCreateView(View):
         return initial
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         self.context["form"] = self.form_class(initial=self.form_class_initial())
         return render(request, self.template_name, self.context)
 
@@ -561,7 +600,8 @@ class GroupCreateView(View):
             return render(request, self.template_name, self.context)
 
 
-class GroupUpdateView(View):
+class GroupUpdateView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     form_class = CustomGroupForm
     template_name = "groups/groups_create.html"
     context = {
@@ -573,10 +613,6 @@ class GroupUpdateView(View):
     }
 
     def get(self, request, group_id):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         group = CustomGroup.objects.get(id=group_id)
         self.context["form"] = self.form_class(instance=group)
         return render(request, self.template_name, self.context)
@@ -606,7 +642,8 @@ class GroupUpdateView(View):
             return render(request, self.template_name, self.context)
 
 
-class GroupDeleteView(View):
+class GroupDeleteView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "groups/groups_delete.html"
     context = {
         "title": "Supprimer un groupe",
@@ -617,10 +654,6 @@ class GroupDeleteView(View):
     }
 
     def get(self, request, group_id):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         return render(request, self.template_name, self.context)
 
     def post(self, request, group_id):
@@ -641,7 +674,8 @@ Bookings
     - BookingsDetailView
     - BookingsCreateView
 """
-class BookingsDetailView(View):
+class BookingsDetailView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "bookings/bookings_detail.html"
     context = {
         "title": "Historique des réservations",
@@ -651,10 +685,6 @@ class BookingsDetailView(View):
     }
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         # Get all groups object related to the current user
         self.context["my_groups"] = request.user.my_groups.all()
 
@@ -665,7 +695,8 @@ class BookingsDetailView(View):
         return render(request, self.template_name, self.context)
 
 
-class BookingsCreateView(View):
+class BookingsCreateView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "bookings/bookings_create.html"
     context = {
         "title": "Créer une réservation",
@@ -676,10 +707,6 @@ class BookingsCreateView(View):
     }
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         return render(request, self.template_name, self.context)
 
 
@@ -688,7 +715,8 @@ Pro area
     - ProAreaView
     - Delete technical sheet
 """
-class ProAreaView(View):
+class ProAreaView(LoginRequiredMixin, View):
+    redirect_field_name = ''
     template_name = "pro_area.html"
     context = {
         "title": "Espace Pro",
@@ -698,10 +726,6 @@ class ProAreaView(View):
     }
 
     def get(self, request):
-        # Redirect to login page if user is not logged in
-        if not request.user.is_authenticated:
-            return redirect("account_sign_in_form")
-
         self.context["user_files"] = TechnicalSheet.objects.filter(user=request.user)
         self.context["form"] = TechnicalSheetForm()
         self.context["form2"] = ConcertForm()

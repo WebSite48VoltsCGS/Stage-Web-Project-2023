@@ -146,9 +146,9 @@ New
 # Custom user
 AUTH_USER_MODEL = "studios.CustomUser"
 
-# Authentication
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+# Redirection if user is not authenticated
+# https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
+LOGIN_URL = "account_sign_in_form"
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"

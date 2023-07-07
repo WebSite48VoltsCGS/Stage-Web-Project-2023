@@ -63,7 +63,7 @@ urlpatterns = [
     path('compte/mes_reservations/ajouter/', views.BookingsCreateView.as_view(), name='bookings_create'),
 
     # Pro Area
-    path('espace_pro/', views.ProAreaView.as_view(), name='pro_area'),
+    path('compte/espace_pro/', views.ProAreaView.as_view(), name='pro_area'),
 
     # Planning
     path('all_events/', views.all_events, name='all_events'),
