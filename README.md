@@ -251,7 +251,7 @@ Day 21 (10/07/23)
 - [13:45-13:50] Cleaned project
 - [13:50-14:30] Merged projects - Cleaned Code (Phone validators / HTML / Import) - Updated Fields
 - [14:30-15:00] Booking - Updated HTML
-
+- [15:00-15:30] Added a EULA page
 
 ## To do list
 - [Completed] OpenClassrooms
