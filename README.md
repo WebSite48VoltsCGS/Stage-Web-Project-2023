@@ -244,6 +244,9 @@ Day 20 (07/07/23)
 - [14:30-16:05] Merged & CustomGroup - Updated forms, models, views, settings, HTML
 - [16:05-17:00] Custom Group - Updated Views (groups_detail / groups_create / groups_update) - Updated Models (CustomGroup) - Fixed Forms (UserUpdateForm) & Deleted (TechnicalSheet) - Updated Settings (MEDIA_ROOT) - Updated HTML (groups, template_form, files upload))
 
+Day 21 (10/07/23)
+- [08:30-08:45] Fixed 
+
 ## To do list
 - [Completed] OpenClassrooms
     - Build Your First Web Pages With HTML and CSS
