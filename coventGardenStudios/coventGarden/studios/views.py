@@ -1,24 +1,18 @@
-from datetime import datetime, time
-
-import django.contrib.auth.password_validation
-from django.shortcuts import redirect, render, get_object_or_404
-
 # Class-based views
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Account
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.db import IntegrityError
+from django.contrib.auth import logout, get_user_model
 
 # Email confirmation
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from .tokens import account_activation_token
 
-# Password Reset
+# Password reset
 from django.contrib.auth.views import (
-    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView)
+    PasswordResetView, PasswordResetDoneView,PasswordResetConfirmView, PasswordResetCompleteView)
 from django.urls import reverse_lazy
 
 # Booking
@@ -30,15 +24,18 @@ from datetime import timedelta, datetime, time
 from django.contrib import messages
 
 # Import
-from .models import CustomGroup, Event, Concert, CustomUser, Reservation, Salle
+from .models import CustomGroup, Event, CustomUser, Reservation, Salle
 from .forms import (
     UserSignInForm, UserSignUpForm,
     UserUpdateForm, UserPasswordConfirmForm,
     UserPasswordResetForm, UserPasswordSetForm,
-    CustomGroupForm, ConcertForm,
+    CustomGroupForm,
+    ConcertForm,
     EventForm, ReservationForm)
 
 User = get_user_model()
+
+
 
 # Create your views here.
 """

@@ -1,9 +1,11 @@
-# CustomUser
-from django.contrib.auth.forms import (PasswordResetForm, SetPasswordForm)
+# Forms
+from django.forms import ModelChoiceField, SelectDateWidget, ValidationError
+
+# Authentication
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.hashers import check_password
 
-# UserSignUpForm
+# Email confirmation
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
@@ -11,14 +13,19 @@ from django.utils.encoding import force_bytes
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 
+# Password reset
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+
 # Payment
 from django_select2.forms import Select2Widget
 
-from django.forms import ModelChoiceField, SelectDateWidget, ValidationError
+# Models & Fields
 from .models import CustomUser, CustomGroup, Event, Concert
 from .fields import *
 
 User = get_user_model()
+
+
 
 # Register your forms here
 """
