@@ -250,6 +250,8 @@ Day 21 (10/07/23)
 - [09:30-13:45] Forms & Validation Errors - Updated Fields / Forms / Views (Added clean, errors, functions, messages, validators)
 - [13:45-13:50] Cleaned project
 - [13:50-14:30] Merged projects - Cleaned Code (Phone validators / HTML / Import) - Updated Fields
+- [14:30-15:00] Booking - Updated HTML
+
 
 ## To do list
 - [Completed] OpenClassrooms
