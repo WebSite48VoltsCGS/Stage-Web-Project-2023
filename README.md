@@ -247,8 +247,9 @@ Day 20 (07/07/23)
 Day 21 (10/07/23)
 - [08:30-08:45] Fixed pro_area & groups_detail
 - [08:45-09:30] Helped with GitHub, GroupUpdateView, CustomGroupForm
-Validation Error & Models Cleanup
 - [09:30-13:45] Forms & Validation Errors - Updated Fields / Forms / Views (Added clean, errors, functions, messages, validators)
+- [13:45-13:50] Cleaned project
+- [13:50-14:30] Merged projects - Cleaned Code (Phone validators / HTML / Import) - Updated Fields
 
 ## To do list
 - [Completed] OpenClassrooms
