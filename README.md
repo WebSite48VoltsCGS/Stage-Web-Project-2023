@@ -245,7 +245,10 @@ Day 20 (07/07/23)
 - [16:05-17:00] Custom Group - Updated Views (groups_detail / groups_create / groups_update) - Updated Models (CustomGroup) - Fixed Forms (UserUpdateForm) & Deleted (TechnicalSheet) - Updated Settings (MEDIA_ROOT) - Updated HTML (groups, template_form, files upload))
 
 Day 21 (10/07/23)
-- [08:30-08:45] Fixed 
+- [08:30-08:45] Fixed pro_area & groups_detail
+- [08:45-09:30] Helped with GitHub, GroupUpdateView, CustomGroupForm
+Validation Error & Models Cleanup
+- [09:30-13:45] Forms & Validation Errors - Updated Fields / Forms / Views (Added clean, errors, functions, messages, validators)
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -341,22 +344,31 @@ Day 21 (10/07/23)
     - https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.PasswordResetView
     - https://github.com/pennersr/django-allauth/issues/468
     - https://www.fullstackpython.com/django-urls-reverse-lazy-examples.html
-- [Progress] Redirection
+- [Completed] Redirection
     - https://stackoverflow.com/questions/61993023/django-redirect-logged-in-users-from-reset-password-page
     - https://stackoverflow.com/questions/47808652/what-is-dispatch-used-for-in-django
     - https://stackoverflow.com/questions/28555260/django-login-required-for-class-views
     - https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-loginrequired-mixin
-- [Progress] Model
+- [Completed] Model
     - https://stackoverflow.com/questions/12370177/django-set-default-widget-in-model-definition
     - https://docs.djangoproject.com/en/dev/howto/custom-model-fields/#specifying-the-form-field-for-a-model-field
     - https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.formfield
-- [Progress] Fixing Group upload files
+- [Completed] Fixing Group upload files
     - https://docs.djangoproject.com/fr/2.2/topics/http/file-uploads/
     - https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/
     - https://www.javatpoint.com/django-file-upload#:~:text=Django%20provides%20built%2Din%20library,%2Fform%2Ddata%22%20property.
     - https://ordinarycoders.com/blog/article/django-file-image-uploads
     - https://chartio.com/resources/tutorials/how-to-filter-for-empty-or-null-values-in-a-django-queryset/
     - https://stackoverflow.com/questions/64881423/django-open-rendered-html-file
+- [Progress] Validation errors & Clean
+    - https://stackoverflow.com/questions/15084597/django-error-message-for-login-form
+    - https://docs.djangoproject.com/en/4.2/ref/forms/validation/
+    - https://github.com/typeddjango/django-stubs/issues/954
+    - https://stackoverflow.com/questions/65392925/register-in-django-with-email-as-unique
+    - https://stackoverflow.com/questions/47574484/django-form-raising-specific-field-validation-error-from-clean
+    - https://docs.djangoproject.com/en/4.2/topics/auth/passwords/
+    - https://docs.djangoproject.com/en/4.2/ref/forms/api/#django.forms.Form.add_error
+
 
 ## Readme
 
