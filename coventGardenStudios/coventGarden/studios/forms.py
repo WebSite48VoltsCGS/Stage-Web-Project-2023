@@ -1,5 +1,5 @@
 # Forms
-from django.forms import ModelChoiceField, SelectDateWidget, ValidationError
+from django.forms import ModelChoiceField, ValidationError
 
 # Authentication
 from django.contrib.auth import authenticate, login, get_user_model
@@ -14,15 +14,10 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 
 # Password reset
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
-
-# Pro Area
-from tempus_dominus.widgets import DatePicker, DateTimePicker
-from bootstrap_datepicker_plus.widgets import DatePickerInput
+from django.contrib.auth.forms import PasswordResetForm
 
 # Payment
 from django_select2.forms import Select2Widget
-from django.utils.html import format_html
 
 # Models & Fields
 from .models import CustomUser, CustomGroup, Event, Concert
@@ -39,8 +34,6 @@ User = get_user_model()
 CustomUser
     - UserSignInForm
     - UserSignUpForm
-    - ProfileUpdateForm
-    - UserPasswordConfirmForm
 """
 class UserSignInForm(forms.Form):
     """
@@ -110,7 +103,7 @@ class UserSignUpForm(forms.ModelForm):
                 raise ValidationError(self.error_messages['password_mismatch'], code='password_mismatch')
         return password_confirm
 
-    def create_user(self, request):
+    def save_user(self, request):
         # Create a deactivated user
         user = CustomUser.objects.create_user(
             username=self.cleaned_data.get('username'),
@@ -267,20 +260,26 @@ CustomGroup
     - CustomGroupForm
 """
 class CustomGroupForm(forms.ModelForm):
+    """
+    A form allowing users to create a new group
+    """
     class Meta:
         model = CustomGroup
         fields = '__all__'
         exclude = ('user', 'validated')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     def save_group(self, request):
         group = self.save(commit=False)
         group.user = request.user
         group.save()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+
+
 
 
 """

@@ -26,7 +26,6 @@ from django.urls import reverse_lazy
 
 # Booking
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import timedelta, datetime, time
 
 # Pro Area
@@ -255,7 +254,7 @@ class AccountSignUpFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            form.create_user(request)
+            form.save_user(request)
             return redirect("account_sign_up_done")
 
         # Failure

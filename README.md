@@ -269,6 +269,8 @@ Day 22 (11/07/23)
 - [15:50-15:55] Helped with fixing responsive pages (Header)
 - [15:55-16:15] Overhauled Forms - Updated Custom User (Sign In & Sign Up)
 - [16:15-16:20] Work Delegation (Translating Django Email)
+- [16:20-16:40] Overhauled Forms - Updated Custom User (Sign In & Sign Up) & phone_validator
+- [16:40-17:00] Overhauled Forms - Cleaned code
 
 ## To do list
 - [Completed] OpenClassrooms
