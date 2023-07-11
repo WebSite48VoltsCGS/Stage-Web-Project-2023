@@ -47,14 +47,17 @@ class UserSignInForm(forms.Form):
     password = FORM_PASSWORD
 
     def clean(self):
-        # Authenticate
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
+        cleaned_data = super().clean()
+
+        # Authentication validator
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        if not user:
+        print(user)
+        if user is None:
             raise forms.ValidationError("Le nom d'utilisateur ou le mot de passe est incorrect.", code="authentication_failed")
 
-        return self.cleaned_data
+        return cleaned_data
 
     def login(self, request):
         username = self.cleaned_data.get('username')
@@ -71,16 +74,15 @@ class UserSignUpForm(forms.ModelForm):
                    'password_confirm': forms.PasswordInput()}
 
     def clean(self):
-        # Add to other validators such as "unique"
-        self.cleaned_data = super().clean()
+        cleaned_data = super().clean()
 
-        # Password confirmation
-        password = self.cleaned_data.get('password')
-        password_confirm = self.cleaned_data.get('password_confirm')
+        # Password confirmation validator
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
         if not password == password_confirm:
-            raise forms.ValidationError("Les deux mots de passes ne correspondent pas.", code="password_confirm")
+            self.add_error('password_mismatch', 'Les deux mots de passes ne correspondent pas.')
 
-        return self.cleaned_data
+        return cleaned_data
 
     def save_user(self, request):
         username = self.cleaned_data.get('username')
@@ -145,10 +147,15 @@ class UserPasswordConfirmForm(forms.Form):
     password_confirm = FORM_PASSWORD_CONFIRM
 
     def clean(self):
-        password = self.cleaned_data.get('password')
-        password_confirm = self.cleaned_data.get('password_confirm')
-        if password != password_confirm:
-            raise forms.ValidationError("Les deux mots de passes ne correspondent pas", code="password_confirm")
+        cleaned_data = super().clean()
+
+        # Password confirmation validator
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
+        if not password == password_confirm:
+            self.add_error('password_confirm', 'Les deux mots de passes ne correspondent pas.')
+
+        return cleaned_data
 
     def password_check(self, request):
         password_user = request.user.password
@@ -163,6 +170,9 @@ class UserPasswordResetForm(PasswordResetForm):
 
 
 class UserPasswordSetForm(SetPasswordForm):
+    error_messages = {
+        'password_mismatch': "Les deux mots de passes ne correspondent pas.",
+    }
     new_password1 = FORM_PASSWORD_NEW
     new_password2 = FORM_PASSWORD_CONFIRM
 

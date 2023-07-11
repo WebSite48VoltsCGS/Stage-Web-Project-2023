@@ -257,6 +257,10 @@ Day 21 (10/07/23)
 Day 22 (11/07/23)
 - [08:30-09:30] Merged projects
 - [09:30-10:30] Merged projects - Fixed Project & GitHub
+- [10:30-11:00] Helped with fixing code
+- [11:00-12:45] Updated Fields - Cleaned Migrations and Database - Updated Validators
+- [12:45-13:00] Updated Fields - Return User.is_active
+- [13:00-13:30] Updated Fields - UserPasswordSetForm error_messages
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -368,7 +372,7 @@ Day 22 (11/07/23)
     - https://ordinarycoders.com/blog/article/django-file-image-uploads
     - https://chartio.com/resources/tutorials/how-to-filter-for-empty-or-null-values-in-a-django-queryset/
     - https://stackoverflow.com/questions/64881423/django-open-rendered-html-file
-- [Progress] Validation errors & Clean
+- [Completed] Validation errors & Clean
     - https://stackoverflow.com/questions/15084597/django-error-message-for-login-form
     - https://docs.djangoproject.com/en/4.2/ref/forms/validation/
     - https://github.com/typeddjango/django-stubs/issues/954
@@ -376,6 +380,17 @@ Day 22 (11/07/23)
     - https://stackoverflow.com/questions/47574484/django-form-raising-specific-field-validation-error-from-clean
     - https://docs.djangoproject.com/en/4.2/topics/auth/passwords/
     - https://docs.djangoproject.com/en/4.2/ref/forms/api/#django.forms.Form.add_error
+- [Failed] Validation errors to field
+    - https://stackoverflow.com/questions/20170062/displaying-django-form-validation-errors-for-modelforms
+    - https://stackoverflow.com/questions/6333738/django-how-to-specify-which-field-a-validation-fails-on
+    - https://stackoverflow.com/questions/188886/inject-errors-into-already-validated-form
+- [Failed] Get user.is_active
+    - https://stackoverflow.com/questions/49553511/why-authenticate-return-none-for-inactive-users
+- [Completed] Change SetPasswordForm error messages
+    - https://stackoverflow.com/questions/49434711/trying-to-customize-the-django-setpasswordform
+- [Completed] SetPasswordform
+    - https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
+
 
 
 ## Readme

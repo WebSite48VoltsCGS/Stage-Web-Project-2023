@@ -256,6 +256,9 @@ class AccountSignUpFormView(View):
         if form.is_valid():
             form.save_user(request)
             return redirect("account_sign_up_done")
+        else:
+            print("Test 5:")
+            print(form.errors)
 
         # Failure
         self.context["form"] = form
