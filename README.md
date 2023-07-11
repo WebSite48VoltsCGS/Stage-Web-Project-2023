@@ -256,6 +256,7 @@ Day 21 (10/07/23)
 
 Day 22 (11/07/23)
 - [08:30-09:30] Merged projects
+- [09:30-10:00] Merged projects - Fixed project & GitHub
 
 ## To do list
 - [Completed] OpenClassrooms

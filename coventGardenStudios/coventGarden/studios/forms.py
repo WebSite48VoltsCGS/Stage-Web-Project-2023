@@ -153,11 +153,9 @@ class UserPasswordConfirmForm(forms.Form):
     def password_check(self, request):
         password_user = request.user.password
         password = self.cleaned_data.get('password')
-        if check_password(password, password_user):
-            return True
-        else:
+        if not check_password(password, password_user):
             self.add_error("password", "Le mot de passe ne correspond pas à celui de l'utilisateur.")
-            return False
+        return True
 
 
 class UserPasswordResetForm(PasswordResetForm):
