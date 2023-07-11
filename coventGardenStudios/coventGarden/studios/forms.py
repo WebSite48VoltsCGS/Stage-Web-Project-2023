@@ -32,30 +32,44 @@ User = get_user_model()
 
 
 
+
+
 # Register your forms here
 """
 CustomUser
     - UserSignInForm
     - UserSignUpForm
-    - UserUpdateForm
+    - ProfileUpdateForm
     - UserPasswordConfirmForm
-    - UserPasswordResetForm
-    - UserPasswordSetForm
 """
 class UserSignInForm(forms.Form):
+    """
+    A form that allows users to log in to their account
+    """
+    error_messages = {
+        'login_failed': "Le nom d'utilisateur ou le mot de passe est incorrect.",
+    }
     username = FORM_USERNAME
     password = FORM_PASSWORD
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     def clean(self):
+        """
+        This function is called implicitly by default
+        """
         cleaned_data = super().clean()
 
         # Authentication validator
         username = cleaned_data.get('username')
         password = cleaned_data.get('password')
-        user = authenticate(username=username, password=password)
-        print(user)
-        if user is None:
-            raise forms.ValidationError("Le nom d'utilisateur ou le mot de passe est incorrect.", code="authentication_failed")
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user is None:
+                raise ValidationError(self.error_messages['login_failed'], code='login_failed')
 
         return cleaned_data
 
@@ -67,43 +81,49 @@ class UserSignInForm(forms.Form):
 
 
 class UserSignUpForm(forms.ModelForm):
+    """
+    A form allowing users to create a new account
+    """
+    error_messages = {
+        'password_mismatch': "Les deux mots de passes ne correspondent pas.",
+    }
+
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'last_name', 'first_name', 'phone', 'password', 'password_confirm')
         widgets = {'password': forms.PasswordInput(),
                    'password_confirm': forms.PasswordInput()}
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
-        # Password confirmation validator
-        password = cleaned_data.get('password')
-        password_confirm = cleaned_data.get('password_confirm')
-        if not password == password_confirm:
-            self.add_error('password_mismatch', 'Les deux mots de passes ne correspondent pas.')
-
-        return cleaned_data
-
-    def save_user(self, request):
-        username = self.cleaned_data.get('username')
-        first_name = self.cleaned_data.get('first_name')
-        last_name = self.cleaned_data.get('last_name')
-        email = self.cleaned_data.get('email')
-        phone = self.cleaned_data.get('phone')
+    def clean_password_confirm(self):
+        """
+        This function is called implicitly according to the corresponding field
+        """
         password = self.cleaned_data.get('password')
+        password_confirm = self.cleaned_data.get('password_confirm')
+        if password and password_confirm:
+            if password != password_confirm:
+                raise ValidationError(self.error_messages['password_mismatch'], code='password_mismatch')
+        return password_confirm
 
+    def create_user(self, request):
         # Create a deactivated user
-        self.user = CustomUser.objects.create_user(
-            username=username, email=email, last_name=last_name, first_name=first_name,
-            phone=phone, password=password)
-        self.user.is_active = False
-        self.user.save()
+        user = CustomUser.objects.create_user(
+            username=self.cleaned_data.get('username'),
+            first_name=self.cleaned_data.get('first_name'),
+            last_name=self.cleaned_data.get('last_name'),
+            email=self.cleaned_data.get('email'),
+            phone=self.cleaned_data.get('phone'),
+            password=self.cleaned_data.get('password'),
+            is_active=False
+        )
+        user.save()
 
         # Send a confirmation email
-        self.send_email(request)
-
-    def send_email(self, request):
-        user = self.user
         current_site = get_current_site(request)
         mail_subject = 'Activate your blog account.'
         message = render_to_string('account/account_sign_up_email.html', {
@@ -116,67 +136,96 @@ class UserSignUpForm(forms.ModelForm):
         email = EmailMessage(mail_subject, message, to=[to_email])
         email.send()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
 
 
-class UserUpdateForm(forms.ModelForm):
+
+
+"""
+Profile Update
+    - ProfileUpdateForm
+    - ProfileUpdateConfirmForm
+"""
+class ProfileUpdateForm(forms.ModelForm):
+    """
+    A form that allows users to update their profile
+    """
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'last_name', 'first_name', 'phone')
 
-    def update(self, request):
-        user = request.user
-        user.username = self.cleaned_data.get('username')
-        user.first_name = self.cleaned_data.get('first_name')
-        user.last_name = self.cleaned_data.get('last_name')
-        user.email = self.cleaned_data.get('email')
-        user.phone = self.cleaned_data.get('phone')
-        user.save()
-
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
+    def save(self, commit=True):
+        self.user.username = self.cleaned_data.get('username')
+        self.user.first_name = self.cleaned_data.get('first_name')
+        self.user.last_name = self.cleaned_data.get('last_name')
+        self.user.email = self.cleaned_data.get('email')
+        self.user.phone = self.cleaned_data.get('phone')
+        if commit:
+            self.user.save()
+        return self.user
 
-class UserPasswordConfirmForm(forms.Form):
+
+class ProfileUpdateConfirmForm(forms.Form):
+    """
+    A form that allows users to update their profile
+    """
+    error_messages = {
+        'password_match': "Le mot de passe ne correspond pas au mot de passe défini.",
+        'password_mismatch': "Les deux mots de passes ne correspondent pas.",
+    }
     password = FORM_PASSWORD
     password_confirm = FORM_PASSWORD_CONFIRM
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
-        # Password confirmation validator
-        password = cleaned_data.get('password')
-        password_confirm = cleaned_data.get('password_confirm')
-        if not password == password_confirm:
-            self.add_error('password_confirm', 'Les deux mots de passes ne correspondent pas.')
-
-        return cleaned_data
-
-    def password_check(self, request):
-        password_user = request.user.password
+    def clean_password(self):
+        """
+        This function is called implicitly according to the corresponding field
+        """
         password = self.cleaned_data.get('password')
-        if not check_password(password, password_user):
-            self.add_error("password", "Le mot de passe ne correspond pas à celui de l'utilisateur.")
-        return True
+        password_user = self.user.password
+        if password and password_user:
+            if not check_password(password, self.user.password):
+                raise ValidationError(self.error_messages['password_match'], code='password_match')
+        return password
+
+    def clean_password_confirm(self):
+        """
+        This function is called implicitly according to the corresponding field
+        """
+        password = self.cleaned_data.get('password')
+        password_confirm = self.cleaned_data.get('password_confirm')
+        if password and password_confirm:
+            if password != password_confirm:
+                raise ValidationError(self.error_messages['password_mismatch'], code='password_mismatch')
+        return password_confirm
+
+
+
+
 
 """
 Password Forgot
-    - UserPasswordResetForm
-    - UserPasswordSetForm
+    - PasswordForgotResetForm
+    - PasswordForgotSetForm
 """
-class UserPasswordResetForm(PasswordResetForm):
+class PasswordForgotResetForm(PasswordResetForm):
     """
     A form that lets a user generate a link to change their password
     https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/#PasswordResetForm
     """
     email = FORM_EMAIL
 
-class UserPasswordSetForm(forms.Form):
+class PasswordForgotSetForm(forms.Form):
     """
     A form that lets a user change their password without entering the old password
     https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/#SetPasswordForm
@@ -193,17 +242,14 @@ class UserPasswordSetForm(forms.Form):
 
     def clean_password_confirm(self):
         """
-        This function is called explicitly according to the corresponding field
+        This function is called implicitly according to the corresponding field
         """
-        password1 = self.cleaned_data.get('password_new')
-        password2 = self.cleaned_data.get('password_confirm')
-        if password1 and password2:
-            if password1 != password2:
-                raise ValidationError(
-                    self.error_messages['password_mismatch'],
-                    code='password_mismatch',
-                )
-        return password2
+        password = self.cleaned_data.get('password')
+        password_confirm = self.cleaned_data.get('password_confirm')
+        if password and password_confirm:
+            if password != password_confirm:
+                raise ValidationError(self.error_messages['password_mismatch'], code='password_mismatch')
+        return password_confirm
 
     def save(self, commit=True):
         password = self.cleaned_data["password_new"]
@@ -211,6 +257,8 @@ class UserPasswordSetForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
 
 
 

@@ -263,9 +263,13 @@ Day 22 (11/07/23)
 - [13:00-13:30] Updated Fields - UserPasswordSetForm error_messages
 - [13:30-14:15] Bug Fixing - Fixed CustomGroup (Form / Model / Fields)
 - [14:15-15:00] Overhauled Forms - Updated Password Forgot
+- [15:00-15:30] Overhauled Forms - Updated Profile Update
+- [15:30-15:45] Helped with fixing responsive pages (Container)
+- [15:45-15:50] Overhauled Forms - Updated Profile Update
+- [15:50-15:55] Helped with fixing responsive pages (Header)
+- [15:55-16:15] Overhauled Forms - Updated Custom User (Sign In & Sign Up)
+- [16:15-16:20] Work Delegation (Translating Django Email)
 
-
-Updated Fields - Cleaned Migrations and Database - Updated Validators - Return User.is_active - UserPasswordSetForm error_messages - Fixed CustomGroup (Form / Model / Fields)
 ## To do list
 - [Completed] OpenClassrooms
     - Build Your First Web Pages With HTML and CSS
