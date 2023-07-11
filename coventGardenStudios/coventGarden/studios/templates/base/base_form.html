@@ -12,6 +12,7 @@
 		<label>
 			{{ field.label }}
 			{% if field.field.required == True %}<span class="text-danger">*</span>{% endif %}
+			{{ field.help_text }}
 		</label>
 		{{ field }}
 	</div>

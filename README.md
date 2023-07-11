@@ -261,6 +261,7 @@ Day 22 (11/07/23)
 - [11:00-12:45] Updated Fields - Cleaned Migrations and Database - Updated Validators
 - [12:45-13:00] Updated Fields - Return User.is_active
 - [13:00-13:30] Updated Fields - UserPasswordSetForm error_messages
+- [13:30-14:15] Bug Fixing - Fixed CustomGroup (Form / Model / Fields)
 
 ## To do list
 - [Completed] OpenClassrooms
