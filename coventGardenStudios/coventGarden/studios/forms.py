@@ -153,9 +153,11 @@ class UserPasswordConfirmForm(forms.Form):
     def password_check(self, request):
         password_user = request.user.password
         password = self.cleaned_data.get('password')
-        if not check_password(password, password_user):
+        if check_password(password, password_user):
+            return True
+        else:
             self.add_error("password", "Le mot de passe ne correspond pas à celui de l'utilisateur.")
-        return True
+            return False
 
 
 class UserPasswordResetForm(PasswordResetForm):
@@ -174,6 +176,35 @@ CustomGroup
     - CustomGroupForm
 """
 class CustomGroupForm(forms.ModelForm):
+    # User will be added manually in views.py
+    genre_choices = [
+        ('black metal', 'Black Metal'),
+        ('death_metal', 'Death Metal'),
+        ('djent','Djent'),
+        ('doom_metal', 'Doom Metal'),
+        ('electro', 'Electro'),
+        ('folk_metal', 'Folk Metal'),
+        ('hardcore_punk', 'Punk Hardcore'),
+        ('heavy_metal', 'Heavy Metal'),
+        ('jazz', 'Jazz'),
+        ('metal', 'Metal'),
+        ('metalcore', 'Metalcore'),
+        ('metal_industriel', 'Metal Industriel'),
+        ('metal progressif', 'Metal Progressif'),
+        ('metal_symphonique', 'Metal Symphonique'),
+        ('modern_metal', 'Moderne Metal'),
+        ('nu_metal', 'Nu Metal'),
+        ('pop','Pop'),
+        ('pop_rock', 'Pop Rock'),
+        ('power_metal', 'Power Metal'),
+        ('punk', 'Punk'),
+        ('rock', 'Rock'),
+        ('rock_alternatif', 'Rock Alternatif'),
+        ('rock_progressif', 'Rock Progressif'),
+        ('trash_metal', 'Trash Metal'),
+    ]
+    genre = forms.ChoiceField(choices=genre_choices)
+    
     class Meta:
         model = CustomGroup
         fields = '__all__'
