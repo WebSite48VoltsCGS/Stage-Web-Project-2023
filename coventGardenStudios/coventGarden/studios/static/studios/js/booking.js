@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#startDate').val(start);
         $('#endDate').val(end);
         $('#confirmation-modal').modal('show');
+
       },
       select: function(info) {
         start = new Date(info.startStr).toISOString().replace('T', ' ').replace('Z', '').replace('.000', '');
