@@ -164,43 +164,49 @@ class UserPasswordConfirmForm(forms.Form):
             self.add_error("password", "Le mot de passe ne correspond pas à celui de l'utilisateur.")
         return True
 
-
+"""
+Password Forgot
+    - UserPasswordResetForm
+    - UserPasswordSetForm
+"""
 class UserPasswordResetForm(PasswordResetForm):
+    """
+    A form that lets a user generate a link to change their password
+    https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/#PasswordResetForm
+    """
     email = FORM_EMAIL
-
-from django.contrib.auth import (
-    authenticate, get_user_model, password_validation,
-)
-
 
 class UserPasswordSetForm(forms.Form):
     """
-    A form that lets a user change set their password without entering the old password
+    A form that lets a user change their password without entering the old password
+    https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/#SetPasswordForm
     """
     error_messages = {
-        'password_mismatch': "The two password fields didn't match.",
+        'password_mismatch': "Les deux mots de passes ne correspondent pas.",
     }
-    new_password1 = FORM_PASSWORD_NEW
-    new_password2 = FORM_PASSWORD_CONFIRM
+    password_new = FORM_PASSWORD_NEW
+    password_confirm = FORM_PASSWORD_CONFIRM
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
 
-    def clean_new_password2(self):
-        password1 = self.cleaned_data.get('new_password1')
-        password2 = self.cleaned_data.get('new_password2')
+    def clean_password_confirm(self):
+        """
+        This function is called explicitly according to the corresponding field
+        """
+        password1 = self.cleaned_data.get('password_new')
+        password2 = self.cleaned_data.get('password_confirm')
         if password1 and password2:
             if password1 != password2:
                 raise ValidationError(
                     self.error_messages['password_mismatch'],
                     code='password_mismatch',
                 )
-        password_validation.validate_password(password2, self.user)
         return password2
 
     def save(self, commit=True):
-        password = self.cleaned_data["new_password1"]
+        password = self.cleaned_data["password_new"]
         self.user.set_password(password)
         if commit:
             self.user.save()
@@ -254,7 +260,7 @@ class ConcertForm(forms.ModelForm):
     groupe1 = ModelChoiceField(queryset=CustomGroup.objects.all(), widget=Select2Widget)
     groupe2 = ModelChoiceField(queryset=CustomGroup.objects.all(), widget=Select2Widget)
     groupe3 = ModelChoiceField(queryset=CustomGroup.objects.all(), widget=Select2Widget)
-
+    
     date = forms.DateField( widget=DateInput )    
     
 
@@ -272,7 +278,7 @@ class ConcertForm(forms.ModelForm):
         date = self.cleaned_data['date']
         if date.weekday() != 4:
             raise ValidationError("Vous devez choisir un vendredi.")
-        if Concert.objects.filter(date=date).exists() :
+        if Concert.objects.filter(date=date, validated=True).exists():
             raise forms.ValidationError("Ce vendredi est indisponible.")
         group1 = self.cleaned_data['groupe1']
         group2 = self.cleaned_data['groupe2']

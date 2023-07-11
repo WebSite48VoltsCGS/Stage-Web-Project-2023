@@ -262,7 +262,10 @@ Day 22 (11/07/23)
 - [12:45-13:00] Updated Fields - Return User.is_active
 - [13:00-13:30] Updated Fields - UserPasswordSetForm error_messages
 - [13:30-14:15] Bug Fixing - Fixed CustomGroup (Form / Model / Fields)
+- [14:15-15:00] Overhauled Forms - Updated Password Forgot
 
+
+Updated Fields - Cleaned Migrations and Database - Updated Validators - Return User.is_active - UserPasswordSetForm error_messages - Fixed CustomGroup (Form / Model / Fields)
 ## To do list
 - [Completed] OpenClassrooms
     - Build Your First Web Pages With HTML and CSS

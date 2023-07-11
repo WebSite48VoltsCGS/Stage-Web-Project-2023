@@ -38,7 +38,7 @@ import stripe
 import time
 
 # Import
-from .models import CustomGroup, Event, CustomUser, Reservation, Salle, UserPayment
+from .models import CustomGroup, Event, Concert, CustomUser, Reservation, Salle, UserPayment 
 from .forms import (
     UserSignInForm, UserSignUpForm,
     UserUpdateForm, UserPasswordConfirmForm,
@@ -116,6 +116,7 @@ class ConcertView(View):
 
     def get(self, request):
         return render(request, self.template_name, self.context)
+    
 
 
 class BarView(View):
@@ -570,8 +571,9 @@ class GroupUpdateView(LoginRequiredMixin, View):
             return redirect('groups_detail')
 
         # Failure
-        self.context["form"] = form
-        return render(request, self.template_name, self.context)
+        else:
+            self.context["form"] = form
+            return render(request, self.template_name, self.context)
 
 class GroupDeleteView(LoginRequiredMixin, View):
     redirect_field_name = ''
@@ -672,8 +674,7 @@ class ProAreaView(LoginRequiredMixin, View):
             messages.success(request,
                              'Merci pour votre proposition de concert! Un administrateur examinera votre proposition prochainement.',
                              extra_tags='concert_for')
-            return redirect('pro_area')
-
+        
         return render(request, self.template_name, self.context)
 
 
@@ -690,6 +691,7 @@ def generate_occurrences(event):
             occurrences.append(current_time)
 
     return occurrences
+
 
 
 def add_event(request):
