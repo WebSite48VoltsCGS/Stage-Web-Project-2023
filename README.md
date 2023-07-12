@@ -274,7 +274,10 @@ Day 22 (11/07/23)
 
 Day 23 (12/07/23)
 - [08:30-09:00] Merged projects (CGU)
-- [09:00-11:15] Help texts - Updated Validators (constants, error_messages, validators, fields) - Fixed PasswordForgotSetForm (clean_password_confirm)
+- [09:00-11:15] Help_text & Error_messages - Updated Validators (constants, error_messages, validators, fields) - Fixed PasswordForgotSetForm (clean_password_confirm)
+- [11:15-12:30] Send Email using STMP server
+- [12:30-13:00] Lunch Break
+- [12:30-14:45] Send Email using STMP server
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -404,7 +407,9 @@ Day 23 (12/07/23)
     - https://stackoverflow.com/questions/49434711/trying-to-customize-the-django-setpasswordform
 - [Completed] SetPasswordform
     - https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
-
+- [Progress] Send email
+    - https://opensource.com/article/22/12/django-send-emails-smtp
+    - https://stackoverflow.com/questions/70932290/django-stmp-with-ionos
 
 
 ## Readme

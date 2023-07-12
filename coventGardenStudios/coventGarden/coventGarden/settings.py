@@ -153,8 +153,32 @@ AUTH_USER_MODEL = "studios.CustomUser"
 LOGIN_URL = "account_sign_in_form"
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+import sys
+sys.path.append('/Users/phetsinorathfrederic/Desktop/Delete')
+import private_email
+
+DEBUG_EMAIL = False
+if DEBUG_EMAIL:
+    """
+    Send mail to a local directory
+    """
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+else:
+    """
+    Send mail using an email account
+    """
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = private_email.EMAIL_HOST
+    EMAIL_PORT = private_email.EMAIL_PORT
+    EMAIL_USE_TLS = private_email.EMAIL_USE_TLS
+    EMAIL_USE_SSL = private_email.EMAIL_USE_SSL
+    EMAIL_HOST_USER = private_email.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = private_email.EMAIL_HOST_PASSWORD
+
+"""
+Private
+"""
 
 # Store file
 MEDIA_URL = '/media/'
