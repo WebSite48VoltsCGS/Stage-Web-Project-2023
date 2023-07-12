@@ -280,7 +280,8 @@ Day 23 (12/07/23)
 - [12:30-14:45] Send Email - Added STMP server
 - [14:45-15:30] Send Email - Stored variables in .env
 - [15:30-16:00] Send Email - Debugged
-
+- [16:00-16:15] Merged projects
+- [16:15-17:00] Send Email - Translated to French
 
 ## To do list
 - [Completed] OpenClassrooms
