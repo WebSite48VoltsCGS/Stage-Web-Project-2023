@@ -270,7 +270,11 @@ Day 22 (11/07/23)
 - [15:55-16:15] Overhauled Forms - Updated Custom User (Sign In & Sign Up)
 - [16:15-16:20] Work Delegation (Translating Django Email)
 - [16:20-16:40] Overhauled Forms - Updated Custom User (Sign In & Sign Up) & phone_validator
-- [16:40-17:00] Overhauled Forms - Cleaned code
+- [16:40-17:00] Overhauled Forms - Updated Custom Group - Cleaned code
+
+Day 23 (12/07/23)
+- [08:30-09:00] Merged projects (CGU)
+- [09:00-11:15] Help texts - Updated Validators (constants, error_messages, validators, fields) - Fixed PasswordForgotSetForm (clean_password_confirm)
 
 ## To do list
 - [Completed] OpenClassrooms

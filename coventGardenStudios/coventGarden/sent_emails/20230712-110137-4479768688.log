@@ -3,14 +3,14 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Subject: Activate your blog account.
 From: webmaster@localhost
-To: TestUser@cgs.com
-Date: Tue, 11 Jul 2023 14:35:59 -0000
+To: Test@cgs.com
+Date: Wed, 12 Jul 2023 09:01:37 -0000
 Message-ID: 
- <168908615906.76426.13762981105397656492@1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa>
+ <168915249777.80400.17084509503481629124@1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa>
 
 
-Hi TestUser,
+Hi Test,
 Please click on the link to confirm your registration,
-http://127.0.0.1:8000/compte/inscription/confirmation/MTA/br6m3z-13b2a915cb2afb6849e94be4ca272a3a/
+http://127.0.0.1:8000/compte/inscription/confirmation/MTE/br81ap-daff5946ae5faca09a7971fc4d1c1d73/
 
 -------------------------------------------------------------------------------
