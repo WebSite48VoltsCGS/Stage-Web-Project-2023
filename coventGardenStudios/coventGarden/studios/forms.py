@@ -129,8 +129,7 @@ class UserSignUpForm(forms.ModelForm):
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': account_activation_token.make_token(user),
         })
-        # recipient_list = [self.cleaned_data.get('email')]
-        recipient_list = ["ambroiselaroye12@gmail.com", "jack.du@ensea.fr"]
+        recipient_list = [self.cleaned_data.get('email')]
 
         # Send mail to a local directory
         if settings.DEBUG_EMAIL:
@@ -144,8 +143,8 @@ class UserSignUpForm(forms.ModelForm):
                     port=settings.EMAIL_PORT,
                     username=settings.EMAIL_HOST_USER,
                     password=settings.EMAIL_HOST_PASSWORD,
-                    use_tls=settings.EMAIL_USE_TLS,
                     use_ssl=settings.EMAIL_USE_SSL,
+                    use_tls=settings.EMAIL_USE_TLS,
             ) as connection:
                 email_from = settings.EMAIL_HOST_USER
                 email = EmailMessage(subject, message, email_from, recipient_list, connection=connection)

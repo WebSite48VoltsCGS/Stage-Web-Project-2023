@@ -275,10 +275,11 @@ Day 22 (11/07/23)
 Day 23 (12/07/23)
 - [08:30-09:00] Merged projects (CGU)
 - [09:00-11:15] Help_text & Error_messages - Updated Validators (constants, error_messages, validators, fields) - Fixed PasswordForgotSetForm (clean_password_confirm)
-- [11:15-12:30] Send Email using STMP server
+- [11:15-12:30] Send Email - Added STMP server
 - [12:30-13:00] Lunch Break
-- [12:30-14:45] Send Email using STMP server
-- [14:45-15:30] Store variables in .env
+- [12:30-14:45] Send Email - Added STMP server
+- [14:45-15:30] Send Email - Stored variables in .env
+- [15:30-16:00] Send Email - Debugged
 
 
 ## To do list
