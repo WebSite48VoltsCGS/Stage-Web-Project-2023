@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+# Email
+import environ
+from dotenv import load_dotenv
+env = environ.Env()
+load_dotenv()
 
 FIRST_DAY_OF_WEEK = 1
 
@@ -153,10 +158,6 @@ AUTH_USER_MODEL = "studios.CustomUser"
 LOGIN_URL = "account_sign_in_form"
 
 # Email
-import sys
-sys.path.append('/Users/phetsinorathfrederic/Desktop/Delete')
-import private_email
-
 DEBUG_EMAIL = False
 if DEBUG_EMAIL:
     """
@@ -169,12 +170,12 @@ else:
     Send mail using an email account
     """
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = private_email.EMAIL_HOST
-    EMAIL_PORT = private_email.EMAIL_PORT
-    EMAIL_USE_TLS = private_email.EMAIL_USE_TLS
-    EMAIL_USE_SSL = private_email.EMAIL_USE_SSL
-    EMAIL_HOST_USER = private_email.EMAIL_HOST_USER
-    EMAIL_HOST_PASSWORD = private_email.EMAIL_HOST_PASSWORD
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 """
 Private
@@ -216,4 +217,5 @@ REDIRECT_DOMAIN = "home"
 # pip3 install six
 # pip3 install django-tempus-dominus
 # pip3 install django-bootstrap-datepicker-plus
+# pip3 install django-environ
 # ------------------------------

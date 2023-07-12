@@ -278,6 +278,8 @@ Day 23 (12/07/23)
 - [11:15-12:30] Send Email using STMP server
 - [12:30-13:00] Lunch Break
 - [12:30-14:45] Send Email using STMP server
+- [14:45-15:30] Store variables in .env
+
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -407,10 +409,11 @@ Day 23 (12/07/23)
     - https://stackoverflow.com/questions/49434711/trying-to-customize-the-django-setpasswordform
 - [Completed] SetPasswordform
     - https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
-- [Progress] Send email
+- [Completed] Send email
     - https://opensource.com/article/22/12/django-send-emails-smtp
     - https://stackoverflow.com/questions/70932290/django-stmp-with-ionos
-
+- [Completed] Variables in .env
+    - https://codinggear.blog/django-environment-variables/
 
 ## Readme
 
