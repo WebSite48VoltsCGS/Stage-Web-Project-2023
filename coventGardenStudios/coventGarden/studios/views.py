@@ -395,11 +395,6 @@ class AccountPasswordForgotForm(PasswordResetView):
             return redirect('profile_detail')
         return super().dispatch(*args, **kwargs)
 
-    def get_email_options(self):
-        email_options = super().get_email_options()
-        email_options['subject'] = 'Demande de réinitialisation de mot de passe personnalisée'
-        return email_options
-
 
 class AccountPasswordForgotDone(PasswordResetDoneView):
     template_name = 'account/account_password_forgot_done.html'

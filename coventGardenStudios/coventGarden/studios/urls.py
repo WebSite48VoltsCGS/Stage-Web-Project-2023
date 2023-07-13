@@ -29,9 +29,9 @@ urlpatterns = [
          name="account_sign_up_done"),
     path('compte/inscription/confirmation/<uidb64>/<token>/', views.AccountSignUpConfirmView.as_view(),
          name='account_sign_up_confirm'),
-    path('compte/inscription/failed/', views.AccountSignUpFailedView.as_view(),
+    path('compte/inscription/echec/', views.AccountSignUpFailedView.as_view(),
          name='account_sign_up_failed'),
-    path('compte/inscription/nouveau_envoi/', views.AccountSignUpAgainView.as_view(),
+    path('compte/inscription/verification/', views.AccountSignUpAgainView.as_view(),
          name='account_sign_up_again'),
 
     # Account: Password Forgot
