@@ -39,7 +39,7 @@ import time
 # Import
 from .models import CustomGroup, Event, Concert, CustomUser, Reservation, Salle, UserPayment 
 from .forms import (
-    UserSignInForm, UserSignUpForm,
+    UserSignInForm, UserSignUpForm, UserSignUpAgainForm,
     ProfileUpdateForm, ProfileUpdateConfirmForm,
     PasswordForgotResetForm, PasswordForgotSetForm,
     CustomGroupForm,
@@ -342,10 +342,44 @@ class AccountSignUpFailedView(View):
         return render(request, self.template_name, self.context)
 
 
+class AccountSignUpAgainView(View):
+    form_class = UserSignUpAgainForm
+    template_name = "account/account_sign_up_email_again.html"
+    context = {
+        "title": "Mail de confirmation",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "account_sign_up_form", "name": "Inscription"},
+            {"view": None, "name": "Vérification"}]
+    }
+
+    def dispatch(self, *args, **kwargs):
+        # Redirect if user is already authenticated
+        if self.request.user.is_authenticated:
+            return redirect('profile_detail')
+        return super().dispatch(*args, **kwargs)
+
+    def get(self, request):
+        self.context["form"] = self.form_class()
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.send_email(request)
+            return redirect("account_sign_up_done")
+
+        # Failure
+        self.context["form"] = form
+        return render(request, self.template_name, self.context)
+
+
 class AccountPasswordForgotForm(PasswordResetView):
     form_class = PasswordForgotResetForm
     template_name = 'account/account_password_forgot_form.html'
     email_template_name = 'account/account_password_forgot_email.html'
+    subject_template_name = 'account/account_password_forgot_email_subject.txt'
     success_url = reverse_lazy('account_password_forgot_done')
     extra_context = {
         "title": "Récupérer son compte",
