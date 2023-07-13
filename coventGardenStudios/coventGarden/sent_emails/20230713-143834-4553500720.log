@@ -1,0 +1,24 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: jack.du@ensea.fr
+Date: Thu, 13 Jul 2023 12:38:34 -0000
+Message-ID: 
+ <168925191457.93875.3037963176740432401@82.43.168.192.in-addr.arpa>
+
+Bonjour,
+
+Vous recevez cet e-mail car vous avez demandé une réinitialisation de mot de passe pour votre compte utilisateur sur 127.0.0.1:8000.
+
+Veuillez vous rendre sur la page suivante et choisir un nouveau mot de passe :
+
+http://127.0.0.1:8000/compte/mot-de-passe-oublie/modification/MzU/bra60a-12c6d69fa78a85bd4f9d9e6cc730a024/
+
+Votre nom d'utilisateur, au cas où vous l'auriez oublié : a
+
+Merci d'utiliser notre site !
+
+L'équipe de Covent Garden Studios
+-------------------------------------------------------------------------------

@@ -158,6 +158,7 @@ AUTH_USER_MODEL = "studios.CustomUser"
 LOGIN_URL = "account_sign_in_form"
 
 # Email
+# Set DEBUG_EMAIL to True to test sending e-mails locally
 DEBUG_EMAIL = False
 if DEBUG_EMAIL:
     """

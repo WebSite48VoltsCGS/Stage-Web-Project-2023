@@ -1,0 +1,24 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: ambroiselaroye12@gmail.com
+Date: Thu, 13 Jul 2023 13:27:12 -0000
+Message-ID: 
+ <168925483218.94970.14888721378285657298@82.43.168.192.in-addr.arpa>
+
+Bonjour,
+
+Vous recevez cet e-mail car vous avez demandé une réinitialisation de mot de passe pour votre compte utilisateur sur 127.0.0.1:8000.
+
+Veuillez vous rendre sur la page suivante et choisir un nouveau mot de passe :
+
+http://127.0.0.1:8000/compte/mot-de-passe-oublie/modification/MzY/bra89c-aa9b9927f06bb0b57bb11263dc4061a3/
+
+Votre nom d'utilisateur, au cas où vous l'auriez oublié : Ambroise
+
+Merci d'utiliser notre site !
+
+L'équipe de Covent Garden Studios
+-------------------------------------------------------------------------------

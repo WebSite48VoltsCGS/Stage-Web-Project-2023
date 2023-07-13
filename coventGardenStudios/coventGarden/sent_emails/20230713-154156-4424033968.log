@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?q?Demande_de_r=C3=A9initialisation_de_mot_de_passe_personnalis=C3=A9?=
+ =?utf-8?q?e?=
+From: webmaster@localhost
+To: ambroiselaroye12@gmail.com
+Date: Thu, 13 Jul 2023 13:41:56 -0000
+Message-ID: 
+ <168925571661.95220.3371171706007893483@82.43.168.192.in-addr.arpa>
+
+Bonjour,
+
+Vous recevez cet e-mail car vous avez demandé une réinitialisation de mot de passe pour votre compte utilisateur sur 127.0.0.1:8000.
+
+Veuillez vous rendre sur la page suivante et choisir un nouveau mot de passe :
+
+http://127.0.0.1:8000/compte/mot-de-passe-oublie/modification/MzY/bra8xw-40e82ed54026f3cf0bca02f2dbb4bd21/
+
+Votre nom d'utilisateur, au cas où vous l'auriez oublié : Ambroise
+
+Merci d'utiliser notre site !
+
+L'équipe de Covent Garden Studios
+-------------------------------------------------------------------------------

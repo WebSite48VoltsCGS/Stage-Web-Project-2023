@@ -31,6 +31,8 @@ urlpatterns = [
          name='account_sign_up_confirm'),
     path('compte/inscription/failed/', views.AccountSignUpFailedView.as_view(),
          name='account_sign_up_failed'),
+    path('compte/inscription/nouveau_envoi/', views.AccountSignUpAgainView.as_view(),
+         name='account_sign_up_again'),
 
     # Account: Password Forgot
     path('compte/mot-de-passe-oublie/', views.AccountPasswordForgotForm.as_view(),
