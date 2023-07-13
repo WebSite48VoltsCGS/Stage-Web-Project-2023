@@ -1,8 +1,5 @@
-Bonjour {{ user.username }},
-
-Veuillez cliquer sur le lien suivant pour confirmer votre inscription,
+{% autoescape off %}
+Hi {{ user.username }},
+Please click on the link to confirm your registration,
 http://{{ domain }}{% url 'account_sign_up_confirm' uidb64=uid token=token %}
-
-Cordialement,
-
-L'équipe de Covent Garden Studios
+{% endautoescape %}

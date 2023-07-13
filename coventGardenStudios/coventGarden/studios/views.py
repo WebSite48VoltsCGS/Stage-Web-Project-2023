@@ -675,13 +675,7 @@ class ProAreaView(LoginRequiredMixin, View):
         
         return render(request, self.template_name, self.context)
 
-    def get(self, request):
-        concerts = Concert.objects.all()
-        self.context["concerts"] = concerts
 
-        return render(request, self.template_name, self.context)
-
-       
 """
 Planning
 """
