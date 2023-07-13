@@ -284,8 +284,10 @@ Day 23 (12/07/23)
 - [16:15-17:00] Send Email - Translated to French - Fixed DEFAULT_FROM_EMAIL
 
 Day 24 (13/07/23)
+- [09:00-10:00] Merged projects & Bug Fixes
 - [14:00-14:45] Bug Fixing
-- [14:45-xx:xx] Account creation - Allows PasswordResetForm for inactive users
+- [14:45-16:00] Email Confirmation & Password Forgot - Added AccountSignUpAgainView & UserSignUpAgainForm - Updated AccountPasswordForgotForm - Updated LENGTH_EMAIL based on GitHub
+- [16:00-16:15] Preparing to merge
 
 ## To do list
 - [Completed] OpenClassrooms
@@ -423,7 +425,7 @@ Day 24 (13/07/23)
 - [Dropped] PasswordResetForm for inactive users
     - https://code.djangoproject.com/ticket/21291
     - https://stackoverflow.com/questions/74418171/django-passwordresetview-does-not-work-for-inactive-users
-- [Progress] Find user with email
+- [Dropped] Find user with email
     - https://stackoverflow.com/questions/55940228/how-to-get-user-object-by-email-filtering-in-django
 
 ## Readme
