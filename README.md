@@ -288,6 +288,8 @@ Day 24 (13/07/23)
 - [14:00-14:45] Bug Fixing
 - [14:45-16:00] Email Confirmation & Password Forgot - Added AccountSignUpAgainView & UserSignUpAgainForm - Updated AccountPasswordForgotForm - Updated LENGTH_EMAIL based on GitHub
 - [16:00-16:45] Preparing to merge
+- [16:45-17:15] Modified IP Address to local
+
 
 ## To do list
 - [Completed] OpenClassrooms

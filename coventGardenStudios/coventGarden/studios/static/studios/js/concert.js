@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   var events;
+  var newURL = window.location.protocol + "//" + window.location.host + "/all_events/";
 
   $.ajax({
-    url: "http://127.0.0.1:8000/all_events/",
+    url: newURL,
     method: "GET",
     dataType: "json",
     success: function (datas) {

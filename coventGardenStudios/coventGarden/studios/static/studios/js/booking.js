@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+  var newURL = window.location.protocol + "//" + window.location.host + "/salles/";
+  var newURLAPI = window.location.protocol + "//" + window.location.host + "/api/all_booking_event/";
 
   $.ajax({
-    url: 'http://127.0.0.1:8000/salles/', // Replace with your endpoint URL
+    url: newURL,
     method: 'GET', // HTTP method (GET, POST, etc.)
     dataType: 'json', // Expected data type of the response
     success: function(data) {
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var events_booking;
       
       $.ajax({
-        url: "http://127.0.0.1:8000/api/all_booking_event/",
+        url: newURLAPI,
         method: "GET",
         dataType: "json",
         success: function (datas) {
