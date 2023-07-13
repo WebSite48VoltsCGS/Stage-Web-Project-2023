@@ -390,7 +390,7 @@ class ConcertForm(forms.ModelForm):
 
     is_engaged = forms.BooleanField(
         required=True,
-        label="Je m'engage à ce que les 3 groupes soient disponibles et que les fiches techniques de chacun soient déposées.",
+        label="J'accepte l'ensemble des conditions citées ci-dessus et je m'engage à ce que les 3 groupes soient disponibles et que les fiches techniques de chacun soient déposées.",
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
     )
 
