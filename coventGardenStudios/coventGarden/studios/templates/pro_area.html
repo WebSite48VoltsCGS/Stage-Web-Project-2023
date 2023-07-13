@@ -38,10 +38,9 @@
 
 			<!-- Right -->
 			<div class="col-lg-6 text-right">
-				<form action="{% url 'pro_area' %}">
-					<button class="btn btn-action">Programmer un concert*</button>
-					<p>* Voir <a href="{% url 'news' %}">Actualités</a></p>
-				</form>
+				<a href="#programmer">
+					<button class="btn btn-action">Programmer un concert</button>
+                </a>
 			</div>
 		</div>
 
@@ -137,7 +136,7 @@
 <div class="stud">
 	<div class="row">
         <div class="col-sm-12">
-		<h2 class="ft"> Demande de programmation pour un concert FreeFriday</h2>
+		<h2 class="ft" id="programmer"> Demande de programmation pour un concert FreeFriday</h2>
 		<form method="post" action='.'class="custom-form">
 			{% csrf_token %}
 			{{ form.as_p }}

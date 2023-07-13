@@ -59,6 +59,10 @@
 </div>
 
 <!-- Content 1 -->
+Pour sélectionner un créneau :<br>
+Commencez par sélectionner la salle et cliquez sur la case souhaitée.<br>
+Si vous souhaitez sélectionner plusieurs heures, maintenez simplement la plage horaire souhaitée.
+
 {% for salle in salles %}
 <div class="col-xs-12">
     <h3 class="text-center mt-4">{{ salle.name }}</h3>
@@ -119,7 +123,7 @@
 <!-- Custom JavaScript file(s) -->
 {% block scripts %}
 
-<!--script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.8/index.global.min.js'></script-->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.8/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <script src="{% static 'studios/js/booking.js' %}"></script>
 
