@@ -1016,31 +1016,40 @@ def all_booking_event(request):
     return JsonResponse(datas, safe=False)
 
 @login_required(login_url='account_sign_in')
-def set_reservation(request, id_reservation):
-    reservation = Reservation.objects.get(id=id_reservation)
+def set_reservation(request):
+    if request.method == 'POST':
 
-    current_datetime = datetime.now()
-    start_datetime = reservation.date_start
+        id_reservation = int(request.POST["reservation_id"])
 
-    if current_datetime < start_datetime - timedelta(hours=48) or reservation.date_end > current_datetime :
-        if reservation.is_active == True:
-            reservation.is_active = False
-            message = "Votre réservation a bien été annuler !"
+        reservation = Reservation.objects.get(id=id_reservation)
+
+        current_datetime = datetime.now()
+        start_datetime = reservation.date_start
+
+        if current_datetime < start_datetime - timedelta(hours=48) or reservation.date_end > current_datetime :
+            if reservation.is_active == True:
+                reservation.delete()
+                message = "Votre réservation a bien été annuler !"
+            else:
+                reservation.is_active=True
+                message = "Votre réservation a bien été prise en compte !"
+                reservation.save()
         else:
-            reservation.is_active=True
-            message = "Votre réservation a bien été prise en compte !"
-        reservation.save()
-    else:
-        message = "Votre réservation ne peut plus être modifiée !"
+            message = "Cette réservation ne peut plus être modifiée !"
+            messages.error(request, message)  
+            return redirect('bookings_detail')
 
-    messages.success(request, message)  
-    return redirect('bookings_detail')
+        messages.success(request, message)  
+        return redirect('bookings_detail')
+
+    else:
+        return redirect('home')
 
 
 @login_required(login_url='login')
 def payment(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
+    URL = get_local_url(request)
     if request.method == 'POST':
         salle_id = int(request.POST["salle_id"])
         user_id = int(request.POST["user_id"])
@@ -1058,17 +1067,6 @@ def payment(request):
             price = form.cleaned_data["price"]
             status = "En cours"
 
-            reservation = Reservation.objects.create(
-                description=description,
-                duration=duration,
-                date_start=date_start,
-                date_end=date_end,
-                price=price,
-                status=status,
-                salle=salle,
-                user=user,
-                is_active=True
-            )
         if price == 10.0 :
                 settings.PRODUCT_PRICE = settings.PRODUCT_PRICE_1H
         elif price == 19.0:
@@ -1096,52 +1094,123 @@ def payment(request):
             ],
             mode='payment',
             customer_creation='always',
-            success_url='http://127.0.0.1:8000?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='http://127.0.0.1:8000?session_id={CHECKOUT_SESSION_ID}',
+            success_url = URL +"/payment_successful/{CHECKOUT_SESSION_ID}",
+            cancel_url = URL + "/payment_cancelled/{CHECKOUT_SESSION_ID}"
         )
-
-        return redirect(checkout_session.url)
+        print('############## API Stripe creation de session ############################# ')
+        print(f'############## SERVER IP ############################# {URL}')
+        print(checkout_session)
+        if checkout_session.status == 'open' :
+            reservation = Reservation.objects.create(
+                description=description,
+                duration=duration,
+                date_start=date_start,
+                date_end=date_end,
+                price=price,
+                status=status,
+                salle=salle,
+                user=user,
+                is_active=False,
+                session_id=checkout_session.id)
+            userPayment = UserPayment.objects.create(
+                app_user=user,
+                payment_bool=False,
+                stripe_checkout_id=checkout_session.id
+            )
+            
+            return redirect(checkout_session.url)
     
-    return render(request, 'studios/payment.html')
+    return redirect('booking')
 
 
-def payment_successful(request):
+def payment_successful(request, session_id):
 	stripe.api_key = settings.STRIPE_SECRET_KEY
-	checkout_session_id = request.GET.get('session_id', None)
-	session = stripe.checkout.Session.retrieve(checkout_session_id)
+	#checkout_session_id = request.GET.get('session_id', None)
+	session = stripe.checkout.Session.retrieve(session_id)
 	customer = stripe.Customer.retrieve(session.customer)
-	user_id = request.user.user_userna
-	studios = UserPayment.objects.get(app_user=user_id)
-	studios.stripe_checkout_id = checkout_session_id
+	user_id = request.user.id
+	studios = UserPayment.objects.get(app_user=user_id,stripe_checkout_id=session_id)
+	studios.stripe_checkout_id = session_id
 	studios.save()
-	return render(request, 'studios/payment_successful.html', {'customer': customer})
+	return redirect('payment_successful')
 
 
-def payment_cancelled(request):
-	stripe.api_key = settings.STRIPE_SECRET_KEY
-	return render(request, 'studios/payment_cancelled.html')
+def payment_cancelled(request, session_id):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    reservation = Reservation.objects.get(session_id=session_id)
+    reservation.delete()
+    return redirect('payment_cancelled')
+
+class PaiementCancelled(LoginRequiredMixin, View):
+    redirect_field_name = ''
+    template_name = "payment_cancelled.html"
+
+    context = {
+        "title": "Paiement accompte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "booking", "name": "Réservation"},
+            {"view": None, "name": "Paiement accompte"}]
+    }
+
+    def get(self, request):
+        message = "La transaction a été annulé ! Veuillez recommencer à nouveau l'opération"
+        messages.error(request, message)
+        return render(request, self.template_name, self.context)
+
+
+class PaiementSuccessful(LoginRequiredMixin, View):
+    redirect_field_name = ''
+    template_name = "payment_successful.html"
+
+    context = {
+        "title": "Paiement accompte",
+        "breadcrumb": [
+            {"view": "home", "name": "Accueil"},
+            {"view": "booking", "name": "Réservation"},
+            {"view": None, "name": "Paiement accompte"}]
+    }
+
+    def get(self, request):
+        message = "La transaction a été réalisé avec success ! Votre reservation a été prise en compte !"
+        messages.success(request, message)
+        return render(request, self.template_name, self.context)
 
 
 @csrf_exempt
 def stripe_webhook(request):
-	stripe.api_key = settings.STRIPE_SECRET_KEY
-	time.sleep(10)
-	payload = request.body
-	signature_header = request.META['HTTP_STRIPE_SIGNATURE']
-	event = None
-	try:
-		event = stripe.Webhook.construct_event(
-			payload, signature_header, settings.STRIPE_WEBHOOK_SECRET
-		)
-	except ValueError as e:
-		return HttpResponse(status=400)
-	except stripe.error.SignatureVerificationError as e:
-		return HttpResponse(status=400)
-	if event['type'] == 'checkout.session.completed':
-		session = event['data']['object']
-		session_id = session.get('id', None)
-		time.sleep(15)
-		studios = UserPayment.objects.get(stripe_checkout_id=session_id)
-		studios.payment_bool = True
-		studios.save()
-	return HttpResponse(status=200)
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    time.sleep(10)
+    payload = request.body
+    signature_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, signature_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+
+    if event and event['type'] == 'checkout.session.completed':
+        if event['data']['object']['payment_status'] == "paid" and event['data']['object']['status'] == "complete":
+            session = event['data']['object']
+            session_id = session.get('id', None)
+            time.sleep(15)
+            reservation = Reservation.objects.get(session_id=session_id)
+            reservation.is_active = True
+            reservation.status = "Reserver"
+            reservation.save()
+
+            studios = UserPayment.objects.get(stripe_checkout_id=session_id)
+            studios.payment_bool = True
+            studios.save()
+    return HttpResponse(status=200)
+
+
+def get_local_url(request):
+    server_name = request.META.get('REMOTE_ADDR')
+    server_port = request.META.get('SERVER_PORT')
+    local_url = f"http://{server_name}:{server_port}"
+    return local_url
