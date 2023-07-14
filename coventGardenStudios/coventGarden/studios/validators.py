@@ -85,9 +85,9 @@ Phone validator
 """
 def phone_validator(value):
     """
-    A validator that uses Regex to check that the value entered contains 10 digits
+    A validator that uses Regex to check that the value entered meets multiple conditions
     """
-    phone_regex = r'^\d{10}$'  # Regex pour vérifier les 10 chiffres
+    phone_regex = r'^0[1-7]\d{8}$'  # Regex pour vérifier les conditions
     if not re.match(phone_regex, value):
         raise ValidationError(error_messages_phone["phone_invalid"], code='phone_invalid')
 

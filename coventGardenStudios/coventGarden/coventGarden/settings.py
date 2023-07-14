@@ -159,7 +159,7 @@ LOGIN_URL = "account_sign_in_form"
 
 # Email
 # Set DEBUG_EMAIL to True to test sending e-mails locally
-DEBUG_EMAIL = False
+DEBUG_EMAIL = True
 if DEBUG_EMAIL:
     """
     Send mail to a local directory
